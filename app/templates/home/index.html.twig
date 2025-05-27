@@ -1,0 +1,419 @@
+{# templates/home/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Page d'accueil{% endblock %}
+
+{% block body %}
+    <main class="container">
+        <section class="row" id="hero">
+            <div class="my-3">
+                <h1 class="text-center text-uppercase fw-bolder m-3 text-primary">Tech-School</h1>
+            </div>
+            <div class="carousel slide">
+                <div id="carousel" class="carousel slide">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active"
+                                aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carousel" data-bs-slide-to="1"
+                                aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carousel" data-bs-slide-to="2"
+                                aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <figure class="element active position-relative">
+                                <img class="d-block w-100"
+                                     src="{{ asset('images/Slide/pixlr-image-generator-0436f8d9-4481-4bf6-aec0-ddbed88917a7.png') }}"
+                                     alt="Image du slide" role="img" aria-label="Placeholder: First slide"
+                                     preserveAspectRatio="xMidYMid slice">
+                                <figcaption
+                                        class="carousel-caption top-50 start-50 translate-middle d-flex  align-items-center justify-content-center">
+                                    <div class="alert alert-danger">
+                                        <h2 class="text-black fs-3 m-0 p-0 text-uppercase fw-semibold">tech-School</h2>
+                                        <p class="text-black fs-3 m-0 p-0">Innovation et réussite pour tous.</p>
+                                    </div>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="carousel-item">
+                            <figure class="element active position-relative">
+                                <img class="d-block w-100"
+                                     src="{{ asset('images/Slide/pixlr-image-generator-c62676bf-e07b-463c-912f-f5da2115b396.png') }}"
+                                     alt="Image du slide" role="img" aria-label="Placeholder: First slide"
+                                     preserveAspectRatio="xMidYMid slice">
+                                <figcaption
+                                        class="carousel-caption top-50 start-50 translate-middle d-flex  align-items-center justify-content-center">
+                                    <div class="alert alert-info">
+                                        <h2 class="text-black fs-3 m-0 p-0 text-uppercase fw-semibold">tech-School</h2>
+                                        <p class="text-black fs-3 m-0 p-0">Un cadre propice aux apprentissages.</p>
+                                    </div>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="carousel-item">
+                            <figure class="element active position-relative">
+                                <img class="d-block w-100"
+                                     src="{{ asset('images/Slide/pixlr-image-generator-f34d016c-c9d2-4688-a45b-b00be01b0c32.png') }}"
+                                     alt="Image du slide" role="img" aria-label="Placeholder: First slide"
+                                     preserveAspectRatio="xMidYMid slice">
+                                <figcaption
+                                        class="carousel-caption top-50 start-50 translate-middle d-flex  align-items-center justify-content-center">
+                                    <div class="alert alert-warning">
+                                        <h2 class="text-black fs-3 m-0 p-0 text-uppercase fw-semibold">tech-School</h2>
+                                        <p class="text-black fs-3 m-0 p-0">Savoir, respect et épanouissement.</p>
+                                    </div>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev"
+                            id="left">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next"
+                            id="right">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+        <section id="card" class="row justify-content-between">
+            <div class=" my-3">
+                <h2 class="fs-1 text-center text-uppercase my-3 text-primary">A propos de nous</h2>
+            </div>
+            <div class="col-11 col-md-12 m-auto">
+                <div class="row justify-content-between">
+                    <article class=" col-md-5 card mb-3">
+                        <img class="card-image"
+                             src="{{ asset('images/real/pixlr-image-generator-0436f8d9-4481-4bf6-aec0-ddbed88917.png') }}"
+                             alt="Image des écoliers">
+                        <div class="card-body">
+                            <h2 class="card-title fs-2 text-uppercase">Notre Mission</h2>
+                            <p class="card-text fs-3">Offrir un accès numérique simple à l’éducation pour tous.</p>
+                            <div class="text-center my-2">
+                                <a class=" fs-3 btn btn-primary" href="/about/">Savoir plus</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="col-md-5 card mb-3">
+                        <img class="card-image"
+                             src="{{ asset('images/real/pixlr-image-generator-0436f8d9-4481-4bf6-aec0-ddbed88916.png') }}"
+                             alt="Image des écoliers">
+                        <div class="card-body">
+                            <h2 class="card-title fs-2 text-uppercase">Notre équipe</h2>
+                            <p class="card-text fs-3">Des experts passionnés par l’innovation dans le domaine
+                                éducatif.</p>
+                            <div class="text-center my-2">
+                                <a class=" fs-3 btn btn-primary" href="/about/">Savoir plus</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="col-md-5 card mb-3">
+                        <img class="card-image"
+                             src="{{ asset('images/real/pixlr-image-generator-0436f8d9-4481-4bf6-aec0-ddbed88913.png') }}"
+                             alt="Image des écoliers">
+                        <div class="card-body">
+                            <h2 class="card-title fs-2 text-uppercase">Notre plateforme</h2>
+                            <p class="card-text fs-3">Un espace sécurisé, collaboratif et accessible pour chaque
+                                élève.</p>
+                            <div class="text-center my-2">
+                                <a class=" fs-3 btn btn-primary" href="/about/">Savoir plus</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="col-md-5 card mb-3">
+                        <img class="card-image"
+                             src="{{ asset('images/real/pixlr-image-generator-0436f8d9-4481-4bf6-aec0-ddbed88916.png') }}"
+                             alt="Image des écoliers">
+                        <div class="card-body">
+                            <h2 class="card-title fs-2 text-uppercase">Nos valeurs</h2>
+                            <p class="card-text fs-3">Inclusion, innovation, engagement et excellence au service des
+                                apprenants.</p>
+                            <div class="text-center my-2">
+                                <a class=" fs-3 btn btn-primary" href="/about/">Savoir plus</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section class="row" id="activity">
+            <div class="text-center my-3">
+                <h2 class="fs-1 text-uppercase my-3 text-primary">Nos activités</h2>
+            </div>
+            <div class="col-11 col-md-12 m-auto" id="school-activity">
+                <div class="row justify-content-between">
+                    <article class="col-md-3 alert alert-primary mb-3 text-center" id="atom">
+                        <div>
+                            <svg class="py-3" width="100" height="100" fill="">
+                                <use href="{{ asset('images/sprites.svg') }}#atom"></use>
+                            </svg>
+                        </div>
+                        <div class="card-body">
+                            <h2 class="card-title fs-1">Sciences et découvertes</h2>
+                            <p class="card-text fs-4">Explorer le monde avec curiosité, logique et méthode.</p>
+                        </div>
+                    </article>
+
+                    <article class="col-md-3 alert alert-danger mb-3 text-center" id="game">
+                        <div>
+                            <svg class="py-3" width="100" height="100">
+                                <use href="{{ asset('images/sprites.svg') }}#present"></use>
+                            </svg>
+                        </div>
+                        <div class="card-body">
+                            <h2 class="card-title fs-1">Enseignement interactif</h2>
+                            <p class="card-text fs-4">Apprendre ensemble grâce à des cours vivants et engageants.</p>
+                        </div>
+                    </article>
+
+                    <article class="col-md-3 alert alert-info mb-3 text-center" id="plane">
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="dodgerblue"
+                                 class="bi bi-people-fill" viewBox="0 0 16 16">
+                                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
+                            </svg>
+
+                        </div>
+                        <div class="card-body">
+                            <h2 class="card-title fs-1">Travail collaboratif</h2>
+                            <p class="card-text fs-4">Développer l'esprit d'équipe à travers des projets communs.</p>
+                        </div>
+                    </article>
+                </div>
+                <div class="row justify-content-between">
+                    <article class="col-md-3 alert  alert-secondary mb-3 text-center" id="swim">
+                        <div>
+                            <svg class="py-3" width="100" height="100" fill="">
+                                <use href="{{ asset('images/sprites.svg') }}#swim"></use>
+                            </svg>
+                        </div>
+                        <div class="card-body">
+                            <h2 class="card-title fs-1">Activités sportives</h2>
+                            <p class="card-text fs-4">Éveiller le corps et l’esprit par le jeu et le mouvement.</p>
+                        </div>
+                    </article>
+                    <article class="col-md-3 alert alert-success mb-3 text-center" id="walk">
+                        <div>
+                            <svg class="py-3" width="100" height="100"
+                                 stroke="white" fill="darkblue">
+                                <use href="{{ asset('images/sprites.svg') }}#game"></use>
+                            </svg>
+                        </div>
+                        <div class="card-body">
+                            <h2 class="card-title fs-1">Esprit stratégique</h2>
+                            <p class="card-text fs-4">Stimuler la réflexion par des jeux logiques et tactiques.</p>
+                        </div>
+                    </article>
+                    <article class="col-md-3 alert alert-dark mb-3 text-center" id="swim2">
+                        <div>
+                            <svg class="py-3" width="100" height="100">
+                                <use href="{{ asset('images/sprites.svg') }}#plane"></use>
+                            </svg>
+                        </div>
+                        <div class="car-body">
+                            <h2 class="card-title fs-1"> Ouverture sur le monde</h2>
+                            <p class="car-text fs-4">Découvrir d’autres cultures et élargir ses horizons.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section id="partenaire" class="row text-center g-3 justify-content-between">
+            <div class="col-12 my-3">
+                <h2 class="fs-1 text-uppercase my-3 text-primary">Nos parténaires</h2>
+            </div>
+            <div class="col-11 col-md-12 m-auto">
+                <div class="row justify-content-between">
+                    <div class="col-md-4 col-lg-3 article">
+                        <div class="alert alert-secondary rounded-5">
+                            <figure class="">
+                                <img class="" src="{{ asset('images/partenaire/edu_connect_logo.png') }}"
+                                     alt="logo d'un partenaire">
+                                <figcaption class="">
+                                    <h3 class="fs-2">EduConnect</h3>
+                                    <p class="fs-4">Technologie éducative.</p>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3 my-3  article">
+                        <div class="alert alert-secondary rounded-5">
+                            <figure class="">
+                                <img class="" src="{{ asset('images/partenaire/edu_connect_logo.png') }}"
+                                     alt="logo d'un partenaire">
+                                <figcaption class="m-0">
+                                    <h3 class="fs-2">Livreo</h3>
+                                    <p class="fs-4">Ressources pédagogiques.</p>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3 my-3 article">
+                        <div class=" alert alert-secondary rounded-5 ">
+                            <figure class="">
+                                <img class="" src="{{ asset('images/partenaire/inno_class_logo.png') }}"
+                                     alt="logo d'un partenaire">
+                                <figcaption class="">
+                                    <h3 class="fs-2">InnoClass</h3>
+                                    <p class="fs-4">Solutions innovantes.</p>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-3 justify-content-between">
+                    <div class="col-md-4 col-lg-3  my-3 article">
+                        <div class="alert alert-secondary rounded-5">
+                            <figure class="">
+                                <img class="" src="{{ asset('images/partenaire/global_learn_logo.png') }}"
+                                     alt="logo d'un partenaire">
+                                <figcaption class="">
+                                    <h3 class="fs-2">GlobaLearn</h3>
+                                    <p class="fs-4">Apprentissage interculturel.</p>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3  my-3 article">
+                        <div class=" alert alert-secondary rounded-5">
+                            <figure class="">
+                                <img class="" src="{{ asset('images/partenaire/skill_craft_logo.png') }}"
+                                     alt="logo d'un partenaire">
+                                <figcaption class="">
+                                    <h3 class="fs-2">SkillCraft</h3>
+                                    <p class="fs-4">Développement pratique.</p>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-3  my-3  article">
+                        <div class="alert alert-secondary rounded-5">
+                            <figure class="">
+                                <img class="" src="{{ asset('images/partenaire/campus_link_logo.png') }}"
+                                     alt="logo d'un partenaire">
+                                <figcaption class="">
+                                    <h3 class="fs-2">CampusLink</h3>
+                                    <p class="fs-4">Ecole d'excellence.</p>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="equip" class="row">
+            <div class="col-12 text-center">
+                <h2 class="fs-1 text-uppercase my-3 text-primary">Notre équipe</h2>
+            </div>
+            <div class="col-11 m-auto">
+                <div class="row justify-content-between">
+                    <article class="col-12 col-md-5 col-lg-3 alert alert-info m-auto mb-2">
+                        <figure class="row">
+                            <img class="col-6 col-md" src="{{ asset('images/equip/professor_chemistry.jpg') }}"
+                                 alt="Image du professeur de chimie">
+                            <figcaption class="col-6 m-auto">
+                                <h3>Professeur de chimie</h3>
+                                <h4>Esther Clair</h4>
+                            </figcaption>
+                        </figure>
+                    </article>
+                    <article class="col-12 col-md-5 col-lg-3 alert alert-success m-auto mb-2">
+                        <figure class="row">
+                            <img class="col-6 col-md" src="{{ asset('images/equip/professor_math.jpg') }}"
+                                 alt="L'image du professeur de Math">
+                            <figcaption class="col-6 m-auto">
+                                <h3>Professeur de Math</h3>
+                                <h4>Pauline Marie</h4>
+                            </figcaption>
+                        </figure>
+                    </article>
+                    <article class="col-12 col-md-5 col-lg-3 alert alert-primary m-auto mb-2">
+                        <figure class="row">
+                            <img class="col-6 col-md" src="{{ asset('images/equip/director.jpg') }}"
+                                 alt="L'image du directeur">
+                            <figcaption class="col-6 m-auto">
+                                <h3 class="">Directeur</h3>
+                                <h4>Patrick Erick</h4>
+                            </figcaption>
+                        </figure>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section id="localisation" class="row">
+            <div class="col-12 text-center my-3">
+                <h2 class="fs-1 text-uppercase my-3 text-primary">Notre Localisation</h2>
+            </div>
+            <div class="col-12  m-auto">
+                <iframe class="w-100"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1180.3638968604653!2d1.41786956102765!3d43.5928610896005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12aebb096cd919bb%3A0xf67e848219a8fcbf!2zQXLDqG5lcw!5e0!3m2!1sen!2sfr!4v1742394580402!5m2!1sen!2sfr"
+                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </section>
+        <section id="contact" class="row">
+            <div class="col-12 text-center my-3">
+                <h2 class="fs-1 text-uppercase my-3 text-primary">Nous contacter</h2>
+            </div>
+            <div class="col-12 col-md-10 col-lg-10 m-auto mb-5">
+                <form action="" method="post" id="formContact"
+                      class="col-12 col-md-12 m-auto alert alert-primary rounded-5">
+                    <div class="image">
+                        <img src="{{ asset('images/Logo.png') }}" alt="Logo du site">
+                    </div>
+                    <div class="mb-3 position-relative">
+                        <label class="form-label fs-1 my-3" for="validationTooltip01">Email</label>
+                        <input class="form-control fs-1" type="text" id="validationTooltip01"
+                               placeholder="Entrez votre email" name="email"
+                               value="">
+                        <div class="invalid-tooltip">
+                            L'email doit être valide
+                        </div>
+                    </div>
+                    <div id="sujetField">
+                        <label class="label-form fs-1 my-3" for="validationTooltip02">Sujet</label>
+                        <input class="form-control fs-1" type="text" id="validationTooltip02"
+                               placeholder="Entrez votre sujet" name="subject"
+                               value="">
+                        <div class="invalid-tooltip">
+                            Le sujet ne doit pas être vide (5 caractères minimum)
+                        </div>
+                    </div>
+                    <div id="msgField">
+                        <label class="label-form fs-1 my-3" for="validationTooltip03">Message</label>
+                        <textarea class="form-control fs-1" name="message" id="validationTooltip03" cols="20"
+                                  rows="10"></textarea>
+                        <div class="valid-tooltip">
+                            Le message peut être envoyer
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <input name="gpdr" class="me-3" type="checkbox"
+                               id="validationFormCheck1"/>
+                        <label class="label-form fs-1 my-3" for="validationFormCheck1">J'acceptes les conditions
+                            rgpd</label>
+                        <div class="invalid-tooltip">
+                            Vous devez cocher cette case !
+                        </div>
+                    </div>
+                    <div class="text-center" id="btnSubmit">
+                        <button id="submit" type="submit" class="btn btn-primary fs-1">Envoyer</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <div class="position-fixed bottom-0 left-0 p-3">
+            <a href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor"
+                     class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
+                </svg>
+            </a>
+
+        </div>
+    </main>
+{% endblock %}

@@ -1,0 +1,42 @@
+<div class="row align-items-center m-auto">
+    <nav class="nav">
+        <div class="col-8 col-md-10 col-lg">
+            <a class="col-lg ms-1" href="{{ path('app_home') }}">
+                <img src="{{ asset('images/Logo.png') }}" alt="Logo du site">
+            </a>
+        </div>
+        <div class="d-none col-lg-10 d-lg-flex">
+            {% include '_partials/_navigation.html.twig' %}
+        </div>
+        <div class="col col-lg-1">
+            <div class="dropdown">
+                <div class="dropdown-menu dropdown-menu-text-info-emphasis d-lg-none" id="collapse">
+                    <ul class="list-unstyled d-md-flex flex-lg-row flex-column mb-0">
+                        <li><a class="text-decoration-none fs-4 text-black p-2 dropdown-item active"
+                               href="">Accueil</a></li>
+                        <li><a class="text-decoration-none fs-4 text-black p-2 dropdown-item" href="">A
+                                propos</a></li>
+                        <li><a class="text-decoration-none fs-4 text-black p-2 dropdown-item" href="../signup.php">Signup</a>
+                        </li>
+                        <li><a class="text-decoration-none fs-4 text-black p-2 dropdown-item"
+                               href="../login.php">Login</a>
+                        </li>
+                        <li><a class="text-decoration-none fs-4 text-black p-2 dropdown-item"
+                               href="../index.php#contact">Contacter</a></li>
+                    </ul>
+                    <button type="button" class="btn-close fs-4" aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="row">
+                <svg class="col-5 col-lg-12 me-0" id="theme-switch" width="30" height="30"
+                     fill="#e4e453">
+                    <use href="{{ asset('images/sprites.svg') }}#light"></use>
+                </svg>
+                <svg class="col-5 d-lg-none me-0" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                     id="burger" width="30" height="30" fill="">
+                    <use href="{{ asset('images/sprites.svg') }}#burger"></use>
+                </svg>
+            </div>
+        </div>
+    </nav>
+</div>
