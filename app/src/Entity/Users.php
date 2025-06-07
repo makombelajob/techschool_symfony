@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\UsersRepository;
-use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -28,7 +27,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      * @var list<string> The user roles
      */
     #[ORM\Column]
-    private array $roles = [];
+    private array $roles = ["ROLE_USER"];
 
     /**
      * @var string The hashed password
@@ -36,33 +35,29 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 100)]
     private ?string $lastname = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 100)]
     private ?string $firstname = null;
 
-    #[ORM\Column]
-    private ?DateTimeImmutable $registred_at = null;
+    #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private ?\DateTimeImmutable $registerAt = null;
 
     #[ORM\Column(nullable: true)]
-    private ?DateTimeImmutable $last_login = null;
-
-    #[ORM\ManyToOne(inversedBy: 'users')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?ClassRooms $classroom = null;
+    private ?\DateTimeImmutable $lastlogin = null;
 
     /**
      * @var Collection<int, Courses>
      */
-    #[ORM\ManyToMany(targetEntity: Courses::class, inversedBy: 'users')]
+    #[ORM\ManyToMany(targetEntity: Courses::class, mappedBy: 'users')]
     private Collection $courses;
 
     /**
-     * @var Collection<int, Payments>
+     * @var Collection<int, Classes>
      */
-    #[ORM\OneToMany(targetEntity: Payments::class, mappedBy: 'users')]
-    private Collection $payments;
+    #[ORM\ManyToMany(targetEntity: Classes::class, mappedBy: 'users')]
+    private Collection $classes;
 
     /**
      * @var Collection<int, Results>
@@ -73,9 +68,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->courses = new ArrayCollection();
-        $this->payments = new ArrayCollection();
+        $this->classes = new ArrayCollection();
         $this->results = new ArrayCollection();
-        $this->registred_at = new DateTimeImmutable();
+        $this->registerAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -102,7 +97,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string)$this->email;
+        return (string) $this->email;
     }
 
     /**
@@ -175,38 +170,26 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getRegistredAt(): ?DateTimeImmutable
+    public function getRegisterAt(): ?\DateTimeImmutable
     {
-        return $this->registred_at;
+        return $this->registerAt;
     }
 
-    public function setRegistredAt(DateTimeImmutable $registred_at): static
+    public function setRegisterAt(\DateTimeImmutable $registerAt): static
     {
-        $this->registred_at = $registred_at;
+        $this->registerAt = $registerAt;
 
         return $this;
     }
 
-    public function getLastLogin(): ?DateTimeImmutable
+    public function getLastlogin(): ?\DateTimeImmutable
     {
-        return $this->last_login;
+        return $this->lastlogin;
     }
 
-    public function setLastLogin(?DateTimeImmutable $last_login): static
+    public function setLastlogin(?\DateTimeImmutable $lastlogin): static
     {
-        $this->last_login = $last_login;
-
-        return $this;
-    }
-
-    public function getClassroom(): ?ClassRooms
-    {
-        return $this->classroom;
-    }
-
-    public function setClassroom(?ClassRooms $classroom): static
-    {
-        $this->classroom = $classroom;
+        $this->lastlogin = $lastlogin;
 
         return $this;
     }
@@ -223,6 +206,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->courses->contains($course)) {
             $this->courses->add($course);
+            $course->addUser($this);
         }
 
         return $this;
@@ -230,36 +214,35 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeCourse(Courses $course): static
     {
-        $this->courses->removeElement($course);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Payments>
-     */
-    public function getPayments(): Collection
-    {
-        return $this->payments;
-    }
-
-    public function addPayment(Payments $payment): static
-    {
-        if (!$this->payments->contains($payment)) {
-            $this->payments->add($payment);
-            $payment->setUsers($this);
+        if ($this->courses->removeElement($course)) {
+            $course->removeUser($this);
         }
 
         return $this;
     }
 
-    public function removePayment(Payments $payment): static
+    /**
+     * @return Collection<int, Classes>
+     */
+    public function getClasses(): Collection
     {
-        if ($this->payments->removeElement($payment)) {
-            // set the owning side to null (unless already changed)
-            if ($payment->getUsers() === $this) {
-                $payment->setUsers(null);
-            }
+        return $this->classes;
+    }
+
+    public function addClass(Classes $class): static
+    {
+        if (!$this->classes->contains($class)) {
+            $this->classes->add($class);
+            $class->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClass(Classes $class): static
+    {
+        if ($this->classes->removeElement($class)) {
+            $class->removeUser($this);
         }
 
         return $this;

@@ -7,6 +7,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -20,11 +22,12 @@ class RegistrationForm extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'attr' => [
-                    'placeholder' => 'Entrer votre Email',
-                    'class' => 'fs-2',
+                    'placeholder' => 'Votre email',
+                    'class' => 'fs-3',
                 ]
             ])
             ->add('agreeTerms', CheckboxType::class, [
+                'label' => 'J\'accepte les conditions RGPD',
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
@@ -36,7 +39,11 @@ class RegistrationForm extends AbstractType
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password', 'class' => 'fs-2'],
+                'attr' => [
+                    'autocomplete' => 'new-password',
+                    'placeholder' => 'mots de passe',
+                    'class' => 'fs-3'
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
@@ -48,7 +55,27 @@ class RegistrationForm extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ]);
+            ])
+            ->add('lastname', TextType::class, [
+                'label' => 'Nom',
+                'attr' => [
+                    'placeholder' => 'Votre nom',
+                    'class' => 'fs-3'
+                ]
+            ])
+            ->add('firstname', TextType::class, [
+                'label' => 'Prénom',
+                'attr' => [
+                    'placeholder' => 'Votre prénom',
+                    'class' => 'fs-3'
+                ]
+            ])
+            ->add('Inscription', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-success fs-3',
+                ]
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

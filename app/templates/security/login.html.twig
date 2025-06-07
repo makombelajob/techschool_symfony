@@ -4,36 +4,35 @@
 
 {% block body %}
     <div class="row">
-        <form method="post" class="col-8 m-auto alert alert-primary login-form">
+        <form method="post" class="alert alert-primary col-11 m-auto">
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
 
             {% if app.user %}
                 <div class="mb-3">
-                    You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    You are logged in as
+                    {{ app.user.userIdentifier }},
+                    <a href="{{ path('app_logout') }}">Logout</a>
                 </div>
             {% endif %}
 
-            <h1 class="fs-1 text-center text-uppercase text-primary my-3">Connection</h1>
-            <div>
-                <label class="fs-2 my-3" for="username">Email</label>
-                <input type="email" value="{{ last_username }}" name="_username" id="username"
-                       class="form-control fs-3 my-3"
-                       autocomplete="email" required autofocus placeholder="Email address">
+            <div class="col-12 text-center">
+                <h1 class="fs-1 text-uppercase fw-semibold">Connexion</h1>
+            </div>
+            <div class="form-group">
+                <label class="form-label fs-2 my-2" for="username">Email</label>
+                <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control fs-3"
+                       autocomplete="email" required autofocus placeholder="Entrez votre email">
             </div>
             <div>
-                <label class="fs-2 my-3 text-uppercase" for="password">Password</label>
-                <input type="password" name="_password" id="password" class="fs-3 form-control fs-2"
+                <label class="form-label fs-2 my-2" for="password">Password</label>
+                <input type="password" name="_password" id="password" class="form-control fs-3"
                        autocomplete="current-password"
-                       required placeholder="Password">
-                <input type="hidden" name="_csrf_token" data-controller="csrf-protection"
-                       value="{{ csrf_token('authenticate') }}">
-            </div>
-            <div class="text-center my-3">
-                <button class="btn btn-primary fs-3" type="submit">
-                    Sign in
-                </button>
+                       required placeholder="Entrez votre mots de passe">
+                <input
+                    type="hidden" name="_csrf_token" data-controller="csrf-protection"
+                    value="{{ csrf_token('authenticate') }}">
             </div>
 
             {#
@@ -46,7 +45,12 @@
             </div>
             #}
 
-
+            <div class="text-center my-3">
+                <button class="btn btn-lg btn-primary" type="submit">
+                    Sign in
+                </button>
+            </div>
         </form>
+
     </div>
 {% endblock %}

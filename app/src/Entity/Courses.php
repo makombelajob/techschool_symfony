@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\CoursesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CoursesRepository::class)]
@@ -16,51 +15,55 @@ class Courses
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 100)]
     private ?string $name = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 15, scale: 2)]
-    private ?string $coefficient = null;
+    #[ORM\Column]
+    private ?float $coefficient = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 100)]
     private ?string $day = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $started_at = null;
+    private ?\DateTimeImmutable $startedAt = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $end_at = null;
+    private ?\DateTimeImmutable $endAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'courses')]
-    private ?ClassRooms $classroom = null;
+    #[ORM\Column(length: 20)]
+    private ?string $room = null;
+
+    /**
+     * @var Collection<int, Ressources>
+     */
+    #[ORM\ManyToMany(targetEntity: Ressources::class, mappedBy: 'courses')]
+    private Collection $ressources;
 
     #[ORM\ManyToOne(inversedBy: 'courses')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Subjects $subjects = null;
 
     /**
-     * @var Collection<int, Ressources>
+     * @var Collection<int, Results>
      */
-    #[ORM\ManyToMany(targetEntity: Ressources::class, inversedBy: 'courses')]
-    private Collection $ressources;
+    #[ORM\OneToMany(targetEntity: Results::class, mappedBy: 'courses')]
+    private Collection $results;
 
     /**
      * @var Collection<int, Users>
      */
-    #[ORM\ManyToMany(targetEntity: Users::class, mappedBy: 'courses')]
+    #[ORM\ManyToMany(targetEntity: Users::class, inversedBy: 'courses')]
     private Collection $users;
 
-    /**
-     * @var Collection<int, Results>
-     */
-    #[ORM\OneToMany(targetEntity: Results::class, mappedBy: 'courses')]
-    private Collection $resulats;
+    #[ORM\ManyToOne(inversedBy: 'courses')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Classes $classes = null;
 
     public function __construct()
     {
         $this->ressources = new ArrayCollection();
+        $this->results = new ArrayCollection();
         $this->users = new ArrayCollection();
-        $this->resulats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -80,12 +83,12 @@ class Courses
         return $this;
     }
 
-    public function getCoefficient(): ?string
+    public function getCoefficient(): ?float
     {
         return $this->coefficient;
     }
 
-    public function setCoefficient(string $coefficient): static
+    public function setCoefficient(float $coefficient): static
     {
         $this->coefficient = $coefficient;
 
@@ -106,36 +109,63 @@ class Courses
 
     public function getStartedAt(): ?\DateTimeImmutable
     {
-        return $this->started_at;
+        return $this->startedAt;
     }
 
-    public function setStartedAt(\DateTimeImmutable $started_at): static
+    public function setStartedAt(\DateTimeImmutable $startedAt): static
     {
-        $this->started_at = $started_at;
+        $this->startedAt = $startedAt;
 
         return $this;
     }
 
     public function getEndAt(): ?\DateTimeImmutable
     {
-        return $this->end_at;
+        return $this->endAt;
     }
 
-    public function setEndAt(\DateTimeImmutable $end_at): static
+    public function setEndAt(\DateTimeImmutable $endAt): static
     {
-        $this->end_at = $end_at;
+        $this->endAt = $endAt;
 
         return $this;
     }
 
-    public function getClassroom(): ?ClassRooms
+    public function getRoom(): ?string
     {
-        return $this->classroom;
+        return $this->room;
     }
 
-    public function setClassroom(?ClassRooms $classroom): static
+    public function setRoom(string $room): static
     {
-        $this->classroom = $classroom;
+        $this->room = $room;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ressources>
+     */
+    public function getRessources(): Collection
+    {
+        return $this->ressources;
+    }
+
+    public function addRessource(Ressources $ressource): static
+    {
+        if (!$this->ressources->contains($ressource)) {
+            $this->ressources->add($ressource);
+            $ressource->addCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRessource(Ressources $ressource): static
+    {
+        if ($this->ressources->removeElement($ressource)) {
+            $ressource->removeCourse($this);
+        }
 
         return $this;
     }
@@ -153,25 +183,31 @@ class Courses
     }
 
     /**
-     * @return Collection<int, Ressources>
+     * @return Collection<int, Results>
      */
-    public function getRessources(): Collection
+    public function getResults(): Collection
     {
-        return $this->ressources;
+        return $this->results;
     }
 
-    public function addRessource(Ressources $ressource): static
+    public function addResult(Results $result): static
     {
-        if (!$this->ressources->contains($ressource)) {
-            $this->ressources->add($ressource);
+        if (!$this->results->contains($result)) {
+            $this->results->add($result);
+            $result->setCourses($this);
         }
 
         return $this;
     }
 
-    public function removeRessource(Ressources $ressource): static
+    public function removeResult(Results $result): static
     {
-        $this->ressources->removeElement($ressource);
+        if ($this->results->removeElement($result)) {
+            // set the owning side to null (unless already changed)
+            if ($result->getCourses() === $this) {
+                $result->setCourses(null);
+            }
+        }
 
         return $this;
     }
@@ -188,7 +224,6 @@ class Courses
     {
         if (!$this->users->contains($user)) {
             $this->users->add($user);
-            $user->addCourse($this);
         }
 
         return $this;
@@ -196,39 +231,19 @@ class Courses
 
     public function removeUser(Users $user): static
     {
-        if ($this->users->removeElement($user)) {
-            $user->removeCourse($this);
-        }
+        $this->users->removeElement($user);
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Results>
-     */
-    public function getResulats(): Collection
+    public function getClasses(): ?Classes
     {
-        return $this->resulats;
+        return $this->classes;
     }
 
-    public function addResulat(Results $resulat): static
+    public function setClasses(?Classes $classes): static
     {
-        if (!$this->resulats->contains($resulat)) {
-            $this->resulats->add($resulat);
-            $resulat->setCourses($this);
-        }
-
-        return $this;
-    }
-
-    public function removeResulat(Results $resulat): static
-    {
-        if ($this->resulats->removeElement($resulat)) {
-            // set the owning side to null (unless already changed)
-            if ($resulat->getCourses() === $this) {
-                $resulat->setCourses(null);
-            }
-        }
+        $this->classes = $classes;
 
         return $this;
     }

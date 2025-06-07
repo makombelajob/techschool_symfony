@@ -3,11 +3,22 @@
         <nav class="row m-auto">
             <ul class="col-md-12 me-auto list-unstyled">
                 <div class="row text-center d-unset">
-                    <li class="col col-md pe-0"><a class="text-decoration-none text-secondary fs-3" href="index.php">Accueil</a></li>
-                    <li class="col col-md pe-0"><a class="text-decoration-none text-secondary fs-3" href="about.php">A_propos</a></li>
-                    <li class="col col-md pe-0"><a class="text-decoration-none text-secondary fs-3" href="login.php">Login</a></li>
-                    <li class="col col-md pe-0"><a class="text-decoration-none text-secondary fs-3" href="signup.php">Signup</a></li>
-                    <li class="col col-md pe-0"><a class="text-decoration-none text-secondary fs-3" href="../index.php#contact">Contacter</a></li>
+                    <li class="col col-md pe-0">
+                        <a class="text-decoration-none text-secondary fs-3" href="{{ path('app_main') }}">Accueil</a>
+                    </li>
+                    <li class="col col-md pe-0">
+                        <a class="text-decoration-none text-secondary fs-3" href="{{ path('app_about') }}">Apropos</a>
+                    </li>
+                    <li class="col col-md pe-0">
+                        <a class="text-decoration-none text-secondary fs-3" href="{{ path('app_register') }}">Signup</a>
+                    </li>
+                    <li class="col col-md pe-0">
+                        <a class="text-decoration-none text-secondary fs-3" href="{{ path('app_login') }}">Login</a>
+                    </li>
+
+                    <li class="col col-md pe-0">
+                        <a class="text-decoration-none text-secondary fs-3" href="{{ path('app_main') }}#contact">Contacter</a>
+                    </li>
                 </div>
             </ul>
         </nav>
@@ -21,5 +32,3 @@
         <p class="text-center fs-1">&copy; Tout droits réservés</p>
     </div>
 </footer>
-</body>
-</html>

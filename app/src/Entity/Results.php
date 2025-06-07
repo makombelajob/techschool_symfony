@@ -14,7 +14,7 @@ class Results
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?int $grade = null;
+    private ?int $note = null;
 
     #[ORM\Column]
     private ?int $monthly = null;
@@ -22,30 +22,30 @@ class Results
     #[ORM\Column]
     private ?int $yearly = null;
 
-    #[ORM\Column(length: 1000)]
+    #[ORM\Column(length: 255)]
     private ?string $remark = null;
 
     #[ORM\ManyToOne(inversedBy: 'results')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Users $users = null;
-
-    #[ORM\ManyToOne(inversedBy: 'resulats')]
-    #[ORM\JoinColumn(nullable: false)]
     private ?Courses $courses = null;
+
+    #[ORM\ManyToOne(inversedBy: 'results')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Users $users = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getGrade(): ?int
+    public function getNote(): ?int
     {
-        return $this->grade;
+        return $this->note;
     }
 
-    public function setGrade(int $grade): static
+    public function setNote(int $note): static
     {
-        $this->grade = $grade;
+        $this->note = $note;
 
         return $this;
     }
@@ -86,18 +86,6 @@ class Results
         return $this;
     }
 
-    public function getUsers(): ?Users
-    {
-        return $this->users;
-    }
-
-    public function setUsers(?Users $users): static
-    {
-        $this->users = $users;
-
-        return $this;
-    }
-
     public function getCourses(): ?Courses
     {
         return $this->courses;
@@ -106,6 +94,18 @@ class Results
     public function setCourses(?Courses $courses): static
     {
         $this->courses = $courses;
+
+        return $this;
+    }
+
+    public function getUsers(): ?Users
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?Users $users): static
+    {
+        $this->users = $users;
 
         return $this;
     }

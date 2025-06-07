@@ -1,42 +1,42 @@
-<div class="row align-items-center m-auto">
-    <nav class="nav">
-        <div class="col-8 col-md-10 col-lg">
-            <a class="col-lg ms-1" href="{{ path('app_home') }}">
-                <img src="{{ asset('images/Logo.png') }}" alt="Logo du site">
+<header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <!-- Début de la barre de navigation -->
+
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ path('app_main') }}">
+                <img src="{{ asset('images/logo.png') }}" alt="logo du site" width="100%" height="auto"/>
             </a>
-        </div>
-        <div class="d-none col-lg-10 d-lg-flex">
-            {% include '_partials/_navigation.html.twig' %}
-        </div>
-        <div class="col col-lg-1 dropdown">
-            <div class="dropdown-menu dropdown-menu-text-info-emphasis d-lg-none" id="collapse">
-                <ul class="list-unstyled d-md-flex flex-lg-row flex-column mb-0 open">
-                    <li><a class="text-decoration-none fs-4 text-black p-2 dropdown-item active"
-                           href="/">Accueil</a></li>
-                    <li><a class="text-decoration-none fs-4 text-black p-2 dropdown-item" href="">A
-                            propos</a></li>
-                    <li><a class="text-decoration-none fs-4 text-black p-2 dropdown-item"
-                           href="{{ path('app_register') }}">Signup</a>
-                    </li>
-                    <li><a class="text-decoration-none fs-4 text-black p-2 dropdown-item"
-                           href="{{ path('app_login') }}">Login</a>
-                    </li>
-                    <li><a class="text-decoration-none fs-4 text-black p-2 dropdown-item"
-                           href="../index.php#contact">Contacter</a></li>
-                </ul>
-                <button type="button" class="btn-close fs-4" aria-label="Close"></button>
+            <div class="d-none d-lg-flex" id="list_options">
+                {% include '_partials/_list_options.html.twig' %}
             </div>
-            <div class="row">
-                <svg class="col-5 col-lg-12 me-0" id="theme-switch" width="30" height="30"
-                     fill="#e4e453">
-                    <use href="{{ asset('images/sprites.svg') }}#light"></use>
-                </svg>
-                <svg class="col-5 d-lg-none me-0 drop-down-toggle" type="button" data-bs-toggle="dropdown"
-                     aria-expanded="false"
-                     id="burger" width="30" height="30" fill="">
-                    <use href="{{ asset('images/sprites.svg') }}#burger"></use>
-                </svg>
+            <div>
+                <button class="btn" id="themes-mode" type="button">
+                    <svg width="40px" height="40px" fill="yellow">
+                        <use xlink:href="{{ asset('images/sprites.svg') }}#themes-mode"></use>
+                    </svg>
+                </button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
+                        aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse position-absolute start-0 end-0 bg-white shadow p-4 z-3 mt-5"
+                 id="navbar">
+
+                <div class="navbar-nav text-center">
+                    <a class="nav-link active" aria-current="page" href="{{ path('app_main') }}">Accueil</a>
+                    <a class="nav-link" href="{{ path('app_about') }}">Apropos</a>
+                    <a class="nav-link" href="{{ path('app_register') }}">Signup</a>
+                    <a class="nav-link" href="{{ path('app_login' ) }}">Login</a>
+                    <a class="nav-link" href="{{ path('app_main') }}#contact">Contact</a>
+
+                </div>
+                <button type="button" class="btn-close position-absolute top-0" aria-label="Close"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbar"></button>
             </div>
         </div>
     </nav>
-</div>
+    <!-- Fin de la barre de navigation -->
+</header>
+

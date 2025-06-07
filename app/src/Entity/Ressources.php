@@ -15,19 +15,19 @@ class Ressources
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $file_name = null;
+    #[ORM\Column(length: 100)]
+    private ?string $name = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $file_type = null;
+    #[ORM\Column(length: 10)]
+    private ?string $fileType = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $uploaded_at = null;
+    private ?\DateTimeImmutable $uploadedAt = null;
 
     /**
      * @var Collection<int, Courses>
      */
-    #[ORM\ManyToMany(targetEntity: Courses::class, mappedBy: 'ressources')]
+    #[ORM\ManyToMany(targetEntity: Courses::class, inversedBy: 'ressources')]
     private Collection $courses;
 
     public function __construct()
@@ -40,38 +40,38 @@ class Ressources
         return $this->id;
     }
 
-    public function getFileName(): ?string
+    public function getName(): ?string
     {
-        return $this->file_name;
+        return $this->name;
     }
 
-    public function setFileName(string $file_name): static
+    public function setName(string $name): static
     {
-        $this->file_name = $file_name;
+        $this->name = $name;
 
         return $this;
     }
 
     public function getFileType(): ?string
     {
-        return $this->file_type;
+        return $this->fileType;
     }
 
-    public function setFileType(string $file_type): static
+    public function setFileType(string $fileType): static
     {
-        $this->file_type = $file_type;
+        $this->fileType = $fileType;
 
         return $this;
     }
 
     public function getUploadedAt(): ?\DateTimeImmutable
     {
-        return $this->uploaded_at;
+        return $this->uploadedAt;
     }
 
-    public function setUploadedAt(\DateTimeImmutable $uploaded_at): static
+    public function setUploadedAt(\DateTimeImmutable $uploadedAt): static
     {
-        $this->uploaded_at = $uploaded_at;
+        $this->uploadedAt = $uploadedAt;
 
         return $this;
     }
@@ -88,7 +88,6 @@ class Ressources
     {
         if (!$this->courses->contains($course)) {
             $this->courses->add($course);
-            $course->addRessource($this);
         }
 
         return $this;
@@ -96,9 +95,7 @@ class Ressources
 
     public function removeCourse(Courses $course): static
     {
-        if ($this->courses->removeElement($course)) {
-            $course->removeRessource($this);
-        }
+        $this->courses->removeElement($course);
 
         return $this;
     }
