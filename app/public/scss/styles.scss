@@ -1,3 +1,4 @@
+/* Définition de la taille de police de base pour tout le document */
 :root {
     font-size: 15px;
 }
@@ -5,38 +6,61 @@
 body {
     header {
         nav {
+            /* Style du logo ou image dans la navigation */
             img {
-                width: 50px;
-                border-radius: 50%;
+                width: 50px; /* Largeur fixée */
+                border-radius: 50%; /* Rend l'image circulaire */
             }
 
             #navbar {
-                background-color: rgb(59, 130, 246) !important;
-                top: 30px;
+                background-color: rgb(59, 130, 246) !important; /* Couleur de fond forcée */
+                top: 30px; /* Position depuis le haut */
 
                 button {
-                    margin-top: 0.7rem !important;
+                    margin-top: 0.7rem !important; /* Marge supérieure forcée pour le bouton */
                 }
             }
         }
     }
 
     main {
-        #partners{
-            img{
-                width: 60px;
-                border-radius: 50%;
+        #partners {
+            img {
+                width: 60px; /* Largeur fixée pour les logos/avatars partenaires */
+                border-radius: 50%; /* Images rondes */
+            }
+        }
+
+        #upButton {
+            position: fixed; /* Position fixe pour rester visible au défilement */
+            bottom: 30px; /* Distance du bas de la fenêtre */
+            right: 30px; /* Distance du bord droit */
+        }
+    }
+}
+
+/* Mise en page adaptative pour les écrans de taille moyenne (tablettes et plus) */
+@media (min-width: 768px) {
+    body {
+        main {
+            .main-activity,
+            .partners,
+            .team {
+                display: flex !important; /* Affichage en flexbox pour aligner les éléments */
+                justify-content: space-between !important; /* Répartition avec espace entre les éléments */
+                gap: 0.7rem !important; /* Espacement entre les éléments */
             }
         }
     }
 }
 
+/* Cacher la barre de navigation pour les grands écrans (≥ 1024px) */
 @media(min-width: 1024px) {
     body {
         header {
             nav {
                 #navbar {
-                    display: none !important;
+                    display: none !important; /* Masquer la barre de navigation */
                 }
             }
         }
