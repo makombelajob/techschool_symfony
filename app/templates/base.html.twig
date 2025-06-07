@@ -20,7 +20,9 @@
 <body>
 {% include '_partials/_header.html.twig' %}
 <main class="container">
-{% block body %}{% endblock %}
+    {% block body %}{% endblock %}
+    {# Bouton pour remonter en haut de page #}
+    {% include '_partials/_up_button.html.twig' %}
 </main>
 {% include '_partials/_footer.html.twig' %}
 </body>
