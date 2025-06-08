@@ -36,6 +36,13 @@ body {
             bottom: 30px; /* Distance du bas de la fenêtre */
             right: 30px; /* Distance du bord droit */
         }
+        #team{
+            img{
+                width: 100px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+        }
     }
 }
 
@@ -58,10 +65,17 @@ body {
 @media(min-width: 1024px) {
     body {
         header {
+            width: 80%;
+            margin: auto;
             nav {
                 #navbar {
                     display: none !important; /* Masquer la barre de navigation */
                 }
+            }
+        }
+        main {
+            #about{
+                /* Rien à faire pour l'instant */
             }
         }
     }

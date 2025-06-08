@@ -1,19 +1,30 @@
+{# Hérite du template de base (base.html.twig) pour garder une structure cohérente sur toutes les pages #}
 {% extends 'base.html.twig' %}
 
-{% block title %}a propos{% endblock %}
+{# Définit le titre de la page affiché dans l’onglet du navigateur #}
+{% block title %}a propos
+{% endblock %}
 
+{# Contenu principal de la page #}
 {% block body %}
-    <section class="row">
+    <section
+        class="row" id="about">
+        {# Titre principal de la page #}
         <div class="col-12 text-center my-3">
             <h1 class="text-uppercase fs-1 fw-semibold">Tech-School</h1>
         </div>
-        <div class="col-12 col-md-10 col-lg-8 m-auto text-center my-3">
+
+        {# Bloc contenant la section "À propos de nous" #}
+        <div class="col-12 col-md-12 m-auto text-center my-3">
             <article class="alert alert-info">
                 <div class="text-center my-3">
                     <h2 class="fs-2 text-center text-black fw-semibold">A propos de nous</h2>
                 </div>
-                <p class="fs-3">
-                    <strong>Tech-School</strong> est une école de technologie nouvelle génération, pensée pour former
+                <p
+                    class="fs-3">
+                    {# Description de l'école Tech-School et de sa vision inclusive et innovante #}
+                    <strong>Tech-School</strong>
+                    est une école de technologie nouvelle génération, pensée pour former
                     les talents de
                     demain aux métiers du numérique et de l'innovation. Fondée avec la volonté de rendre l'apprentissage
                     de la tech accessible, concret et orienté vers l’avenir, Tech-School propose des formations
@@ -24,6 +35,8 @@
                     outils, un accompagnement solide et un environnement stimulant.
                 </p>
             </article>
+
+            {# Bloc décrivant la mission de l'école #}
             <article class="alert alert-primary">
                 <div class="text-center my-3">
                     <h2 class="fs-2 text-center text-black fw-semibold">Notre mission</h2>
@@ -34,6 +47,8 @@
                     les entreprises tech, nous préparons nos apprenants à intégrer rapidement le monde du travail.
                 </p>
             </article>
+
+            {# Bloc listant les éléments différenciateurs de l'école #}
             <article class="alert alert-success">
                 <div class="text-center my-3">
                     <h2 class="fs-2 text-center text-black fw-semibold">Ce sui nous distingue</h2>
@@ -58,6 +73,8 @@
                     </li>
                 </ul>
             </article>
+
+            {# Bloc d’appel à l’action pour inciter les visiteurs à rejoindre l’école #}
             <article class="alert alert-danger">
                 <div class="text-center my-3">
                     <h2 class="fs-2 text-center text-black fw-semibold">Réjoins la révolution</h2>
@@ -70,3 +87,4 @@
         </div>
     </section>
 {% endblock %}
+

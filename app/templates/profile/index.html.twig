@@ -1,27 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfileController!{% endblock %}
+{% block title %}{{ app.user.firstname }}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-{% if app.user %}
-	<div class="mb-3">
-		You are logged in as
-		{{ app.user.userIdentifier }},
-		<a href="{{ path('app_logout') }}">Logout</a>
-	</div>
-{% endif %}
+    {{ dump(app.user) }}
+    <section class="col-12" id="students_infos">
+        <h1>Bienvenu <span
+                class="text-uppercase text-primary"></span>
+        </h1>
+        <article class="text-center bg-warning rounded-2">
+            <h2>Informations générales</h2>
+            <p class="fs-2">Prochaines vacances du 05 mai au 15 mai</p>
+        </article>
+        <div class="col-12">
+            <article class="alert alert-primary">
+                <h2 class="fs-1"><span
+                        class="text-uppercase"> </span>
+                </h2>
+                <h3>Class: 1ère</h3>
+            </article>
+            <article class="alert alert-info rounded-5 p-3 my-3">
+                <h2> : / 20</h2>
+            </article
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/home/symfony_test/Documents/tech-school_Symfony_vF/app/src/Controller/ProfileController.php</code></li>
-        <li>Your template at <code>/home/symfony_test/Documents/tech-school_Symfony_vF/app/templates/profile/index.html.twig</code></li>
-    </ul>
-</div>
+            <article class="alert alert-info rounded-5 p-3 my-3">
+                <h2>Aucun_cours_suivis : -- / 20</h2>
+            </article>
+        </div>
+    </section>
+    <section class="col-12" id="courses_details">
+        <h2 class="text-center text-uppercase fs-1 my-3">Remarques</h2>
+        <article class="alert alert-danger rounded-5 p-3 my-3">
+            <h2></h2>
+        </article>
+        <?php endforeach; ?>
+        <?php else : ?>
+        <article class="alert alert-info rounded-5 p-3 my-3">
+            <h2>Aucun_cours_suivis : -- / 20</h2>
+        </article>
+        <?php endif; ?>
+    </section>
+    <section class="col-12 alert alert-warning">
+        <h2 class="fs-1 text-center text-uppercase my-3">Contactez la secrétaire</h2>
+        <div class="">
+            {{ form_start(studentMessage) }}
+            <div class="fs-2 my-2">
+                {{ form_row(studentMessage.subject) }}
+            </div>
+            <div class="fs-2 my-2">
+                {{ form_row(studentMessage.message) }}
+            </div>
+            <div class="text-center my-3">
+                {{ form_row(studentMessage.gpdr) }}
+            </div>
+            <div class="text-center my-3">
+                {{ form_row(studentMessage.envoyer) }}
+            </div>
+            {{ form_end(studentMessage) }}
+        </div>
+    </section>
 {% endblock %}

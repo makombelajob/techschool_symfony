@@ -62,6 +62,35 @@ class Data extends Fixture
             $this->addReference('classRoom_' . $i, $classRoom);
         }
 
+        /*$coursesData = [
+            [
+                'subjects' => 1,
+                'classes' => 1,
+                'name' => 'Introduction à Kali linux',
+                'coefficient' => 4.5,
+                'day' => 'Lundi 9-juillet-2025',
+                'startedAt' => '10:00 AM',
+                'endAt' => '1:00 PM',
+                'room' => '2B',
+            ]
+        ];
+
+        foreach($coursesData as $i => $cours){
+            $coursData = new Courses();
+            $coursData->setSubjects($cours['subjects']);
+            $coursData->setClasses($cours['classes']);
+            $coursData->setName($cours['name']);
+            $coursData->setCoefficient($cours['coefficient']);
+            $coursData->setDay($cours['day']);
+            $coursData->setStartedAt(new \DateTimeImmutable($cours['startedAt']));
+            $coursData->setEndAt(new \DateTimeImmutable($cours['startedAt']));
+            $coursData->setRoom($cours['room']);
+            $this->addReference('subject_1', $subjectsEntity);
+            $this->addReference('class_1', $classesEntity);
+
+            $manager->persist($coursData);
+        }*/
+
         $manager->flush();
     }
 }

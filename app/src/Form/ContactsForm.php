@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Contacts;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -59,12 +60,16 @@ class ContactsForm extends AbstractType
                     'class' => 'fs-3',
                 ]
             ])
+            ->add('gpdr', CheckboxType::class, [
+                'label' => 'J\'accpetes les conditions d\'utilisations',
+                'required' => true,
+                'mapped' => false
+            ])
             ->add('Envoyer', SubmitType::class, [
                 'attr' => [
                     'class' => 'fs-3 btn btn-primary',
                 ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

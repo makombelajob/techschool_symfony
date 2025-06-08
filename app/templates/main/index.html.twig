@@ -14,14 +14,14 @@
             </div>
 
             {# SECTION: Carousel (diaporama d’images) #}
-            <div id="carouselExampleIndicators" class="carousel slide">
+            <div id="carousel" class="carousel slide">
                 {# Boutons de navigation du carousel #}
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                    <button type="button" data-bs-target="#carousel" data-bs-slide-to="0"
                             class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    <button type="button" data-bs-target="#carousel" data-bs-slide-to="1"
                             aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    <button type="button" data-bs-target="#carousel" data-bs-slide-to="2"
                             aria-label="Slide 3"></button>
                 </div>
 
@@ -29,15 +29,15 @@
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <img src="{{ asset('images/slide/image_d_une_salle_de_cours.png') }}" class="d-block w-100"
-                             alt="Image d'une salle de cours générée par l'IA">
+                             alt="Image d'une salle de cours générée par l'IA" width="100%" height="auto">
                     </div>
                     <div class="carousel-item">
                         <img src="{{ asset('images/slide/image_de_la_salle_informatique.png') }}" class="d-block w-100"
-                             alt="Image d'une salle informatique générée par l'IA">
+                             alt="Image d'une salle informatique générée par l'IA" width="100%" height="auto">
                     </div>
                     <div class="carousel-item">
                         <img src="{{ asset('images/slide/image_du_laboratoire.png') }}" class="d-block w-100"
-                             alt="Image d'un laboratoire générée par l'IA">
+                             alt="Image d'un laboratoire générée par l'IA" width="100%" height="auto">
                     </div>
                 </div>
 
@@ -65,7 +65,7 @@
                     {# Article 1 : Mission #}
                     <article class="col-md-5 card mb-3">
                         <img class="card-image" src="{{ asset('images/real/entree_principale.png') }}"
-                             alt="Image des écoliers">
+                             alt="Image des écoliers" width="100%" height="auto">
                         <div class="card-body">
                             <h2 class="card-title fs-2 text-uppercase">Notre Mission</h2>
                             <p class="card-text fs-3">Offrir un accès numérique simple à l’éducation pour tous.</p>
@@ -78,7 +78,7 @@
                     {# Article 2 : Équipe #}
                     <article class="col-md-5 card mb-3">
                         <img class="card-image" src="{{ asset('images/real/un_proffesseur_prepare_le_cours.png') }}"
-                             alt="Image des écoliers">
+                             alt="Image des écoliers" width="100%" height="auto">
                         <div class="card-body">
                             <h2 class="card-title fs-2 text-uppercase">Notre équipe</h2>
                             <p class="card-text fs-3">Des experts passionnés par l’innovation dans le domaine
@@ -92,7 +92,7 @@
                     {# Article 3 : Plateforme #}
                     <article class="col-md-5 card mb-3">
                         <img class="card-image" src="{{ asset('images/real/image_de_salle.png') }}"
-                             alt="Image des écoliers">
+                             alt="Image des écoliers" width="100%" height="auto">
                         <div class="card-body">
                             <h2 class="card-title fs-2 text-uppercase">Notre plateforme</h2>
                             <p class="card-text fs-3">Un espace sécurisé, collaboratif et accessible pour chaque
@@ -106,7 +106,7 @@
                     {# Article 4 : Valeurs #}
                     <article class="col-md-5 card mb-3">
                         <img class="card-image" src="{{ asset('images/real/bureau_cordinateur.png') }}"
-                             alt="Image des écoliers">
+                             alt="Image des écoliers" width="100%" height="auto">
                         <div class="card-body">
                             <h2 class="card-title fs-2 text-uppercase">Nos valeurs</h2>
                             <p class="card-text fs-3">Inclusion, innovation, engagement et excellence au service des
@@ -158,9 +158,8 @@
                     {# Activité 3 : Travail en groupe #}
                     <article class="col-md-4 alert alert-info mb-3 text-center" id="plane">
                         <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="dodgerblue"
-                                 class="bi bi-people-fill" viewBox="0 0 16 16">
-                                <path d="..."/>
+                            <svg class="py-3" width="100" height="100">
+                                <use href="{{ asset('images/sprites.svg') }}#people"></use>
                             </svg>
                         </div>
                         <div class="card-body">
@@ -228,7 +227,7 @@
                         <figure class="">
                             <div class="text-center">
                                 <img src="{{ asset('images/partenaire/edu_connect_logo.png') }}"
-                                     alt="logo d'un partenaire">
+                                     alt="logo d'un partenaire" width="100%" height="auto">
                             </div>
                             <figcaption class="">
                                 <h3 class="fs-2">EduConnect</h3>
@@ -241,7 +240,8 @@
                     <article class="col-md-4 alert alert-secondary rounded-5">
                         <figure class="">
                             <div class="text-center">
-                                <img src="{{ asset('images/partenaire/livreo_logo.png') }}" alt="logo d'un partenaire">
+                                <img src="{{ asset('images/partenaire/livreo_logo.png') }}" alt="logo d'un partenaire"
+                                     width="100%" height="auto">
                             </div>
                             <figcaption>
                                 <h3 class="fs-2">Livreo</h3>
@@ -255,7 +255,7 @@
                         <figure class="">
                             <div class="text-center">
                                 <img src="{{ asset('images/partenaire/inno_class_logo.png') }}"
-                                     alt="logo d'un partenaire">
+                                     alt="logo d'un partenaire" width="100%" height="auto">
                             </div>
                             <figcaption class="">
                                 <h3 class="fs-2">InnoClass</h3>
@@ -278,7 +278,7 @@
                     <article class="col-12 col-md-4 col-lg-3 alert alert-info m-auto mb-2">
                         <figure class="row">
                             <img class="col-6 col-md" src="{{ asset('images/equip/professor_chemistry.jpg') }}"
-                                 alt="Image du professeur de chimie">
+                                 alt="Image du professeur de chimie" width="100%" height="auto">
                             <figcaption class="col-6 m-auto">
                                 <h3>Professeur de chimie</h3>
                                 <h4>Esther Clair</h4>
@@ -290,7 +290,7 @@
                     <article class="col-12 col-md-4 col-lg-3 alert alert-success m-auto mb-2">
                         <figure class="row">
                             <img class="col-6 col-md" src="{{ asset('images/equip/professor_math.jpg') }}"
-                                 alt="L'image du professeur de Math">
+                                 alt="L'image du professeur de Math" width="100%" height="auto">
                             <figcaption class="col-6 m-auto">
                                 <h3>Professeur de Math</h3>
                                 <h4>Pauline Marie</h4>
@@ -302,7 +302,7 @@
                     <article class="col-12 col-md-4 col-lg-3 alert alert-primary m-auto mb-2">
                         <figure class="row">
                             <img class="col-6 col-md" src="{{ asset('images/equip/director.jpg') }}"
-                                 alt="L'image du directeur">
+                                 alt="L'image du directeur" width="100%" height="auto">
                             <figcaption class="col-6 m-auto">
                                 <h3 class="">Directeur</h3>
                                 <h4>Patrick Erick</h4>
@@ -340,6 +340,9 @@
                 <div class="mb-3 fs-2">
                     {{ form_row(formContact.message) }}
                 </div>
+                <div class="mb-3">
+                    {{ form_row(formContact.gpdr) }}
+                </div>
                 <div class="my-3 text-center">
                     {{ form_row(formContact.Envoyer) }}
                 </div>
@@ -348,12 +351,12 @@
         </section>
 
         {# Bouton pour remonter en haut de page #}
-        {#<div id="upButton">
+        {# <div id="upButton">
             <a class="btn" href="{{ path('app_main') }}">
                 <svg class="py-3" width="100" height="100">
                     <use href="{{ asset('images/sprites.svg') }}#upButton"></use>
                 </svg>
             </a>
-        </div>#}
+        </div> #}
     </main>
 {% endblock %}

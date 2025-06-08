@@ -16,10 +16,16 @@
     {% block javascripts %}
         {# {% block importmap %}{{ importmap('app') }}{% endblock %} #}
     {% endblock %}
+    <script src="{{ asset('js/scripts.js') }}" defer></script>
 </head>
 <body>
 {% include '_partials/_header.html.twig' %}
 <main class="container">
+    {% if app.user %}
+        <div class="mb-3">
+            <a class="btn btn-danger" href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
     {% block body %}{% endblock %}
     {# Bouton pour remonter en haut de page #}
     {% include '_partials/_up_button.html.twig' %}
