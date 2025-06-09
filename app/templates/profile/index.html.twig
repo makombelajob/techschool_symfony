@@ -3,42 +3,45 @@
 {% block title %}{{ app.user.firstname }}{% endblock %}
 
 {% block body %}
-    {{ dump(app.user) }}
     <section class="col-12" id="students_infos">
         <h1>Bienvenu <span
-                class="text-uppercase text-primary"></span>
+                class="text-uppercase text-primary">{{ app.user.lastname }}</span>
         </h1>
         <article class="text-center bg-warning rounded-2">
             <h2>Informations générales</h2>
             <p class="fs-2">Prochaines vacances du 05 mai au 15 mai</p>
         </article>
         <div class="col-12">
-            <article class="alert alert-primary">
-                <h2 class="fs-1"><span
-                        class="text-uppercase"> </span>
-                </h2>
-                <h3>Class: 1ère</h3>
-            </article>
-            <article class="alert alert-info rounded-5 p-3 my-3">
-                <h2> : / 20</h2>
-            </article
-
-            <article class="alert alert-info rounded-5 p-3 my-3">
-                <h2>Aucun_cours_suivis : -- / 20</h2>
-            </article>
+            {% for classe in app.user.classes %}
+                <article class="alert alert-primary">
+                    <h2 class="fs-1"><span
+                            class="text-uppercase">Class : {{ classe.name }}</span>
+                    </h2>
+                    <h3>Niveau: {{ classe.level }}</h3>
+                </article>
+            {% endfor %}
+            {% if app.user.results is not empty and app.user.courses is not empty %}
+                {% for cours in app.user.courses %}
+                    <article class="alert alert-info rounded-5 p-3 my-3">
+                        <h2>{{ cours.name }}</h2>
+                    </article>
+                {% endfor %}
+                {% for result in app.user.results %}
+                    <article class="alert alert-info rounded-5 p-3 my-3">
+                        <h2>{{ result.note }} : / 20 ( par QCM )</h2>
+                        <h3>{{ result.monthly }} : / 20 ( par Mois )</h3>
+                        <h4>{{ result.yearly }} : / 20 ( par An )</h4>
+                    </article>
+                    <article class="alert alert-danger rounded-5 p-3 my-3">
+                        <h2>{{ result.remark }}</h2>
+                    </article>
+                {% endfor %}
+            {% else %}
+                <article class="alert alert-info rounded-5 p-3 my-3">
+                    <h2>Aucun cours suivi et aucun résultat enregistré.</h2>
+                </article>
+            {% endif %}
         </div>
-    </section>
-    <section class="col-12" id="courses_details">
-        <h2 class="text-center text-uppercase fs-1 my-3">Remarques</h2>
-        <article class="alert alert-danger rounded-5 p-3 my-3">
-            <h2></h2>
-        </article>
-        <?php endforeach; ?>
-        <?php else : ?>
-        <article class="alert alert-info rounded-5 p-3 my-3">
-            <h2>Aucun_cours_suivis : -- / 20</h2>
-        </article>
-        <?php endif; ?>
     </section>
     <section class="col-12 alert alert-warning">
         <h2 class="fs-1 text-center text-uppercase my-3">Contactez la secrétaire</h2>
