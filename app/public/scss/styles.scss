@@ -36,11 +36,19 @@ body {
             bottom: 30px; /* Distance du bas de la fenêtre */
             right: 30px; /* Distance du bord droit */
         }
-        #team{
-            img{
+
+        #team {
+            img {
                 width: 100px;
                 border-radius: 50%;
                 object-fit: cover;
+            }
+        }
+
+        form[name = 'contacts_form'] {
+            .invalid-feedback{
+                color: red;
+                display: none;
             }
         }
     }
@@ -67,14 +75,16 @@ body {
         header {
             width: 80%;
             margin: auto;
+
             nav {
                 #navbar {
                     display: none !important; /* Masquer la barre de navigation */
                 }
             }
         }
+
         main {
-            #about{
+            #about {
                 /* Rien à faire pour l'instant */
             }
         }

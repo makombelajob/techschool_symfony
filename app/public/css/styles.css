@@ -32,6 +32,10 @@ body main #team img {
   border-radius: 50%;
   object-fit: cover;
 }
+body main form[name=contacts_form] .invalid-feedback {
+  color: red;
+  display: none;
+}
 
 /* Mise en page adaptative pour les écrans de taille moyenne (tablettes et plus) */
 @media (min-width: 768px) {

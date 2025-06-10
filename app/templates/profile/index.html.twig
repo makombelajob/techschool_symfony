@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ app.user.firstname }}{% endblock %}
+{% block title %}
+	{{ app.user.firstname }}
+	{{ app.user.lastname}}
+{% endblock %}
+
 
 {% block body %}
     <section class="col-12" id="students_infos">

@@ -333,14 +333,26 @@
             <div class="mb-3 fs-2">
                 {{ form_row(formContact.email) }}
             </div>
+            <div class="invalid-feedback">
+                L'email n'est pas valide
+            </div>
             <div class="mb-3 fs-2">
                 {{ form_row(formContact.subject) }}
+            </div>
+            <div class="invalid-feedback">
+                Le sujet n'est pas valide
             </div>
             <div class="mb-3 fs-2">
                 {{ form_row(formContact.message) }}
             </div>
+            <div class="invalid-feedback">
+                Le message n'est pas valide
+            </div>
             <div class="mb-3">
                 {{ form_row(formContact.gpdr) }}
+            </div>
+            <div class="invalid-feedback">
+                Veuillez cochez cette case
             </div>
             <div class="my-3 text-center">
                 {{ form_row(formContact.Envoyer) }}

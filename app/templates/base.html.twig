@@ -17,12 +17,16 @@
         {# {% block importmap %}{{ importmap('app') }}{% endblock %} #}
     {% endblock %}
     <script src="{{ asset('js/scripts.js') }}" defer></script>
+    <script src="{{ asset('js/modules/formVerification.js') }}" defer></script>
 </head>
 <body>
 {% include '_partials/_header.html.twig' %}
 <main class="container">
     {% if app.user %}
-        <div class="mb-3">
+        <div class="mb-3 d-flex justify-content-between">
+            {% if app.request.attributes.get('_route') != 'app_profile' %}
+                <a class="btn btn-secondary" href="{{ path('app_profile') }}">Account</a>
+            {% endif %}
             <a class="btn btn-danger" href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
