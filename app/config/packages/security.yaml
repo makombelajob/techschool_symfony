@@ -20,6 +20,7 @@ security:
                 login_path: app_login
                 check_path: app_login
                 enable_csrf: true
+                # Cette ligne fait appel à la classe cherger de rediriger selon le role
                 default_target_path: /redirect-after-login
                 always_use_default_target_path: true
             logout:
@@ -38,6 +39,7 @@ security:
     access_control:
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/teacher, roles: ROLE_TEACHER }
 
 when@test:
     security:

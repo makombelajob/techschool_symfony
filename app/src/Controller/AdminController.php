@@ -23,4 +23,11 @@ final class AdminController extends AbstractController
         $contacts = $contactsRepository->findAll();
         return $this->render('admin/index.html.twig', compact('users', 'classes', 'subjects', 'contacts'));
     }
+
+    #[Route('/admin', name: 'app_admin_add_content')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function addContent(): Response
+    {
+        return $this->render('admin/add.html.twig');
+    }
 }
