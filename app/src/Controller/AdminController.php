@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Classes;
+use App\Form\ClassesForm;
 use App\Repository\ClassesRepository;
 use App\Repository\ContactsRepository;
 use App\Repository\SubjectsRepository;
@@ -24,10 +26,12 @@ final class AdminController extends AbstractController
         return $this->render('admin/index.html.twig', compact('users', 'classes', 'subjects', 'contacts'));
     }
 
-    #[Route('/admin', name: 'app_admin_add_content')]
+    #[Route('/admin/affectation', name: 'app_admin_affectation')]
     #[IsGranted('ROLE_ADMIN')]
     public function addContent(): Response
     {
-        return $this->render('admin/add.html.twig');
+        $affectation = new Classes();
+        $form = $this->createForm(ClassesForm::class, $affectation);
+        return $this->render('admin/affectation.html.twig', compact('form'));
     }
 }

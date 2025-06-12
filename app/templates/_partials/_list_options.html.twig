@@ -1,9 +1,26 @@
 <div class="container-fluid">
     <ul class="list-unstyled d-flex gap-4 align-items-center m-0">
-        <li><a class="text-decoration-none fs-3" href="{{ path('app_main') }}">Accueil</a></li>
-        <li><a class="text-decoration-none fs-3" href="{{ path('app_about') }}">Apropos</a></li>
-        <li><a class="text-decoration-none fs-3" href="{{ path('app_register') }}">Signup</a></li>
-        <li><a class="text-decoration-none fs-3" href="{{ path('app_login') }}">Login</a></li>
-        <li><a class="text-decoration-none fs-3" href="{{ path('app_main') }}#contact">Contact</a></li>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <a class="text-decoration-none fs-3 text-black" href="{{ path('app_admin') }}">Admin_dashboard</a>
+            <a class="text-decoration-none fs-3 text-black" href="">Ajouter d'horaires</a>
+            <a class="text-decoration-none fs-3 text-black" href="{{ path('app_admin_affectation') }}">Affectation</a>
+            <a class="text-decoration-none fs-3 text-black" href="">Edit Roles</a>
+        {% elseif is_granted('ROLE_TEACHER') %}
+            <a class="text-decoration-none fs-3 text-black" href="{{ path('app_teacher') }}">Accueil</a>
+            <a class="text-decoration-none fs-3 text-black" href="{{ path('app_teacher_add_course') }}">Ajouter un cours</a>
+            <a class="text-decoration-none fs-3 text-black" href="">Notes</a>
+        {% elseif is_granted('ROLE_USER') %}
+            <a class="text-decoration-none fs-3 text-black" href="">Tous les cours</a>
+            <a class="text-decoration-none fs-3 text-black" href="">Horaires</a>
+            <a class="text-decoration-none fs-3 text-black" href="{{ path('app_profile') }}#contact">Contact_Admin</a>
+        {% endif %}
+        {% else %}
+            <li><a class="text-decoration-none fs-3 text-black" href="{{ path('app_main') }}">Accueil</a></li>
+            <li><a class="text-decoration-none fs-3 text-black" href="{{ path('app_about') }}">Apropos</a></li>
+            <li><a class="text-decoration-none fs-3 text-black" href="{{ path('app_register') }}">Signup</a></li>
+            <li><a class="text-decoration-none fs-3 text-black" href="{{ path('app_login') }}">Login</a></li>
+            <li><a class="text-decoration-none fs-3 text-black" href="{{ path('app_main') }}#contact">Contact</a></li>
+        {% endif %}
     </ul>
 </div>

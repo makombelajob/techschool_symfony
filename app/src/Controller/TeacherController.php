@@ -15,10 +15,18 @@ final class TeacherController extends AbstractController
 {
     #[Route('/teacher', name: 'app_teacher')]
     #[IsGranted('ROLE_TEACHER')]
-    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    public function index(): Response
+    {
+        return $this->render('teacher/index.html.twig', []);
+    }
+
+
+    #[Route('/teacher/addCourse', name: 'app_teacher_add_course')]
+    #[IsGranted('ROLE_TEACHER')]
+    public function add(Request $request, EntityManagerInterface $entityManager): Response
     {
         $cours = new Courses();
         $form = $this->createForm(CoursesForm::class, $cours);
-        return $this->render('teacher/index.html.twig', compact('form'));
+        return $this->render('teacher/affectation.html.twig', compact('form'));
     }
 }

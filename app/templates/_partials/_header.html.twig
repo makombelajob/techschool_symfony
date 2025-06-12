@@ -1,5 +1,5 @@
 <header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg">
         <!-- Début de la barre de navigation -->
 
         <div class="container-fluid">
@@ -24,11 +24,30 @@
                  id="navbar">
 
                 <div class="navbar-nav text-center">
-                    <a class="nav-link active" aria-current="page" href="{{ path('app_main') }}">Accueil</a>
-                    <a class="nav-link" href="{{ path('app_about') }}">Apropos</a>
-                    <a class="nav-link" href="{{ path('app_register') }}">Signup</a>
-                    <a class="nav-link" href="{{ path('app_login' ) }}">Login</a>
-                    <a class="nav-link" href="{{ path('app_main') }}#contact">Contact</a>
+
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a class="nav-link" href="{{ path('app_admin') }}">Admin_dashboard</a>
+                            <a class="nav-link" href="">Ajouter d'horaires</a>
+                            <a class="nav-link" href="{{ path('app_admin_affectation') }}">Affectation</a>
+                            <a class="nav-link" href="">Edit Roles</a>
+                        {% elseif is_granted('ROLE_TEACHER') %}
+                            <a class="nav-link" href="{{ path('app_teacher') }}">Accueil</a>
+                            <a class="nav-link" href="{{ path('app_teacher_add_course') }}">Ajouter un cours</a>
+                            <a class="nav-link" href="">Notes</a>
+                        {% elseif is_granted('ROLE_USER') %}
+                            <a class="nav-link" href="">Tous les cours</a>
+                            <a class="nav-link" href="">Horaires</a>
+                            <a class="nav-link" href="{{ path('app_main') }}#contact">Contact_Admin</a>
+                        {% endif %}
+                    {% else %}
+                        <a class="nav-link active" aria-current="page" href="{{ path('app_main') }}">Accueil</a>
+                        <a class="nav-link" href="{{ path('app_about') }}">Apropos</a>
+                        <a class="nav-link" href="{{ path('app_register') }}">Signup</a>
+                        <a class="nav-link" href="{{ path('app_login' ) }}">Login</a>
+                        <a class="nav-link" href="{{ path('app_main') }}#contact">Contact</a>
+                    {% endif %}
+
 
                 </div>
                 <button type="button" class="btn-close position-absolute top-0" aria-label="Close"

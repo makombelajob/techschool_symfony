@@ -2,10 +2,25 @@
 :root {
     font-size: 15px;
 }
-
+$none : none;
 body {
+    font-family: "Open Sans", sans-serif;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5
+    {
+        font-family: "Ubuntu Sans", sans-serif;
+    }
     header {
+        margin-inline: 0.5rem;
+
         nav {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+            border: 1px solid lightskyblue;
+            border-radius: 0 0 0.5rem 0.5rem;
+            background-color: rgba(96, 165, 250, 0.95) !important;
             /* Style du logo ou image dans la navigation */
             img {
                 width: 50px; /* Largeur fixée */
@@ -15,6 +30,7 @@ body {
             #navbar {
                 background-color: rgb(59, 130, 246) !important; /* Couleur de fond forcée */
                 top: 30px; /* Position depuis le haut */
+                border-radius: 0.5rem 0.5rem;
 
                 button {
                     margin-top: 0.7rem !important; /* Marge supérieure forcée pour le bouton */
@@ -24,6 +40,10 @@ body {
     }
 
     main {
+        #a-propos {
+            // En cas de personnalisation
+        }
+
         #partners {
             img {
                 width: 60px; /* Largeur fixée pour les logos/avatars partenaires */
@@ -46,9 +66,9 @@ body {
         }
 
         form[name = 'contacts_form'] {
-            .invalid-feedback{
+            .invalid-feedback {
                 color: red;
-                display: none;
+                display: $none;
             }
         }
     }
@@ -73,12 +93,12 @@ body {
 @media(min-width: 1024px) {
     body {
         header {
-            width: 80%;
+            width: 90%;
             margin: auto;
 
             nav {
                 #navbar {
-                    display: none !important; /* Masquer la barre de navigation */
+                    display: $none !important; /* Masquer la barre de navigation */
                 }
             }
         }

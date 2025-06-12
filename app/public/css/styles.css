@@ -4,7 +4,24 @@
   font-size: 15px;
 }
 
+body {
+  font-family: "Open Sans", sans-serif;
+}
+body h1,
+body h2,
+body h3,
+body h4,
+body h5 {
+  font-family: "Ubuntu Sans", sans-serif;
+}
+body header {
+  margin-inline: 0.5rem;
+}
 body header nav {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19);
+  border: 1px solid lightskyblue;
+  border-radius: 0 0 0.5rem 0.5rem;
+  background-color: rgba(96, 165, 250, 0.95) !important;
   /* Style du logo ou image dans la navigation */
 }
 body header nav img {
@@ -14,6 +31,7 @@ body header nav img {
 body header nav #navbar {
   background-color: rgb(59, 130, 246) !important; /* Couleur de fond forcée */
   top: 30px; /* Position depuis le haut */
+  border-radius: 0.5rem 0.5rem;
 }
 body header nav #navbar button {
   margin-top: 0.7rem !important; /* Marge supérieure forcée pour le bouton */
@@ -50,7 +68,7 @@ body main form[name=contacts_form] .invalid-feedback {
 /* Cacher la barre de navigation pour les grands écrans (≥ 1024px) */
 @media (min-width: 1024px) {
   body header {
-    width: 80%;
+    width: 90%;
     margin: auto;
   }
   body header nav #navbar {
