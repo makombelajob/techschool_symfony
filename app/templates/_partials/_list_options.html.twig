@@ -4,12 +4,11 @@
         {% if is_granted('ROLE_ADMIN') %}
             <a class="text-decoration-none fs-3 text-black" href="{{ path('app_admin') }}">Admin_dashboard</a>
             <a class="text-decoration-none fs-3 text-black" href="">Ajouter d'horaires</a>
-            <a class="text-decoration-none fs-3 text-black" href="{{ path('app_admin_affectation') }}">Affectation</a>
             <a class="text-decoration-none fs-3 text-black" href="">Edit Roles</a>
         {% elseif is_granted('ROLE_TEACHER') %}
             <a class="text-decoration-none fs-3 text-black" href="{{ path('app_teacher') }}">Accueil</a>
             <a class="text-decoration-none fs-3 text-black" href="{{ path('app_teacher_add_course') }}">Ajouter un cours</a>
-            <a class="text-decoration-none fs-3 text-black" href="">Notes</a>
+            <a class="text-decoration-none fs-3 text-black" href="{{ path('app_teacher_notes') }}">Notes</a>
         {% elseif is_granted('ROLE_USER') %}
             <a class="text-decoration-none fs-3 text-black" href="">Tous les cours</a>
             <a class="text-decoration-none fs-3 text-black" href="">Horaires</a>

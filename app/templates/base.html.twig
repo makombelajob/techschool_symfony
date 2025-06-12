@@ -26,25 +26,26 @@
 <body>
 {% include '_partials/_header.html.twig' %}
 <main class="container">
-    {% if app.user %}
-        <div class="mb-3 d-flex justify-content-between mt-3 alert alert-primary">
-            {% set route = '' %}
-            {% if is_granted('ROLE_ADMIN') %}
-                {% set route = 'app_admin' %}
-            {% elseif is_granted('ROLE_TEACHER') %}
-                {% set route = 'app_teacher' %}
-            {% else %}
-                {% set route = 'app_profile' %}
-            {% endif %}
-            {% if app.request.attributes.get('_route') != route %}
-                <a class="btn btn-secondary" href="{{ path(route) }}">Account</a>
-            {% endif %}
-            <div class="">
-                <a class="btn btn-danger" href="{{ path('app_logout') }}">Logout</a>
+    <div class="row">
+        {% if app.user %}
+            <div class="col-11 col-md-11 m-auto mb-3 d-flex justify-content-between mt-3 alert alert-primary">
+                {% set route = '' %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    {% set route = 'app_admin' %}
+                {% elseif is_granted('ROLE_TEACHER') %}
+                    {% set route = 'app_teacher' %}
+                {% else %}
+                    {% set route = 'app_profile' %}
+                {% endif %}
+                {% if app.request.attributes.get('_route') != route %}
+                    <a class="btn btn-secondary" href="{{ path(route) }}">Account</a>
+                {% endif %}
+                <div class="">
+                    <a class="btn btn-danger" href="{{ path('app_logout') }}">Logout</a>
+                </div>
             </div>
-
-        </div>
-    {% endif %}
+        {% endif %}
+    </div>
     {% block body %}{% endblock %}
     {# Bouton pour remonter en haut de page #}
     {% include '_partials/_up_button.html.twig' %}

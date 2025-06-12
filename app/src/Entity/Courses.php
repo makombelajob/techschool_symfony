@@ -64,6 +64,8 @@ class Courses
         $this->ressources = new ArrayCollection();
         $this->results = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->startedAt = new \DateTimeImmutable();
+        $this->endAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

@@ -9,11 +9,26 @@
         </div>
         <div class="col-12">
             {% for user in users %}
+                {% if user.courses is empty %}
+                    <article class="alert alert-warning">
+                        <h2>{{ user.lastname }} {{ user.firstname }}</h2>
+                        <p>n'est affecté à aucun cours pour le moment.</p>
+                        <div class="d-flex justify-content-between mt-3">
+                        <a class="btn btn-primary" href="{{ path('app_admin_affectation', {id:user.id}) }}" >affecter</a>
+                        <a class="btn btn-danger" href="{{ path('app_admin_role_edit', {id:user.id}) }}" >EditRole</a>
+                    </div>
+                    </article>
+                {% else %}
                 <article class="alert alert-danger">
                     <h2>{{ user.lastname }} {{ user.firstname }}</h2>
                     <p>{{ user.email }}</p>
                     <time>{{ user.registerAt | date }}</time>
+                    <div class="d-flex justify-content-between mt-3">
+                        <a class="btn btn-primary" href="{{ path('app_admin_affectation', {id:user.id}) }}" >affecter</a>
+                        <a class="btn btn-danger" href="{{ path('app_admin_role_edit', {id:user.id}) }}" >EditRole</a>
+                    </div>
                 </article>
+                {% endif %}
             {% endfor %}
         </div>
     </section>
@@ -53,6 +68,7 @@
                     <p>{{ contact.subject }}</p>
                     <p>{{ contact.message }}</p>
                     <p>{{ contact.sendAt | date }}</p>
+                    
                 </article>
             {% endfor %}
         </div>

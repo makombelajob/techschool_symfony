@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace enseignant{% endblock %}
+
+{% block body %}
+
+    <section class="row">
+        <div class="col-11 col-md-11 m-auto alert alert-secondary">
+            <div class="my-3 text-center">
+                <h1 class="fs-1 text-uppercase text-primary">Notes par élèves</h1>
+            </div>
+            <div>
+                {{ form_start(form) }}
+                <div class="fs-2 my-3">
+                    {{ form_row(form.note) }}
+                </div>
+                <div class="fs-2 my-3">
+                    {{ form_row(form.monthly) }}
+                </div>
+                <div class="fs-2 my-3">
+                    {{ form_row(form.yearly) }}
+                </div>
+                <div class="fs-2 my-3">
+                    {{ form_row(form.remark ) }}
+                </div>
+                <div class="fs-2 my-3">
+                    {{ form_row(form.courses ) }}
+                </div>
+                <div class="fs-2 my-3">
+                    {{ form_row(form.users) }}
+                </div>
+                <div class="text-center my-3">
+                    {{ form_row(form.ajouter) }}
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </section>
+{% endblock %}

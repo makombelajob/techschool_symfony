@@ -57,6 +57,10 @@ body main form[name=contacts_form] .invalid-feedback {
 
 /* Mise en page adaptative pour les écrans de taille moyenne (tablettes et plus) */
 @media (min-width: 768px) {
+  body header {
+    /*width: 90%;
+    margin: auto;*/
+  }
   body main .main-activity,
   body main .partners,
   body main .team {

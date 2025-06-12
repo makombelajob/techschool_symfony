@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Courses;
+use App\Entity\Results;
 use App\Form\CoursesForm;
+use App\Form\ResultsForm;
+use App\Repository\UsersRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,18 +18,40 @@ final class TeacherController extends AbstractController
 {
     #[Route('/teacher', name: 'app_teacher')]
     #[IsGranted('ROLE_TEACHER')]
-    public function index(): Response
+    public function index(UsersRepository $usersRepository): Response
     {
-        return $this->render('teacher/index.html.twig', []);
+        $students = $usersRepository->findAll();
+        return $this->render('teacher/index.html.twig', ['students' => $students]);
     }
 
 
-    #[Route('/teacher/addCourse', name: 'app_teacher_add_course')]
+    #[Route('/teacher/ajouter-cours', name: 'app_teacher_add_course')]
     #[IsGranted('ROLE_TEACHER')]
     public function add(Request $request, EntityManagerInterface $entityManager): Response
     {
         $cours = new Courses();
         $form = $this->createForm(CoursesForm::class, $cours);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($cours);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_teacher');
+        }
         return $this->render('teacher/affectation.html.twig', compact('form'));
+    }
+
+    #[Route('/teacher/notes', name: 'app_teacher_notes')]
+    #[IsGranted('ROLE_TEACHER')]
+    public function notes(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $note = new Results();
+        $form = $this->createForm(ResultsForm::class, $note);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($note);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_teacher_notes');
+        }
+        return $this->render('teacher/notes.html.twig', compact('form'));
     }
 }

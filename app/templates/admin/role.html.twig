@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TeacherController!
+{% endblock %}
+
+{% block body %}
+
+	<section class="row">
+		<div class="col-11 col-md-11 m-auto alert alert-secondary">
+			<div class="my-3 text-center">
+				<h1 class="fs-1 text-uppercase text-primary">Role</h1>
+			</div>
+			<div>
+				{{ form_start(form) }}
+				<div class="fs-2 my-3">
+					{{ form_row(form.email) }}
+				</div>
+				<div class="fs-2 my-3">
+					{{ form_row(form.roles) }}
+				</div>
+				<div class="fs-2 my-3">
+					{{ form_row(form.lastname) }}
+				</div>
+				<div class="fs-2 my-3">
+					{{ form_row(form.firstname ) }}
+				</div>
+				<div class="fs-2 my-3">
+					{{ form_row(form.registerAt ) }}
+				</div>
+				<div class="fs-2 my-3">
+					{{ form_row(form.lastlogin) }}
+				</div>
+				<div class="fs-3 my-3">
+					{{ form_row(form.password) }}
+				</div>
+				<div class="fs-3 my-3">
+					{{ form_row(form.courses) }}
+				</div>
+				<div class="fs-4 my-3">
+					{{ form_row(form.classes) }}
+				</div>
+				<div class="text-center my-3">
+					{{ form_row(form.changer) }}
+				</div>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</section>
+{% endblock %}
+

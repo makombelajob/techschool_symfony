@@ -4,11 +4,27 @@
 
 {% block body %}
 
-<section class="row">
-    <h1>Hello</h1>
-
-    <div>
-        {{ form(form) }}
-    </div>
-</section>
+    <section class="row">
+        <div class="col-11 col-md-11 m-auto alert alert-success">
+            <div class="my-3 text-center">
+                <h1 class="fs-1 text-uppercase text-primary">Affections des classes</h1>
+            </div>
+            <div>
+                {{ form_start(form) }}
+                <div class="fs-2 my-3">
+                    {{ form_row(form.name) }}
+                </div>
+                <div class="fs-2 my-3">
+                    {{ form_row(form.level) }}
+                </div>
+                <div class="fs-2 my-3">
+                    {{ form_row(form.users) }}
+                </div>
+                <div class="text-center my-2 fs-1">
+                    {{ form_row(form.affecter) }}
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </section>
 {% endblock %}
