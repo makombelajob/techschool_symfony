@@ -70,6 +70,14 @@ body {
                 display: $none;
             }
         }
+        #admin_dashboard,
+        #all_classes,
+        #all_subjects{
+            display: flex;
+            justify-content: space-between;
+            gap: 0.2rem;
+            flex-wrap: wrap;
+        }
     }
 }
 

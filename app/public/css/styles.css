@@ -54,6 +54,14 @@ body main form[name=contacts_form] .invalid-feedback {
   color: red;
   display: none;
 }
+body main #admin_dashboard,
+body main #all_classes,
+body main #all_subjects {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.2rem;
+  flex-wrap: wrap;
+}
 
 /* Mise en page adaptative pour les écrans de taille moyenne (tablettes et plus) */
 @media (min-width: 768px) {
