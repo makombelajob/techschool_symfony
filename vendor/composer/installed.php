@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'a29b5b8241de095751e14f538562b82c319ff065',
+        'reference' => 'd386de42abb6d6f2df3689d3858629d5a8f52466',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'a29b5b8241de095751e14f538562b82c319ff065',
+            'reference' => 'd386de42abb6d6f2df3689d3858629d5a8f52466',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -158,10 +158,10 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../psr/container',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'psr/container-implementation' => array(
-            'dev_requirement' => true,
+            'dev_requirement' => false,
             'provided' => array(
                 0 => '1.1|2.0',
             ),
@@ -173,10 +173,10 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../psr/event-dispatcher',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'psr/event-dispatcher-implementation' => array(
-            'dev_requirement' => true,
+            'dev_requirement' => false,
             'provided' => array(
                 0 => '1.0',
             ),
@@ -188,10 +188,10 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../psr/log',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'psr/log-implementation' => array(
-            'dev_requirement' => true,
+            'dev_requirement' => false,
             'provided' => array(
                 0 => '1.0|2.0|3.0',
             ),
@@ -201,6 +201,15 @@
             'provided' => array(
                 0 => '1.0|2.0|3.0',
             ),
+        ),
+        'symfony/asset' => array(
+            'pretty_version' => 'v7.3.0',
+            'version' => '7.3.0.0',
+            'reference' => '56c4d9f759247c4e07d8549e3baf7493cb9c3e4b',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/asset',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'symfony/cache' => array(
             'pretty_version' => 'v7.3.0',
@@ -233,7 +242,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/config',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/console' => array(
             'pretty_version' => 'v7.3.0',
@@ -251,7 +260,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/dependency-injection',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/deprecation-contracts' => array(
             'pretty_version' => 'v3.6.0',
@@ -260,7 +269,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/deprecation-contracts',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/doctrine-bridge' => array(
             'pretty_version' => 'v7.3.0',
@@ -278,7 +287,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/error-handler',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/event-dispatcher' => array(
             'pretty_version' => 'v7.3.0',
@@ -287,7 +296,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/event-dispatcher',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/event-dispatcher-contracts' => array(
             'pretty_version' => 'v3.6.0',
@@ -296,10 +305,10 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/event-dispatcher-contracts',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/event-dispatcher-implementation' => array(
-            'dev_requirement' => true,
+            'dev_requirement' => false,
             'provided' => array(
                 0 => '2.0|3.0',
             ),
@@ -311,7 +320,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/filesystem',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/finder' => array(
             'pretty_version' => 'v7.3.0',
@@ -338,7 +347,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/http-foundation',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/http-kernel' => array(
             'pretty_version' => 'v7.3.0',
@@ -347,7 +356,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/http-kernel',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/polyfill-ctype' => array(
             'pretty_version' => 'v1.32.0',
@@ -356,7 +365,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/polyfill-ctype',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/polyfill-intl-grapheme' => array(
             'pretty_version' => 'v1.32.0',
@@ -383,7 +392,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/polyfill-mbstring',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/polyfill-php83' => array(
             'pretty_version' => 'v1.32.0',
@@ -392,7 +401,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/polyfill-php83',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/polyfill-php84' => array(
             'pretty_version' => 'v1.32.0',
@@ -419,10 +428,10 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/service-contracts',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/service-implementation' => array(
-            'dev_requirement' => true,
+            'dev_requirement' => false,
             'provided' => array(
                 0 => '1.1|2.0|3.0',
             ),
@@ -443,7 +452,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/var-dumper',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
         ),
         'symfony/var-exporter' => array(
             'pretty_version' => 'v7.3.0',
@@ -452,7 +461,16 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/var-exporter',
             'aliases' => array(),
-            'dev_requirement' => true,
+            'dev_requirement' => false,
+        ),
+        'symfony/webpack-encore-bundle' => array(
+            'pretty_version' => 'v2.2.0',
+            'version' => '2.2.0.0',
+            'reference' => 'e335394b68a775a9b2bd173a8ba4fd2001f3870c',
+            'type' => 'symfony-bundle',
+            'install_path' => __DIR__ . '/../symfony/webpack-encore-bundle',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
     ),
 );

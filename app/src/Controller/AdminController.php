@@ -51,4 +51,10 @@ final class AdminController extends AbstractController
         }
         return $this->render('admin/role.html.twig', compact('form'));
     }
+
+    #[Route('/admin/horaires', name: 'app_admin_timer')]
+    public function horaires(): Response
+    {
+        return $this->render('admin/timer.html.twig');
+    }
 }
