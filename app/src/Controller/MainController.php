@@ -21,6 +21,8 @@ final class MainController extends AbstractController
         if($formContact->isSubmitted() && $formContact->isValid()){
             $entityManager->persist($contact);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Votre message a bien été envoyé');
             return $this->redirectToRoute('app_main');
         }
         return $this->render('main/index.html.twig', compact('formContact'));

@@ -29,7 +29,7 @@
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             {% if is_granted('ROLE_ADMIN') %}
                                 <a class="nav-link" href="{{ path('app_admin') }}">Admin_dashboard</a>
-                                <a class="nav-link" href="{{ path('app_admin_timer') }}">Ajouter d'horaires</a>
+                                <a class="nav-link" href="{{ path('app_admin_timer') }}">Ajout d'horaires</a>
                             {% elseif is_granted('ROLE_TEACHER') %}
                                 <a class="nav-link" href="{{ path('app_teacher') }}">Accueil</a>
                                 <a class="nav-link" href="{{ path('app_teacher_add_course') }}">Ajouter un cours</a>

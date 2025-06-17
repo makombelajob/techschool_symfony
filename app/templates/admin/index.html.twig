@@ -15,8 +15,7 @@
                             <h2>{{ user.lastname }} {{ user.firstname }}</h2>
                             <p>n'est affecté à aucun cours pour le moment.</p>
                             <div class="d-flex justify-content-between mt-3">
-                                <a class="btn btn-primary" href="{{ path('app_admin_affectation', {id:user.id}) }}">affecter</a>
-                                <a class="btn btn-danger" href="{{ path('app_admin_role_edit', {id:user.id}) }}">EditRole</a>
+                                <a class="btn btn-danger" href="{{ path('app_admin_gerer', {id:user.id}) }}">Gerer</a>
                             </div>
                         </article>
                     {% else %}
@@ -25,8 +24,7 @@
                             <p>{{ user.email }}</p>
                             <time>{{ user.registerAt | date }}</time>
                             <div class="d-flex justify-content-between mt-3">
-                                <a class="btn btn-primary" href="{{ path('app_admin_affectation', {id:user.id}) }}">affecter</a>
-                                <a class="btn btn-danger" href="{{ path('app_admin_role_edit', {id:user.id}) }}">EditRole</a>
+                                <a class="btn btn-danger" href="{{ path('app_admin_gerer', {id:user.id}) }}">Gerer</a>
                             </div>
                         </article>
                     {% endif %}
@@ -63,14 +61,22 @@
         <div class="col-12 text-center">
             <h1 class="fs-1 text-black fw-bolder">Les messages</h1>
         </div>
-        <div class="col-12">
+        <div class="col-11 m-auto">
             {% for contact in contacts %}
-                <article class="alert alert-success">
-                    <h2>{{ contact.email }}</h2>
-                    <p>{{ contact.subject }}</p>
-                    <p>{{ contact.message }}</p>
-                    <p>{{ contact.sendAt | date }}</p>
-
+                <article class="alert alert-success d-flex justify-content-between">
+                    <div>
+                        <h2>{{ contact.email }}</h2>
+                        <p>{{ contact.subject }}</p>
+                        <p>{{ contact.message }}</p>
+                        <p>{{ contact.sendAt | date }}</p>
+                    </div>
+                    <div>
+                        <a href="{{ path('app_admin_delete_message', {id:contact.id}) }}">
+                            <svg class="py-3" width="70" height="70">
+                            <use href="{{ asset('images/sprites.svg') }}#delete"></use>
+                        </svg>
+                        </a>
+                    </div>
                 </article>
             {% endfor %}
         </div>

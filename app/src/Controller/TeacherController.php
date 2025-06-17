@@ -17,18 +17,18 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 final class TeacherController extends AbstractController
 {
     #[Route('/teacher', name: 'app_teacher')]
-    #[IsGranted('ROLE_TEACHER')]
     public function index(UsersRepository $usersRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_TEACHER');
         $students = $usersRepository->findAll();
         return $this->render('teacher/index.html.twig', ['students' => $students]);
     }
 
 
     #[Route('/teacher/ajouter-cours', name: 'app_teacher_add_course')]
-    #[IsGranted('ROLE_TEACHER')]
     public function add(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_TEACHER');
         $cours = new Courses();
         $form = $this->createForm(CoursesForm::class, $cours);
         $form->handleRequest($request);
@@ -41,9 +41,9 @@ final class TeacherController extends AbstractController
     }
 
     #[Route('/teacher/notes', name: 'app_teacher_notes')]
-    #[IsGranted('ROLE_TEACHER')]
     public function notes(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_TEACHER');
         $note = new Results();
         $form = $this->createForm(ResultsForm::class, $note);
         $form->handleRequest($request);

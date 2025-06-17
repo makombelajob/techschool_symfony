@@ -20,9 +20,8 @@
     
     {% block javascripts %}
         {# {% block importmap %}{{ importmap('app') }}{% endblock %} #}
+        <script src="{{ asset('js/scripts.js') }}" defer></script>
     {% endblock %}
-    <script src="{{ asset('js/scripts.js') }}" defer></script>
-    <script src="{{ asset('js/modules/formVerification.js') }}" defer></script>
 </head>
 <body>
 {% include '_partials/_header.html.twig' %}

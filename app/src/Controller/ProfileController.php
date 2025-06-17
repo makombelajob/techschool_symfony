@@ -14,9 +14,9 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 final class ProfileController extends AbstractController
 {
     #[Route('/profile', name: 'app_profile')]
-    #[IsGranted('ROLE_USER')]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $contact = new Contacts();
         $studentMessage = $this->createForm(StudentsContactForm::class, $contact);
         return $this->render('profile/index.html.twig', compact('studentMessage'));

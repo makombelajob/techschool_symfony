@@ -45,7 +45,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private ?\DateTimeImmutable $registerAt = null;
 
     #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $lastlogin = null;
+    private ?\DateTimeImmutable $lastLogin = null;
 
     /**
      * @var Collection<int, Courses>
@@ -184,12 +184,12 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getLastlogin(): ?\DateTimeImmutable
     {
-        return $this->lastlogin;
+        return $this->lastLogin;
     }
 
-    public function setLastlogin(?\DateTimeImmutable $lastlogin): static
+    public function setLastlogin(?\DateTimeImmutable $lastLogin): static
     {
-        $this->lastlogin = $lastlogin;
+        $this->lastLogin = $lastLogin;
 
         return $this;
     }

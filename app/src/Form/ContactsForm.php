@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Contacts;
+use PHPUnit\Framework\Constraint\IsTrue;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -62,12 +63,17 @@ class ContactsForm extends AbstractType
             ])
             ->add('gpdr', CheckboxType::class, [
                 'label' => 'J\'accpetes les conditions d\'utilisations',
-                'required' => true,
-                'mapped' => false
+                'mapped' => false,
+                /*'constraints' => [
+                    new IsTrue([
+                        'message' => 'Vous devez cochez cette',
+                    ])
+                ]*/
             ])
-            ->add('Envoyer', SubmitType::class, [
+            ->add('envoyer', SubmitType::class, [
                 'attr' => [
                     'class' => 'fs-3 btn btn-primary',
+                    'disabled' => true,
                 ],
             ]);
     }
