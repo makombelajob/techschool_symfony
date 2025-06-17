@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="row">
-        <form method="post" class="alert alert-primary col-11 col-md-12 m-auto">
+        <form method="post" class="alert alert-primary col-11 col-md-12 col-lg-8 m-auto">
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
@@ -37,7 +37,7 @@
                     <label for="_remember_me">Sauvegarder</label>
                 </div>
                 <div class="">
-                    <a href="">Réinitialisation</a>
+                    <a href="{{ path('app_reset_password') }}">Réinitialisation</a>
                 </div>
             </div>
 
