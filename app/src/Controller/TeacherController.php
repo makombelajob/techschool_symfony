@@ -40,7 +40,7 @@ final class TeacherController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('app_teacher');
         }
-        return $this->render('teacher/affectation.html.twig', compact('form'));
+        return $this->render('teacher/ajout-cours.html.twig', compact('form'));
     }
 
     #[Route('/teacher/ajout-document', name: 'app_teacher_add_ressource')]
@@ -55,7 +55,7 @@ final class TeacherController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('app_teacher');
         }
-        return $this->render('teacher/affectation.html.twig', compact('form'));
+        return $this->render('teacher/document.html.twig', compact('form'));
     }
 
 

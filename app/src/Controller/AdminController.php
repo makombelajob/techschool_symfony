@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Contacts;
+use App\Entity\Courses;
 use App\Entity\Subjects;
 use App\Entity\Users;
 use App\Form\UsersForm;
 use App\Form\SubjectsForm;
 use App\Repository\ClassesRepository;
 use App\Repository\ContactsRepository;
+use App\Repository\CoursesRepository;
 use App\Repository\SubjectsRepository;
 use App\Repository\UsersRepository;
 use App\Service\EmailService;
@@ -46,10 +48,26 @@ final class AdminController extends AbstractController
     }
 
     #[Route('/admin/horaires', name: 'app_admin_timer')]
-    public function horaires(): Response
+    public function horaires(CoursesRepository $coursesRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        return $this->render('admin/timer.html.twig');
+        $programs = $coursesRepository->findAll();
+        $events = [];
+        foreach($programs as $program){
+            $events[] = [
+                'id' => $program->getId(),
+                'title' => $program->getName(),
+                'start' => $program->getStartedAt()->format('Y-m-d\TH:i:s'),
+                'end' => $program->getEndAt()->format('Y-m-d\TH:i:s'),
+                'extendedProps' => [
+                    'coefficient' => $program->getCoefficient(),
+                    'day' => $program->getDay(),
+                    'room' => $program->getRoom(),
+                ]
+            ];
+        };
+        $horaire = json_encode($events);
+        return $this->render('admin/calendar.html.twig', compact('horaire'));
     }
 
     #[Route('/admin/effacer-message/{id}', name: 'app_admin_delete_message')]

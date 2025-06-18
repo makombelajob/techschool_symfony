@@ -21,7 +21,7 @@ class Ressources
     #[ORM\Column(length: 10)]
     private ?string $fileType = null;
 
-    #[ORM\Column]
+    #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $uploadedAt = null;
 
     /**
@@ -33,6 +33,7 @@ class Ressources
     public function __construct()
     {
         $this->courses = new ArrayCollection();
+        $this->uploadedAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

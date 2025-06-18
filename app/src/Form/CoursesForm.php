@@ -49,7 +49,7 @@ class CoursesForm extends AbstractType
                 ]
             ])
             ->add('day', ChoiceType::class, [
-                'label' => 'Jour',
+                'label' => 'Jour de la semaine',
                 'placeholder' => 'veuillez choisir un jours',
                 'choices' => [
                     'Lundi' => 'Lundi',
@@ -60,14 +60,14 @@ class CoursesForm extends AbstractType
                 ]
             ])
             ->add('startedAt', DateTimeType::class, [
+                'date_widget' => 'single_text',
                 'label' => 'Début du cours',
-                'widget' => 'single_text',
                 'html5' => true,
                 'with_seconds' => true,
             ])
             ->add('endAt', DateTimeType::class, [
+                'date_widget' => 'single_text',
                 'label' => 'Fin du cours',
-                'widget' => 'single_text',
                 'html5' => true,
                 'with_seconds' => true,
             ])

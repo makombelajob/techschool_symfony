@@ -6,6 +6,7 @@ use App\Entity\Courses;
 use App\Entity\Ressources;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -47,14 +48,13 @@ class RessourcesForm extends AbstractType
                     )
                 ]
             ])
-            ->add('uploadedAt', null, [
-                'widget' => 'single_text',
-            ])
             ->add('courses', EntityType::class, [
                 'class' => Courses::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
                 'multiple' => true,
+                'expanded' => true,
             ])
+            ->add('ajouter', SubmitType::class)
         ;
     }
 

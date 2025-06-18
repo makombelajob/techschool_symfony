@@ -11,6 +11,7 @@ function calendar(){
                 center: 'title',
                 end: 'dayGridMonth,timeGridWeek'
             },
+            events : window.horaires
         });
 
         calendar.render()

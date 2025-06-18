@@ -69,6 +69,7 @@ I poured my heart into this project ❤️, and I'm proud to share it.
    docker compose exec php /bin/bash
    symfony console make:migration
    php bin/console doctrine:fixtures:load // ou symfony console doctrine:fixtures:load
+   http://127.0.0.1:8080
 
 
 
