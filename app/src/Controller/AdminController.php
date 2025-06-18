@@ -2,15 +2,16 @@
 
 namespace App\Controller;
 
-use App\Entity\Classes;
 use App\Entity\Contacts;
+use App\Entity\Subjects;
 use App\Entity\Users;
-use App\Form\ClassesForm;
 use App\Form\UsersForm;
+use App\Form\SubjectsForm;
 use App\Repository\ClassesRepository;
 use App\Repository\ContactsRepository;
 use App\Repository\SubjectsRepository;
 use App\Repository\UsersRepository;
+use App\Service\EmailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,5 +58,41 @@ final class AdminController extends AbstractController
         $entityManager->remove($contact);
         $entityManager->flush();
         return $this->redirectToRoute('app_admin');
+    }
+
+    #[Route('/admin/subject', name: 'app_admin_add_subject')]
+    public function addSubject(Request $request, EntityManagerInterface $entityManager, EmailService $emailService, UsersRepository $usersRepository): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $subject = new Subjects();
+        $form = $this->createForm(SubjectsForm::class, $subject);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($subject);
+            $entityManager->flush();
+
+            // Envoie des mails de notifications aux enseignants
+            $users = $usersRepository->findAll();
+            $teacher = null;
+            foreach($users as $user){
+                if(in_array('ROLE_TEACHER', $user->getRoles())){
+                    $teacher = $user;
+                    break;
+                }
+            }
+            $emailService->send(
+                'admin@tech-school.fr',
+                $teacher->getEmail(),
+                'Ajout d\'une nouvelle matiere',
+                'teacher-notification',
+                [
+                    'nomDeLaMatière' => $form->get('name')->getData(),
+                    'nomDuTeacher' => $teacher->getLastname(),
+                    'prénomDuTeacher' => $teacher->getFirstname()
+                ]
+            );
+            return $this->redirectToRoute('app_teacher');
+        }
+        return $this->render('admin/subject.html.twig', compact('form'));
     }
 }

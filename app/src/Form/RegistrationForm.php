@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -24,6 +25,10 @@ class RegistrationForm extends AbstractType
                 'attr' => [
                     'placeholder' => 'Votre email',
                     'class' => 'fs-3',
+                ],
+                'constraints' => [
+                    new NotBlank(message: 'Veuillez entrer un email'),
+                    new Email(message: 'Veuillez entrer un email valide'),
                 ]
             ])
             ->add('agreeTerms', CheckboxType::class, [
@@ -31,7 +36,7 @@ class RegistrationForm extends AbstractType
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Vous devez accepter les conditions d\'utilisations',
                     ]),
                 ],
             ])
@@ -46,11 +51,11 @@ class RegistrationForm extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Veuillez entrer votre mots de passe',
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Le mots de passe d\'au moins {{ limit }} caractères',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
@@ -61,6 +66,15 @@ class RegistrationForm extends AbstractType
                 'attr' => [
                     'placeholder' => 'Votre nom',
                     'class' => 'fs-3'
+                ],
+                'constraints' => [
+                    new Length(
+                        min: 5,
+                        max: 100,
+                        minMessage: 'Au moins {{ limit }} caractères autorisés',
+                        maxMessage: 'Au plus {{ limit }} caractères autorisés'
+                    ),
+                    new NotBlank(message: 'Veuillez entrer votre nom')
                 ]
             ])
             ->add('firstname', TextType::class, [
@@ -68,6 +82,15 @@ class RegistrationForm extends AbstractType
                 'attr' => [
                     'placeholder' => 'Votre prénom',
                     'class' => 'fs-3'
+                ],
+                'constraints' => [
+                    new NotBlank(message: 'Veuillez entrer votre prénom'),
+                    new Length(
+                        min: 5,
+                        max: 100,
+                        minMessage: 'Au moins {{ limit }} caractères autorisés',
+                        maxMessage: 'Au plus {{ limit }} caractères autorisés'
+                    )
                 ]
             ])
             ->add('Inscription', SubmitType::class, [

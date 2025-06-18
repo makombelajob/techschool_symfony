@@ -9,6 +9,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class StudentsContactForm extends AbstractType
 {
@@ -26,6 +28,9 @@ class StudentsContactForm extends AbstractType
                 'placeholder' => 'Choisissez un sujet',
                 'attr' => [
                     'class' => 'fs-3',
+                ],
+                'constraints' => [
+                    new NotBlank(message: 'Veuillez entrer le sujet'),
                 ]
             ])
             ->add('message', TextareaType::class, [
@@ -35,6 +40,9 @@ class StudentsContactForm extends AbstractType
                     'class' => 'fs-3',
                     'rows' => 10,
                     'cols' => 30,
+                ],
+                'constraints' => [
+                    new NotBlank(message: 'Veuillez écrire votre message')
                 ]
             ])
             ->add('gpdr', CheckboxType::class, [

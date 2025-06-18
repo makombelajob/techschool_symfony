@@ -14,13 +14,25 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UsersForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class, [])
+            ->add('email', EmailType::class, [
+                'constraints' => [
+                    new NotBlank(message: 'Veuiller entrer un email'),
+                    new Email(message: 'Entrer un email valide')
+                ],
+                'attr' => [
+                    'placeholder' => 'Entrer l\'email ici',
+                    'class' => 'fs-4'
+                ]
+            ])
             ->add('roles', ChoiceType::class, [
                 'label' => "Rôle interne",
                 'choices' => [
@@ -31,8 +43,36 @@ class UsersForm extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
             ])
-            ->add('lastname', TextType::class, [])
-            ->add('firstname', TextType::class, [])
+            ->add('lastname', TextType::class, [
+                'constraints' => [
+                    new NotBlank(message: 'Veuillez entrer un nom'),
+                    new Length(
+                        min: 5,
+                        max: 100,
+                        minMessage: 'Au moins {{ limit }} caractères autorisés',
+                        maxMessage: 'Au plus {{ limit }} caractères autorisés',
+                    )
+                ],
+                'attr' => [
+                    'placeholder' => 'Nom',
+                    'class' => 'fs-4'
+                ]
+            ])
+            ->add('firstname', TextType::class, [
+                'constraints' => [
+                    new NotBlank(message: 'Veuillez entrer un prénom'),
+                    new Length(
+                        min: 5,
+                        max: 100,
+                        minMessage: 'Au moins {{ limit }} caractères autorisés',
+                        maxMessage: 'Au plus {{ limit }} caractères autorisés',
+                    )
+                ],
+                'attr' => [
+                    'placeholder' => 'Prénom',
+                    'class' => 'fs-4'
+                ]
+            ])
             ->add('registerAt', null, [
                 'widget' => 'single_text',
             ])
@@ -48,8 +88,7 @@ class UsersForm extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
             ])
-            ->add('changer', SubmitType::class, [])
-        ;
+            ->add('changer', SubmitType::class, []);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

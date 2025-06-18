@@ -16,6 +16,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class CoursesForm extends AbstractType
 {
@@ -27,6 +29,15 @@ class CoursesForm extends AbstractType
                 'attr' => [
                     'placeholder' => 'Nom du cours ici',
                     'class' => 'fs-4',
+                ],
+                'constraints' => [
+                    new Length(
+                        min : 5,
+                        max : 100,
+                        minMessage : 'Au moins {{ limit }} caractères autorisés',
+                        maxMessage : 'Au plus {{ limit }} autorisés',
+                    ),
+                    new NotBlank(message : 'Veuillez entre le nom du cours'),
                 ]
             ])
             ->add('coefficient', ChoiceType::class, [
