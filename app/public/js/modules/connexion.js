@@ -24,7 +24,7 @@ function connexion() {
     const form = document.querySelector("#connexion");
     form.addEventListener("submit", function (e) {
         e.preventDefault();
-        if (emailValid && subjectValid && messageValid && gpdrValid) {
+        if (emailValid) {
             btnSubmit.removeAttribute("disabled");
             form.submit();
         } else {

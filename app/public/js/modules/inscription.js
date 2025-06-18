@@ -66,7 +66,7 @@ function inscription() {
     const form = document.querySelector("#inscription");
     form.addEventListener("submit", function (e) {
         e.preventDefault();
-        if (emailValid && subjectValid && messageValid && gpdrValid) {
+        if (emailValid && lastNameValid && firstNameValid && gpdrValid) {
             btnSubmit.removeAttribute("disabled");
             form.submit();
         } else {
