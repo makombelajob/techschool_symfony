@@ -18,18 +18,18 @@ I poured my heart into this project ❤️, and I'm proud to share it.
     - Contact form with real-time validation
 
 - 👤 User authentication system:
-    - Registration form (`register.php`)
+    - Registration form (`register.html.twig`)
         - Validation: name, email, password, GDPR checkbox
         - Error messages and field retention
-    - Login form (`login.php`)
+    - Login form (`login.html.twig`)
 
 - 📄 Separate pages:
-    - About us (`about.php`)
-    - Registration (`register.php`)
-    - Login (`login.php`)
+    - About us (`about.html.twig`)
+    - Registration (`register.html.twig`)
+    - Login (`login.html.twig`)
 
 - ✨ Fully responsive layout
-- 🔄 PHP includes (`header.php`, `footer.php`) for modular structure
+- 🔄 PHP includes (`header.html.twig`, `footer.html.twig`) for modular structure
 
 ---
 
@@ -44,6 +44,7 @@ I poured my heart into this project ❤️, and I'm proud to share it.
 
 ## 🧰 Technologies Used
 
+- ✅ Symfony (Main Framework)
 - ✅ HTML5 & CSS3
 - ✅ JavaScript (vanilla)
 - ✅ PHP 8.1+
@@ -57,8 +58,17 @@ I poured my heart into this project ❤️, and I'm proud to share it.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/makombelajob/tech-school.git
-   cd tech-school
+   git clone https://github.com/makombelajob/techschool_symfony.git
+   cd techschool_symfony
+   cd app
+   docker compose install
+   composer require --dev orm-fixtures
+   composer require --dev doctrine/doctrine-fixtures-bundle
+   cd ..
    docker compose up
+   docker compose exec php /bin/bash
+   symfony console make:migration
+   php bin/console doctrine:fixtures:load // ou symfony console doctrine:fixtures:load
+
 
 
