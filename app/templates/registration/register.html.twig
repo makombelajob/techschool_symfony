@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Inscription{% endblock %}
-
+{% block javascripts %}
+    <script src="{{ asset('js/modules/inscription.js') }}" defer ></script>
+{% endblock %}
 {% block body %}
     <div class="row">
         <div class="col-11 col-md-12 col-lg-8 m-auto alert alert-success">
@@ -11,9 +13,13 @@
 
             {{ form_errors(registrationForm) }}
 
-            {{ form_start(registrationForm) }}
+            {{ form_start(registrationForm, {'attr' : {'id': 'inscription'}}) }}
             <div class="fs-2">
-                {{ form_row(registrationForm.email) }}
+                {{ form_label(registrationForm.email) }}
+                {{ form_widget(registrationForm.email) }}
+                <div class="invalid-feedback">
+                    L'email doit être valide
+                </div>
             </div>
             <div class="fs-2">
                 {{ form_row(registrationForm.plainPassword, {
@@ -21,10 +27,18 @@
                 }) }}
             </div>
             <div class="fs-2">
-                {{ form_row(registrationForm.lastname) }}
+                {{ form_label(registrationForm.lastname) }}
+                {{ form_widget(registrationForm.lastname) }}
+                <div class="invalid-feedback">
+                    Le nom d'au moins 5 caractères et au plus 100
+                </div>
             </div>
             <div class="fs-2">
-                {{ form_row(registrationForm.firstname) }}
+                {{ form_label(registrationForm.firstname) }}
+                {{ form_widget(registrationForm.firstname) }}
+                <div class="invalid-feedback">
+                    Le prénom d'au moins 5 caractères et au plus 100
+                </div>
             </div>
             <div class="fs-2">
                 {{ form_row(registrationForm.agreeTerms) }}

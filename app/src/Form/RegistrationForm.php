@@ -96,6 +96,7 @@ class RegistrationForm extends AbstractType
             ->add('Inscription', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-success fs-3',
+                    'disabled' => true,
                 ]
             ])
         ;

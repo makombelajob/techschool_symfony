@@ -58,7 +58,9 @@ body main #all_subjects {
   gap: 0.2rem;
   flex-wrap: wrap;
 }
-body main #contactForm .is-invalid ~ .invalid-feedback {
+body main #contactForm .is-invalid ~ .invalid-feedback,
+body main #inscription .is-invalid ~ .invalid-feedback,
+body main #connexion .is-invalid ~ .invalid-feedback {
   display: block;
 }
 

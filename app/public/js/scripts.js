@@ -31,7 +31,7 @@ function formContact() {
     function toutValid() {
         btnSubmit.disabled = !(emailValid && subjectValid && messageValid && gpdrValid);
     }
-    
+
     const email = document.querySelector("#contacts_form_email");
     email.addEventListener("change", function () {
         const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -46,7 +46,7 @@ function formContact() {
         }
         toutValid();
     });
-    
+
     const subject = document.querySelector("#contacts_form_subject");
     subject.addEventListener("change", function () {
         if (subject.value.length < 5 || subject.value.length > 100) {
@@ -60,7 +60,7 @@ function formContact() {
         }
         toutValid();
     });
-    
+
     const message = document.querySelector("#contacts_form_message");
     message.addEventListener("change", function () {
         if (message.value.length <= 5) {
@@ -74,7 +74,7 @@ function formContact() {
         }
         toutValid();
     });
-    
+
     const gpdr = document.querySelector("#contacts_form_gpdr");
     gpdr.addEventListener("change", function () {
         if (!gpdr.checked) {
@@ -88,7 +88,7 @@ function formContact() {
         }
         toutValid();
     });
-    
+
     const form = document.querySelector("#contactForm");
     form.addEventListener("submit", function (e) {
         e.preventDefault();
@@ -104,6 +104,7 @@ function formContact() {
         }
     });
 }
+
 formContact();
 // Appelle la fonction pour activer le carrousel avec l'intervalle défini
 slideInterval();
