@@ -6,6 +6,13 @@
 {% block body %}
 	<div class="row">
 		<div method="post" class="alert alert-primary col-11 col-md-8 m-auto">
+			{% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label == 'error' ? 'danger' : 'label' }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
 			<div class="col-12 text-center">
 				<h1 class="fs-1 text-uppercase fw-semibold">Réinitialiser le mots de passe</h1>
 			</div>

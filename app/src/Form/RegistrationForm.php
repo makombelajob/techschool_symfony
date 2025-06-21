@@ -69,7 +69,7 @@ class RegistrationForm extends AbstractType
                 ],
                 'constraints' => [
                     new Length(
-                        min: 5,
+                        min: 2,
                         max: 100,
                         minMessage: 'Au moins {{ limit }} caractères autorisés',
                         maxMessage: 'Au plus {{ limit }} caractères autorisés'
@@ -86,7 +86,7 @@ class RegistrationForm extends AbstractType
                 'constraints' => [
                     new NotBlank(message: 'Veuillez entrer votre prénom'),
                     new Length(
-                        min: 5,
+                        min: 2,
                         max: 100,
                         minMessage: 'Au moins {{ limit }} caractères autorisés',
                         maxMessage: 'Au plus {{ limit }} caractères autorisés'

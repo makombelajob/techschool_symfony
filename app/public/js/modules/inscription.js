@@ -1,7 +1,11 @@
 function inscription() {
-    let emailValid = lastNameValid = firstNameValid = gpdrValid = false;
+    let emailValid = false;
+    let lastNameValid = false;
+    let firstNameValid = false;
+    let gpdrValid = false;
     const btnSubmit = document.querySelector("#registration_form_Inscription");
-
+    btnSubmit.disabled = true;
+    
     function toutValid() {
         btnSubmit.disabled = !(emailValid && lastNameValid && firstNameValid && gpdrValid);
     }
@@ -23,7 +27,7 @@ function inscription() {
 
     const lastname = document.querySelector("#registration_form_lastname");
     lastname.addEventListener("change", function () {
-        if (lastname.value.length < 5 || lastname.value.length > 100) {
+        if (lastname.value.length < 2 || lastname.value.length > 100) {
             this.classList.add("is-invalid");
             this.classList.remove("is-valid");
             lastNameValid = false;
@@ -37,7 +41,7 @@ function inscription() {
 
     const firstname = document.querySelector("#registration_form_firstname");
     firstname.addEventListener("change", function () {
-        if (firstname.value.length <= 5 || firstname.value.length > 100) {
+        if (firstname.value.length < 2 || firstname.value.length > 100) {
             this.classList.add("is-invalid");
             this.classList.remove("is-valid");
             firstNameValid = false;
@@ -72,8 +76,8 @@ function inscription() {
         } else {
             const evenement = new Event("change");
             email.dispatchEvent(evenement);
-            subject.dispatchEvent(evenement);
-            message.dispatchEvent(evenement);
+            lastname.dispatchEvent(evenement);
+            firstname.dispatchEvent(evenement);
             gpdr.dispatchEvent(evenement);
         }
     });

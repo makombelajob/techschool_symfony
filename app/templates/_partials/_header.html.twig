@@ -11,9 +11,9 @@
                     {% include '_partials/_list_options.html.twig' %}
                 </div>
                 <div>
-                    <button class="btn" id="themes-mode" type="button">
+                    <button class="btn" id="theme-mode" type="button">
                         <svg width="40px" height="40px" fill="yellow">
-                            <use xlink:href="{{ asset('images/sprites.svg') }}#themes-mode"></use>
+                            <use xlink:href="{{ asset('images/sprites.svg') }}#light"></use>
                         </svg>
                     </button>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
@@ -28,16 +28,16 @@
 
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             {% if is_granted('ROLE_ADMIN') %}
-                                <a class="nav-link" href="{{ path('app_admin') }}">Admin_dashboard</a>
-                                <a class="nav-link" href="{{ path('app_admin_timer') }}">Ajout d'horaires</a>
-                                <a class="nav-link" href="{{ path('app_admin_add_subject') }}">Ajouter une matière</a>
+                                <a class="nav-link" href="{{ path('app_admin') }}">Dashboard</a>
+                                <a class="nav-link" href="{{ path('app_admin_timer') }}">Horaires</a>
+                                <a class="nav-link" href="{{ path('app_admin_add_subject') }}">Matière</a>
                             {% elseif is_granted('ROLE_TEACHER') %}
                                 <a class="nav-link" href="{{ path('app_teacher') }}">Accueil</a>
                                 <a class="nav-link" href="{{ path('app_teacher_add_course') }}">Cours</a>
                                 <a class="nav-link" href="{{ path('app_teacher_add_ressource') }}">Document</a>
                                 <a class="nav-link" href="{{ path('app_teacher_notes') }}">Notes</a>
                             {% elseif is_granted('ROLE_USER') %}
-                                <a class="nav-link" href="">Tous les cours</a>
+                                <a class="nav-link" href="{{ path('app_profile_courses') }}">Tous les cours</a>
                                 <a class="nav-link" href="">Horaires</a>
                                 <a class="nav-link" href="{{ path('app_main') }}#contact">Contact_Admin</a>
                             {% endif %}
