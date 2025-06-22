@@ -40,6 +40,7 @@ security:
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/profile, roles: ROLE_USER }
          - { path: ^/teacher, roles: ROLE_TEACHER }
+         - { path: ^/parent, roles: ROLE_PARENT }
 
 when@test:
     security:

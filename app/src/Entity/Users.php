@@ -68,6 +68,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $resetToken = null;
 
+    /**
+     * @var collection<int, Parents> ligne ajouter poue gerer la relation parent enfant
+     */
+
+    // Un élève peut avoir plusieurs parents
+    #[ORM\OneToMany(mappedBy: 'enfant', targetEntity: Users::class, cascade: ['persist'])]
+    private Collection $parents;
+
+    // Un parent est lié à un seul enfant
+    #[ORM\ManyToOne(targetEntity: Users::class, inversedBy: 'parents')]
+    private ?Users $enfant = null;
+
 
     public function __construct()
     {
@@ -75,6 +87,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         $this->classes = new ArrayCollection();
         $this->results = new ArrayCollection();
         $this->registerAt = new \DateTimeImmutable();
+        $this->parents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -294,4 +307,44 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * Code parent enfant relation
+     */
+    public function getEnfant(): ?Users
+    {
+        return $this->enfant;
+    }
+
+    public function setEnfant(?Users $enfant): static
+    {
+        $this->enfant = $enfant;
+
+        return $this;
+    }
+
+    public function getParents(): Collection
+    {
+        return $this->parents;
+    }
+
+    public function addParent(Users $parent): static
+    {
+        if (!$this->parents->contains($parent)) {
+            $this->parents[] = $parent;
+            $parent->setEnfant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParent(Users $parent): static
+    {
+        if ($this->parents->removeElement($parent)) {
+            if ($parent->getEnfant() === $this) {
+                $parent->setEnfant(null);
+            }
+        }
+
+        return $this;
+    }
 }
