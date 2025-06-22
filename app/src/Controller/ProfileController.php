@@ -3,16 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Contacts;
-use App\Form\GenerateTokenForm;
-use App\Form\ResetPasswordForm;
+use App\Entity\Users;
+use App\Form\AddParentForm;
 use App\Form\StudentsContactForm;
-use App\Repository\UsersRepository;
-use App\Service\EmailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class ProfileController extends AbstractController
@@ -31,6 +28,14 @@ final class ProfileController extends AbstractController
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         return $this->render('profile/courses.html.twig');
+    }
+
+    #[Route('/ajouter-responsable', name: 'app_add_parent')]
+    public function addParent(EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $parent = new Users();
+        $form = $this->createForm(AddParentForm::class, $parent);
+        return $this->render('profile/add-parent.html.twig', compact('form'));
     }
 
 }

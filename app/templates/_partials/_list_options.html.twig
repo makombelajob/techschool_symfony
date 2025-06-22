@@ -13,6 +13,7 @@
         {% elseif is_granted('ROLE_USER') %}
             <a class="text-decoration-none fs-3 text-black" href="{{ path('app_profile_courses') }}">Tous les cours</a>
             <a class="text-decoration-none fs-3 text-black" href="">Horaires</a>
+            <a class="text-decoration-none fs-3 text-black" href="{{ path('app_add_parent') }}">Responsable</a>
             <a class="text-decoration-none fs-3 text-black" href="{{ path('app_profile') }}#contact">Contact_Admin</a>
         {% endif %}
         {% else %}

@@ -39,6 +39,7 @@
                             {% elseif is_granted('ROLE_USER') %}
                                 <a class="nav-link" href="{{ path('app_profile_courses') }}">Tous les cours</a>
                                 <a class="nav-link" href="">Horaires</a>
+                                <a class="nav-link" href="{{ path('app_add_parent') }}">Responsable</a>
                                 <a class="nav-link" href="{{ path('app_main') }}#contact">Contact_Admin</a>
                             {% endif %}
                         {% else %}
