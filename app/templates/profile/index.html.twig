@@ -16,7 +16,25 @@
             <p class="fs-2">Prochaines vacances du 05 mai au 15 mai</p>
         </article>
         <div class="col-12">
-            {% for classe in app.user.classes %}
+            {% if parents is not empty %}
+                {% for parent in parents %}
+                    <article class="alert alert-danger">
+                        <h2 class="fs-1"><span
+                            class="text-uppercase">Responsable : {{ parent.lastname }} {{ parent.firstname }}</span>
+                        </h2>
+                        <h3 class="text-fs-4">{{ parent.email }}</h3>
+                        <p>Votre responsable en cas de problème et recevra aussi les factures obligatoires</p>
+                    </article>
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-warning">
+                    <p>Vous n'avez aucun responsable. Il est obligatoire d'ajouter au moins un</p>
+                    <div class="text-center">
+                        <a class="btn btn-primary" href="{{ path('app_add_parent') }}">Ajouter un responsable</a>
+                    </div>
+                </div>
+            {% endif %}
+            {% for classe in classes %}
                 <article class="alert alert-primary">
                     <h2 class="fs-1"><span
                             class="text-uppercase">Class : {{ classe.name }}</span>
@@ -26,7 +44,7 @@
             {% endfor %}
             {% if app.user.results is not empty and app.user.courses is not empty %}
                 {% for cours in app.user.courses %}
-                    <article class="alert alert-info rounded-5 p-3 my-3">
+                    <article class="alert alert-secondary rounded-5 p-3 my-3">
                         <h2>{{ cours.name }}</h2>
                     </article>
                 {% endfor %}
@@ -42,7 +60,7 @@
                 {% endfor %}
             {% else %}
                 <article class="alert alert-info rounded-5 p-3 my-3">
-                    <h2>Aucun cours suivi et aucun résultat enregistré.</h2>
+                    <h2>Aucune classe affectée pour l'instant et aucun résultat enregistré.</h2>
                 </article>
             {% endif %}
         </div>

@@ -18,6 +18,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class AdminController extends AbstractController
@@ -114,7 +115,7 @@ final class AdminController extends AbstractController
     }
 
     #[Route('/frais-scolaires', name: 'app_admin_school_fees')]
-    public function schoolFees(Request $request, UsersRepository $usersRepository, EmailService $emailService): Response
+    public function schoolFees(Request $request, UsersRepository $usersRepository, EmailService $emailService, SessionInterface $session): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $form = $this->createForm(SchoolFeesForm::class);
@@ -139,6 +140,11 @@ final class AdminController extends AbstractController
                     ]
                 );    
             }
+
+            // stocker le nom et le montant des frais
+            $request->getSession()->set('name', $name);
+            $request->getSession()->set('amount', $amount);
+            $request->getsession()->set('parent_id', $parent->getId());
             
             return $this->redirectToRoute('app_admin');
         }

@@ -19,13 +19,17 @@ class SchoolFees
     #[ORM\Column]
     private ?int $amount = null;
 
-    #[ORM\Column]
+    #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'schoolFees')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Users $users = null;
 
+    public function __construct() 
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
     public function getId(): ?int
     {
         return $this->id;

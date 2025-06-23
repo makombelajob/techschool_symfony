@@ -22,12 +22,15 @@ final class ProfileController extends AbstractController
     ) {}
 
     #[Route('/profile', name: 'app_profile')]
-    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, Security $security): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         $contact = new Contacts();
+        $user = $security->getUser();
+        $classes = $user->getClasses();
+        $parents = $user->getParents();
         $studentMessage = $this->createForm(StudentsContactForm::class, $contact);
-        return $this->render('profile/index.html.twig', compact('studentMessage'));
+        return $this->render('profile/index.html.twig', compact('studentMessage', 'classes', 'parents'));
     }
 
     #[Route('/tous-les-cours', name: 'app_profile_courses')]
@@ -40,10 +43,9 @@ final class ProfileController extends AbstractController
     }
 
     #[Route('/ajouter-responsable', name: 'app_add_parent')]
-    public function addParent(EntityManagerInterface $entityManager, Request $request, EmailService $emailService): Response
+    public function addParent(EntityManagerInterface $entityManager, Request $request, EmailService $emailService, string $name, int $amount): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
-        
         $parent = new Users();
         $form = $this->createForm(AddParentForm::class, $parent);
         $form->handleRequest($request);
