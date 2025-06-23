@@ -80,6 +80,12 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(targetEntity: Users::class, inversedBy: 'parents')]
     private ?Users $enfant = null;
 
+    /**
+     * @var Collection<int, SchoolFees>
+     */
+    #[ORM\OneToMany(targetEntity: SchoolFees::class, mappedBy: 'users')]
+    private Collection $schoolFees;
+
 
     public function __construct()
     {
@@ -88,6 +94,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         $this->results = new ArrayCollection();
         $this->registerAt = new \DateTimeImmutable();
         $this->parents = new ArrayCollection();
+        $this->schoolFees = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -342,6 +349,36 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         if ($this->parents->removeElement($parent)) {
             if ($parent->getEnfant() === $this) {
                 $parent->setEnfant(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SchoolFees>
+     */
+    public function getSchoolFees(): Collection
+    {
+        return $this->schoolFees;
+    }
+
+    public function addSchoolFee(SchoolFees $schoolFee): static
+    {
+        if (!$this->schoolFees->contains($schoolFee)) {
+            $this->schoolFees->add($schoolFee);
+            $schoolFee->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSchoolFee(SchoolFees $schoolFee): static
+    {
+        if ($this->schoolFees->removeElement($schoolFee)) {
+            // set the owning side to null (unless already changed)
+            if ($schoolFee->getUsers() === $this) {
+                $schoolFee->setUsers(null);
             }
         }
 

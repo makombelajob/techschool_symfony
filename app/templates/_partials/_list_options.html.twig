@@ -5,6 +5,7 @@
             <a class="text-decoration-none fs-3 text-black" href="{{ path('app_admin') }}">Dashboard</a>
             <a class="text-decoration-none fs-3 text-black" href="{{ path('app_admin_timer') }}">Horaires</a>
             <a class="text-decoration-none fs-3 text-black" href="{{ path('app_admin_add_subject') }}">Matière</a>
+            <a class="text-decoration-none fs-3 text-black" href="{{ path('app_admin_school_fees') }}">Frais</a>
         {% elseif is_granted('ROLE_TEACHER') %}
             <a class="text-decoration-none fs-3 text-black" href="{{ path('app_teacher') }}">Accueil</a>
             <a class="text-decoration-none fs-3 text-black" href="{{ path('app_teacher_add_course') }}">Cours</a>

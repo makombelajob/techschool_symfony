@@ -19,6 +19,9 @@ final class RedirectController extends AbstractController
         if($authorizationChecker->isGranted('ROLE_TEACHER')){
             return $this->redirectToRoute('app_teacher');
         }
+        if($authorizationChecker->isGranted('ROLE_PARENT')){
+            return $this->redirectToRoute('app_parents');
+        }
         return $this->redirectToRoute('app_profile');
     }
 }

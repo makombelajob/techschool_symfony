@@ -9,6 +9,7 @@ use App\Form\StudentsContactForm;
 use App\Service\EmailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -30,10 +31,12 @@ final class ProfileController extends AbstractController
     }
 
     #[Route('/tous-les-cours', name: 'app_profile_courses')]
-    public function courses(): Response
+    public function courses(Security $security): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
-        return $this->render('profile/courses.html.twig');
+        $user = $security->getUser();
+        $courses = $user->getCourses();
+        return $this->render('profile/courses.html.twig', compact('courses'));
     }
 
     #[Route('/ajouter-responsable', name: 'app_add_parent')]

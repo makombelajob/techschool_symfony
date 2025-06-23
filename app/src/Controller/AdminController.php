@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Contacts;
-use App\Entity\Courses;
 use App\Entity\Subjects;
 use App\Entity\Users;
+use App\Form\SchoolFeesForm;
 use App\Form\UsersForm;
 use App\Form\SubjectsForm;
 use App\Repository\ClassesRepository;
@@ -19,7 +19,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 final class AdminController extends AbstractController
 {
@@ -112,5 +111,37 @@ final class AdminController extends AbstractController
             return $this->redirectToRoute('app_teacher');
         }
         return $this->render('admin/subject.html.twig', compact('form'));
+    }
+
+    #[Route('/frais-scolaires', name: 'app_admin_school_fees')]
+    public function schoolFees(Request $request, UsersRepository $usersRepository, EmailService $emailService): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $form = $this->createForm(SchoolFeesForm::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $name = $form->get('name')->getData();
+            $amount = $form->get('amount')->getData();
+            $parents = $usersRepository->findByRole('ROLE_PARENT');
+            foreach($parents as $parent){
+                // Envoie de mail de paiement uniquement au parents
+                $emailService->send(
+                    'admin@tech-school.fr',
+                    $parent->getEmail(),
+                    "Facture de $name",
+                    'facture',
+                    [
+                        'fees_name' => $name,
+                        'amount' => $amount,
+                        'parent_firstname' => $parent->getLastname(),
+                        'parent_lastname' => $parent->getFirstname(),
+                        'parent_id' => $parent->getId(),
+                    ]
+                );    
+            }
+            
+            return $this->redirectToRoute('app_admin');
+        }
+        return $this->render('admin/school-fees.html.twig', compact('form'));
     }
 }
