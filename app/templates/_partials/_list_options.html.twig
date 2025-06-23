@@ -11,6 +11,11 @@
             <a class="text-decoration-none fs-3 text-black" href="{{ path('app_teacher_add_course') }}">Cours</a>
             <a class="text-decoration-none fs-3 text-black" href="{{ path('app_teacher_add_ressource') }}">Document</a>
             <a class="text-decoration-none fs-3 text-black" href="{{ path('app_teacher_notes') }}">Notes</a>
+        {% elseif is_granted('ROLE_PARENT') %}
+            <a class="text-decoration-none fs-3 text-black" href="{{ path('app_parents') }}">Infos</a>
+            <a class="text-decoration-none fs-3 text-black" href="">Frais_à_payer</a>
+            <a class="text-decoration-none fs-3 text-black" href="{{ path('app_parents_show_facture') }}">Facture</a>
+            <a class="text-decoration-none fs-3 text-black" href="">Contact_Admin</a>
         {% elseif is_granted('ROLE_USER') %}
             <a class="text-decoration-none fs-3 text-black" href="{{ path('app_profile_courses') }}">Tous les cours</a>
             <a class="text-decoration-none fs-3 text-black" href="{{ path('app_profile') }}#contact">Contact_Admin</a>

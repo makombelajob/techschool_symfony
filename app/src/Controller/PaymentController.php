@@ -90,7 +90,7 @@ final class PaymentController extends AbstractController
         $pdfOutPut = $domPdf->output();
 
         // Stockage du pdf dans un dossier temporaire
-        $factureFileName = 'facture_' . $facture->getId() . '.pdf';
+        $factureFileName = 'facture_' . $parent->getId() . '.pdf';
         $factureFilePath = $this->getParameter('kernel.project_dir') . '/public/uploads/factures/' . $factureFileName;
 
         file_put_contents($factureFilePath, $pdfOutPut);

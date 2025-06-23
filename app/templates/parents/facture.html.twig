@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil Parent
+{% endblock %}
+
+{% block body %}
+
+	<section class="row">
+		<div class="text-center">
+            <h2 class="text-primary text-uppercase fs-1">Mes Factures</h2>
+        </div>
+        {% if factures is not empty %}
+            <ul class="list-unstyled">
+                {% for facture in factures %}
+                    <li>
+                        <a class="btn btn-primary" href="{{ facture.url }}" target="_blank">
+                            {{ facture.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Aucune facture disponible pour le moment.</p>
+        {% endif %}
+
+	</section>
+{% endblock %}
+

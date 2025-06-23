@@ -34,6 +34,10 @@
                     {% set route = 'app_admin' %}
                 {% elseif is_granted('ROLE_TEACHER') %}
                     {% set route = 'app_teacher' %}
+                {% elseif is_granted('ROLE_TEACHER') %}
+                    {% set route = 'app_teacher' %}
+                {% elseif is_granted('ROLE_PARENT') %}
+                    {% set route =  'app_parents'%}
                 {% else %}
                     {% set route = 'app_profile' %}
                 {% endif %}

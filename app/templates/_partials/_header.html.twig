@@ -37,6 +37,11 @@
                                 <a class="nav-link" href="{{ path('app_teacher_add_course') }}">Cours</a>
                                 <a class="nav-link" href="{{ path('app_teacher_add_ressource') }}">Document</a>
                                 <a class="nav-link" href="{{ path('app_teacher_notes') }}">Notes</a>
+                            {% elseif is_granted('ROLE_PARENT') %}
+                                <a class="nav-link" href="{{ path('app_parents') }}">Infos</a>
+                                <a class="nav-link" href="">Frais_à_payer</a>
+                                <a class="nav-link" href="">Facture</a>
+                                <a class="nav-link" href="">Contact_Admin</a>
                             {% elseif is_granted('ROLE_USER') %}
                                 <a class="nav-link" href="{{ path('app_profile_courses') }}">Tous les cours</a>
                                 <a class="nav-link" href="{{ path('app_profile') }}#contact">Contact_Admin</a>
