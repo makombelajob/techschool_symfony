@@ -1,4 +1,22 @@
 <svg>
+    <symbol id="lastname" xmlns="http://www.w3.org/2000/svg" fill="none"  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="7" r="4" />
+        <path d="M5.5 21a8.38 8.38 0 0 1 13 0" />
+    </symbol>
+    <symbol id="firstname" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="7" r="4" />
+        <path d="M5.5 21a8.38 8.38 0 0 1 13 0" />
+    </symbol>
+    <symbol id="password" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="5" y="11" width="14" height="10" rx="2" ry="2"/>
+        <path d="M12 17v-4" />
+        <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+    </symbol>
+
+
+    <symbol id="email" xmlns="http://www.w3.org/2000/svg" fill="currentColor"  class="bi bi-envelope-paper-fill" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M6.5 9.5 3 7.5v-6A1.5 1.5 0 0 1 4.5 0h7A1.5 1.5 0 0 1 13 1.5v6l-3.5 2L8 8.75zM1.059 3.635 2 3.133v3.753L0 5.713V5.4a2 2 0 0 1 1.059-1.765M16 5.713l-2 1.173V3.133l.941.502A2 2 0 0 1 16 5.4zm0 1.16-5.693 3.337L16 13.372v-6.5Zm-8 3.199 7.941 4.412A2 2 0 0 1 14 16H2a2 2 0 0 1-1.941-1.516zm-8 3.3 5.693-3.162L0 6.873v6.5Z"/>
+    </symbol>
     <symbol id="light" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path
             d="M12 22C17.5228 22 22 17.5228 22 12C22 11.5373 21.3065 11.4608 21.0672 11.8568C19.9289 13.7406 17.8615 15 15.5 15C11.9101 15 9 12.0899 9 8.5C9 6.13845 10.2594 4.07105 12.1432 2.93276C12.5392 2.69347 12.4627 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"/>
