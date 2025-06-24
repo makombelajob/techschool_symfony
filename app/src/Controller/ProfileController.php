@@ -43,7 +43,7 @@ final class ProfileController extends AbstractController
     }
 
     #[Route('/ajouter-responsable', name: 'app_add_parent')]
-    public function addParent(EntityManagerInterface $entityManager, Request $request, EmailService $emailService, string $name, int $amount): Response
+    public function addParent(EntityManagerInterface $entityManager, Request $request, EmailService $emailService): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
         $parent = new Users();

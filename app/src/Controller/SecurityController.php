@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -12,7 +13,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     #[Route(path: '/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils, EntityManagerInterface $entityManager): Response
+    public function login(AuthenticationUtils $authenticationUtils, EntityManagerInterface $entityManager, Security $security): Response
     {
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

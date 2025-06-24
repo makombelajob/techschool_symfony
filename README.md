@@ -18,24 +18,24 @@ I poured my heart into this project ❤️, and I'm proud to share it.
     - Contact form with real-time validation
 
 - 👤 User authentication system:
-    - Registration form (`register.html.twig`)
+    - Registration form `register.html.twig`
         - Validation: name, email, password, GDPR checkbox
         - Error messages and field retention
-    - Login form (`login.html.twig`)
+    - Login form `login.html.twig`
 
 - 📄 Separate pages:
-    - About us (`about.html.twig`)
-    - Registration (`register.html.twig`)
-    - Login (`login.html.twig`)
+    - About us `about.html.twig`
+    - Registration `register.html.twig`
+    - Login `login.html.twig`
 
 - ✨ Fully responsive layout
-- 🔄 PHP includes (`header.html.twig`, `footer.html.twig`) for modular structure
+- 🔄 PHP includes `header.html.twig`, `footer.html.twig` for modular structure
 
 ---
 
 ## 📸 Screenshot
 
-![App Screenshot](/app/assets/screenshot.png)
+![App Screenshot de la page d'accueil](/app/public/images/screenshot.png)
 
 ---
 
@@ -57,19 +57,42 @@ I poured my heart into this project ❤️, and I'm proud to share it.
 ## 🧪 How to Run Locally
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/makombelajob/techschool_symfony.git
-   cd techschool_symfony
-   cd app
-   docker compose install
-   composer require --dev orm-fixtures
-   composer require --dev doctrine/doctrine-fixtures-bundle
-   cd ..
-   docker compose up
-   docker compose exec php /bin/bash
-   symfony console make:migration
-   php bin/console doctrine:fixtures:load // ou symfony console doctrine:fixtures:load
-   http://127.0.0.1:8080
+   ```
+   $ git clone https://github.com/makombelajob/techschool_symfony.git
+   ```
+2. Install project
+    - To get access in main folder. Run the following command
+        ```
+        $ cd techschool_symfony/app
+        ```
+    - Make the compose install to rebuild vendor et var. Run the following command
+        ```
+        $ docker compose install
+        ```
+    - making datat ready for all display
+        ```
+        $ composer require --dev orm-fixtures
+        $ composer require --dev doctrine/doctrine-fixtures-bundle
+        ```
+    - Then go back in main folder and run
+        ```
+        $ cd ..
+        $ docker compose up
+        ```
+    - After you must login in docker system to run following commands
+        ```
+        # docker compose exec php /bin/bash
+        # symfony console make:migration
+        # symfony console doctrine:fixtures:load
+        ```
 
+    - You can now Enjoy the free ENT at
+        ```
+        http://127.0.0.1:8080
+        ```
+---
 
+## Bugs Resolved
+
+---
 
