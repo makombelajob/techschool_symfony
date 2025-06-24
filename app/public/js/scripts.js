@@ -104,7 +104,6 @@ function formContact() {
         }
     });
 }
-
 formContact();
 // Appelle la fonction pour activer le carrousel avec l'intervalle défini
 slideInterval();

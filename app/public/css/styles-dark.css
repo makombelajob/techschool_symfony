@@ -6,6 +6,9 @@
 
 body {
   font-family: "Open Sans", sans-serif;
+  background-color: #121212 !important;
+  color: #e0e0e0 !important;
+  font-family: "Open Sans", sans-serif;
 }
 body h1,
 body h2,
@@ -13,6 +16,13 @@ body h3,
 body h4,
 body h5 {
   font-family: "Ubuntu Sans", sans-serif;
+  color: #fafafa !important;
+}
+body a {
+  color: #84b1f9;
+}
+body a:hover {
+  color: #cddffd;
 }
 body header {
   margin-inline: 0.5rem;
@@ -48,7 +58,8 @@ body main #upButton {
 body main #team img {
   width: 100px;
   border-radius: 50%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 body main #admin_dashboard,
 body main #all_classes,
@@ -93,6 +104,4 @@ body main #tableList {
   body main #about {
     /* Rien à faire pour l'instant */
   }
-}
-
-/*# sourceMappingURL=styles-dark.css.map */
+}/*# sourceMappingURL=styles-dark.css.map */

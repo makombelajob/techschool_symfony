@@ -3,7 +3,16 @@
     font-size: 15px;
 }
 $none : none;
+$bg-color: #121212;
+$card-color: #1e1e1e;
+$text-color: #e0e0e0;
+$border-color: #333;
+$accent-color: #3b82f6; // un bleu bien visible sur fond sombre
+
 body {
+    font-family: "Open Sans", sans-serif;
+    background-color: $bg-color !important;
+    color: $text-color !important;
     font-family: "Open Sans", sans-serif;
     h1,
     h2,
@@ -12,7 +21,14 @@ body {
     h5
     {
         font-family: "Ubuntu Sans", sans-serif;
+        color: lighten($text-color, 10%) !important;
     }
+    a {
+        color: lighten($accent-color, 15%);
+        &:hover {
+          color: lighten($accent-color, 30%);
+        }
+      }
     header {
         margin-inline: 0.5rem;
         nav {
