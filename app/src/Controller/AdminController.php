@@ -21,17 +21,27 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
+// Contrôleur d'administration de l'application : permet de gérer les utilisateurs, les matières, les horaires,
+// les messages de contact et l'envoi des frais de scolarité. Accessible uniquement aux utilisateurs avec le rôle 'ROLE_ADMIN'.
 final class AdminController extends AbstractController
 {
+    // Route pour la page d'administration principale.
+    // Récupère tous les utilisateurs, classes, matières, contacts et cours,
+    // puis affiche la vue admin/index.html.twig avec ces données.
     #[Route('/admin', name: 'app_admin')]
-    public function index(UsersRepository $usersRepository, ClassesRepository $classesRepository, SubjectsRepository $subjectsRepository, ContactsRepository $contactsRepository): Response
+    public function index(UsersRepository $usersRepository, ClassesRepository $classesRepository, SubjectsRepository $subjectsRepository, ContactsRepository $contactsRepository, CoursesRepository $coursesRepository): Response
     {
+
+        // Sécurise l'accès, uniquement les admins peuvent accéder
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        // Récupération des données en base
         $users = $usersRepository->findAll();
         $classes = $classesRepository->findAll();
         $subjects = $subjectsRepository->findAll();
         $contacts = $contactsRepository->findAll();
-        return $this->render('admin/index.html.twig', compact('users', 'classes', 'subjects', 'contacts'));
+        $courses = $coursesRepository->findAll();
+        // Affichage de la vue avec les données
+        return $this->render('admin/index.html.twig', compact('users', 'classes', 'subjects', 'contacts', 'courses'));
     }
 
     #[Route('/admin/gerer/{id}', name: 'app_admin_gerer')]
@@ -41,6 +51,7 @@ final class AdminController extends AbstractController
         $form = $this->createForm(UsersForm::class, $user);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+            $entityManager->persist($user);
             $entityManager->flush();
             return $this->redirectToRoute('app_admin');
         }

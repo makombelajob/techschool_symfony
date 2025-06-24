@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Courses;
 use App\Entity\Results;
 use App\Entity\Users;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -56,6 +57,15 @@ class ResultsForm extends AbstractType
                 'choice_label' => function (Users $user) {
                     return $user->getFirstname() . ' ' . $user->getLastname();
                 },
+                'query_builder' => function (EntityRepository $entityRepository) {
+                    return $entityRepository->createQueryBuilder('u')
+                        ->join('u.courses', 'c')
+                        ->where('c IS NOT NULL')
+                        ->groupBy('u.id')
+                    ;
+                },
+                'multiple' => false,
+                'expanded' => false,
 
             ])
             ->add('ajouter', SubmitType::class, []);

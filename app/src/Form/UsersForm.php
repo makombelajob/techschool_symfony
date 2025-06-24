@@ -72,6 +72,7 @@ class UsersForm extends AbstractType
                     'class' => 'fs-4'
                 ]
             ])
+            /***
             ->add('registerAt', null, [
                 'widget' => 'single_text',
             ])
@@ -86,7 +87,7 @@ class UsersForm extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
-            ])
+            ])***/
             ->add('changer', SubmitType::class, []);
     }
 

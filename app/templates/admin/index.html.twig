@@ -10,7 +10,7 @@
         <div class="col-12">
             <div id="admin_dashboard">
                 {% for user in users %}
-                    {% if user.courses is empty %}
+                    {% if user.courses|length == 0 %}
                         <article class="alert alert-warning col-12 m-auto col-md-4">
                             <h2>{{ user.lastname }} {{ user.firstname }}</h2>
                             <p>n'est affecté à aucun cours pour le moment.</p>
