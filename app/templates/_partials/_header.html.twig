@@ -17,14 +17,14 @@
                         </svg>
                     </button>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
-                            aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                            aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" id="burger">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                 </div>
                 <div class="collapse navbar-collapse position-absolute start-0 end-0 bg-white shadow p-4 z-3 mt-5"
                      id="navbar">
 
-                    <div class="navbar-nav text-center">
+                    <div class="navbar-nav text-center" id="list_options" class="show">
 
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             {% if is_granted('ROLE_ADMIN') %}
@@ -47,6 +47,7 @@
                                 <a class="nav-link" href="{{ path('app_profile') }}#contact">Contact_Admin</a>
                             {% endif %}
                         {% else %}
+                                
                             <a class="nav-link active" aria-current="page" href="{{ path('app_main') }}">Accueil</a>
                             <a class="nav-link" href="{{ path('app_about') }}">Apropos</a>
                             <a class="nav-link" href="{{ path('app_register') }}">Signup</a>

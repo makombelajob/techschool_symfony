@@ -3,6 +3,11 @@
     font-size: 15px;
 }
 $none : none;
+$bg-color: #121212;
+$card-color: #1e1e1e;
+$text-color: #e0e0e0;
+$border-color: #333;
+$accent-color: #3b82f6;
 body {
     font-family: "Open Sans", sans-serif;
     h1,
@@ -13,6 +18,12 @@ body {
     {
         font-family: "Ubuntu Sans", sans-serif;
     }
+    a {
+        color: lighten($accent-color, 15%);
+        &:hover {
+          color: lighten($accent-color, 30%);
+        }
+      }
     header {
         margin-inline: 0.5rem;
         nav {

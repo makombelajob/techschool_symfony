@@ -104,6 +104,19 @@ function formContact() {
         }
     });
 }
+
+function burger(){
+    document.addEventListener('click', function(event){
+        const listOptions = document.querySelector("#list_options");
+        if(!listOptions.contains(event.target)){
+            listOptions.classList.remove('show');
+        }
+    });
+     
+}
+// Appel du button burger pour la personalisation
+
+// Apel du script pour gérer les erreur du formulaire de contact
 formContact();
 // Appelle la fonction pour activer le carrousel avec l'intervalle défini
 slideInterval();

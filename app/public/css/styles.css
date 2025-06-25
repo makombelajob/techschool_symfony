@@ -14,6 +14,12 @@ body h4,
 body h5 {
   font-family: "Ubuntu Sans", sans-serif;
 }
+body a {
+  color: #84b1f9;
+}
+body a:hover {
+  color: #cddffd;
+}
 body header {
   margin-inline: 0.5rem;
 }

@@ -19,15 +19,19 @@ function themeDark() {
 			useElement.setAttribute("href", iconTheme);
 		}
 
-		const CSSFile = (currentTheme === "light") ? "styles" : "styles-dark";
 		const linkStyle = document.querySelector("#style");
-
+		
 		if (linkStyle) {
-			linkStyle.href = `css/${CSSFile}.css`;
+			const CSSFile = (currentTheme === "light")
+			? linkStyle.dataset.styleLight
+			: linkStyle.dataset.styleDark;
+
+
+			linkStyle.href = CSSFile;
 		}
 
-		document.documentElement.setAttribute("data-theme", currentTheme); // facultatif mais utile
+		//document.documentElement.setAttribute("data-theme", currentTheme); // facultatif mais utile
 	}
 }
-
 themeDark();
+

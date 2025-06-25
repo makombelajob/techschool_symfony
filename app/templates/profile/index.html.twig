@@ -5,12 +5,22 @@
 	{{ app.user.lastname}}
 {% endblock %}
 
-
 {% block body %}
     <section class="col-12" id="students_infos">
-        <h1>Bienvenu <span
+        <div class="text-center">
+            <h1>Bienvenu <span
                 class="text-uppercase text-primary">{{ app.user.lastname }}</span>
-        </h1>
+            </h1>
+        </div>
+        <article class="alert alert-info ">
+            <figure class="row  d-flex justify-content-between align-items-center gap-2">
+                <img src="{{ asset('images/profiles/avatar.png') }}" alt="image de profile de {{ app.user.lastname }}{{ app.user.firstname }}" width="100" heigth="auto" class="col rounded-circle">
+                <figcaption class="col-8">
+                    <h3>{{ app.user.lastname }} {{ app.user.firstname }}</h3>
+                    <p>Ceci est votre pge d'accueil, Bienvenu parmis nous</p>
+                </figcaption>
+            </figure>
+        </article>
         <article class="text-center bg-warning rounded-2">
             <h2>Informations générales</h2>
             <p class="fs-2">Prochaines vacances du 05 mai au 15 mai</p>
