@@ -33,5 +33,4 @@ function themeDark() {
 		//document.documentElement.setAttribute("data-theme", currentTheme); // facultatif mais utile
 	}
 }
-themeDark();
 
