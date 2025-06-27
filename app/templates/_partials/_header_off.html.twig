@@ -32,12 +32,43 @@
 							<div class="offcanvas-body">
 								<div class="">
 									<ul class="list-unstyled">
-										<li><a class="active" href="">Accueil</a></li>
-										<li><a class="" href="">Apropos</a></li>
-										<li><a class="" href="">Signup</a></li>
-										<li><a class="" href="">Login</a></li>
-										<li><a class="" href="">Contact</a></li>
-									
+										{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+											{% if is_granted('ROLE_ADMIN') %}
+												<li><a href="{{ path('app_admin')}}">Dashboard</a></li>
+												<li><a href="{{ path('app_admin_timer') }}">Horaires</a></li>
+												<li><a href="{{ path('app_admin_add_subject') }}">Matière</a></li>
+												<li><a href="">Cours</a></li>
+												<li><a href="{{ path('app_admin_school_fees') }}">Frais</a></li>
+												<li><a href="{{ path('app_logout') }}">Logout</a></li>
+											{% elseif is_granted('ROLE_TEACHER') %}
+												<li><a href="{{ path('app_teacher')}}">Accueil</a></li>
+												<li><a href="{{ path('app_teacher_add_ressource') }}">Documents</a></li>
+												<li><a href="{{ path('app_teacher_notes') }}">Notes</a></li>
+												<li><a href="{{ path('app_logout') }}">Logout</a></li>
+											{% elseif is_granted('ROLE_PARENT') %}
+												<li><a href="{{ path('app_parents')}}">Accueil</a></li>
+												<li><a href="{{ path('app_parents_show_facture') }}">Factures</a></li>
+												<li><a href="{{ path('app_logout') }}">Logout</a></li>
+											{% elseif is_granted('ROLE_USER') %}
+												<li><a href="{{ path('app_profile') }}">Accueil</a></li>
+												<li><a href="">Tous les cours</a></li>
+												<li><a href="{{ path('app_profile') }}#contact">Contact_Admin</a></li>
+												<li><a href="{{ path('app_logout') }}">Logout</a></li>
+											{% endif %}
+										{% else %}
+											<li><a class="active" href="{{ path('app_main')}}">Accueil</a></li>
+											<li><a class="" href="{{ path('app_about') }}">Apropos</a></li>
+											<li><a class="" href="{{ path('app_register') }}">Signup</a></li>
+											<li><a class="" href="{{ path('app_login') }}">Login</a></li>
+											{#{% set current_path = app.request.attributes.get('_route') %}
+											<li>
+												{% if current_path == 'app_main' %}
+													<a class="" href="#contact" data-bs-dismiss="offcanvas">Contacts</a>
+												{% else %}
+													<a class="" href="{{ path('app_main') }}#contact">Contact</a>
+												{% endif %}
+											</li>#}
+										{% endif %}
 									</ul>
 								</div>
 							</div>
