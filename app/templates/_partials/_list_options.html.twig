@@ -5,6 +5,7 @@
             <a class="text-decoration-none fs-3 text-black" href="{{ path('app_admin') }}">Dashboard</a>
             <a class="text-decoration-none fs-3 text-black" href="{{ path('app_admin_timer') }}">Horaires</a>
             <a class="text-decoration-none fs-3 text-black" href="{{ path('app_admin_add_subject') }}">Matière</a>
+            <a class="text-decoration-none fs-3 text-black" href="">Cours</a>
             <a class="text-decoration-none fs-3 text-black" href="{{ path('app_admin_school_fees') }}">Frais</a>
         {% elseif is_granted('ROLE_TEACHER') %}
             <a class="text-decoration-none fs-3 text-black" href="{{ path('app_teacher') }}">Accueil</a>
@@ -13,7 +14,6 @@
             <a class="text-decoration-none fs-3 text-black" href="{{ path('app_teacher_notes') }}">Notes</a>
         {% elseif is_granted('ROLE_PARENT') %}
             <a class="text-decoration-none fs-3 text-black" href="{{ path('app_parents') }}">Infos</a>
-            <a class="text-decoration-none fs-3 text-black" href="">Frais_à_payer</a>
             <a class="text-decoration-none fs-3 text-black" href="{{ path('app_parents_show_facture') }}">Facture</a>
             <a class="text-decoration-none fs-3 text-black" href="">Contact_Admin</a>
         {% elseif is_granted('ROLE_USER') %}

@@ -7,6 +7,7 @@ use App\Entity\Courses;
 use App\Entity\Ressources;
 use App\Entity\Subjects;
 use App\Entity\Users;
+use App\Repository\UsersRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -99,6 +100,26 @@ class CoursesForm extends AbstractType
                 },
                 'multiple' => true,
                 'expanded' => true,
+                'query_builder' => function (UsersRepository $ur){
+                    return $ur->createQueryBuilder('u')
+                            ->where('u.roles LIKE :role')
+                            ->setParameter('role', '%ROLE_USER%')
+                    ;
+                },
+            ])
+            ->add('teachers', EntityType::class, [
+                'class' => Users::class,
+                'choice_label' => function (Users $user): string {
+                    return $user->getLastname() . ' ' . $user->getFirstname();
+                },
+                'multiple' => true,
+                'expanded' => true,
+                'query_builder' => function (UsersRepository $ur){
+                    return $ur->createQueryBuilder('u')
+                            ->where('u.roles LIKE :role')
+                            ->setParameter('role', '%ROLE_TEACHER%')
+                    ;
+                },
             ])
             ->add('classes', EntityType::class, [
                 'class' => Classes::class,

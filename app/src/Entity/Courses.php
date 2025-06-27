@@ -6,6 +6,7 @@ use App\Repository\CoursesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use PHPUnit\Runner\DeprecationCollector\Collector;
 
 #[ORM\Entity(repositoryClass: CoursesRepository::class)]
 class Courses
@@ -59,11 +60,19 @@ class Courses
     #[ORM\JoinColumn(nullable: false)]
     private ?Classes $classes = null;
 
+    /**
+     * @var Collection<int, Users>
+     * code perso pour gestion de élève et enseignant
+     */
+    #[ORM\ManyToMany(targetEntity: Users::class)]
+    private Collection $teachers;
+
     public function __construct()
     {
         $this->ressources = new ArrayCollection();
         $this->results = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->teachers = new ArrayCollection();
         $this->startedAt = new \DateTimeImmutable();
         $this->endAt = new \DateTimeImmutable();
     }
@@ -249,4 +258,28 @@ class Courses
 
         return $this;
     }
+
+       /**
+        * @return Collection<int, Users>
+        */
+    public function getTeachers(): Collection
+    {
+        return $this->teachers;
+    }
+
+    public function addTeacher(Users $teacher): static
+    {
+        if (!$this->teachers->contains($teacher)) {
+            $this->teachers->add($teacher);
+        }
+        return $this;
+    }
+
+    public function removeTeacher(Users $teacher): static
+    {
+        $this->teachers->removeElement($teacher);
+
+        return $this;
+    }
+
 }

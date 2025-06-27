@@ -76,6 +76,9 @@ final class TeacherController extends AbstractController
 
             // Pour chaque élève inscrit, on envoie un email d'information
             foreach ($users as $user) {
+                /**
+                 * @var Users $teacherConnected
+                 */
                 $emailService->send(
                     $teacherConnected->getEmail(), // Expéditeur : l’enseignant connecté
                     $user->getEmail(),             // Destinataire : élève

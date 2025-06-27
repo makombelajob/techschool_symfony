@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Contacts;
+use App\Entity\Courses;
 use App\Entity\Subjects;
 use App\Entity\Users;
+use App\Form\CoursesForm;
 use App\Form\SchoolFeesForm;
 use App\Form\UsersForm;
 use App\Form\SubjectsForm;
@@ -160,5 +162,19 @@ final class AdminController extends AbstractController
             return $this->redirectToRoute('app_admin');
         }
         return $this->render('admin/school-fees.html.twig', compact('form'));
+    }
+
+    #[Route('ajouter-cours', name: 'app_admin_add_course')]
+    public function addCourse(Request $request, EntityManagerInterface $entityManagerInterface, Courses $cours, EmailService $emailService):Response
+    {
+        // Restreint l'accès aux enseignants uniquement
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        // Création d'une nouvelle entité Course
+        $cours = new Courses();
+
+        // Création du formulaire lié à cette entité
+        $form = $this->createForm(CoursesForm::class, $cours);
+        return $this->render('admin/ajout-cours.html.twig', compact('form'));
     }
 }
