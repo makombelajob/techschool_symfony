@@ -18,6 +18,9 @@ final class LoginSuccessListener
         if(!$user instanceof UserInterface){
             return;
         }
+        /**
+         * @var Users $user
+         */
 
         $user->setLastLogin(new \DateTimeImmutable());
         $this->entityManager->flush();
