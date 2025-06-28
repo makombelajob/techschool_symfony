@@ -53,7 +53,7 @@ class Courses
     /**
      * @var Collection<int, Users>
      */
-    #[ORM\ManyToMany(targetEntity: Users::class, inversedBy: 'courses')]
+    #[ORM\ManyToMany(targetEntity: Users::class, mappedBy: 'courses')]
     private Collection $users;
 
     #[ORM\ManyToOne(inversedBy: 'courses')]

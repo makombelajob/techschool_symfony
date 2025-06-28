@@ -165,7 +165,7 @@ final class AdminController extends AbstractController
     }
 
     #[Route('ajouter-cours', name: 'app_admin_add_course')]
-    public function addCourse(Request $request, EntityManagerInterface $entityManagerInterface, Courses $cours, EmailService $emailService):Response
+    public function addCourse(Request $request, EntityManagerInterface $entityManager, Courses $cours, EmailService $emailService):Response
     {
         // Restreint l'accès aux enseignants uniquement
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
@@ -175,6 +175,22 @@ final class AdminController extends AbstractController
 
         // Création du formulaire lié à cette entité
         $form = $this->createForm(CoursesForm::class, $cours);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $entityManager->persist($cours);
+
+            // Lier l'utilisateur à sa classe
+            $classe = $cours->getClasses();
+            $users = $cours->getUsers();
+
+            foreach($users as $user) {
+                $classe->addUser($user);
+            }
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_admin_add_course');
+        }
         return $this->render('admin/ajout-cours.html.twig', compact('form'));
     }
 }

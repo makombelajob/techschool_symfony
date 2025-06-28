@@ -114,6 +114,7 @@ class CoursesForm extends AbstractType
                 },
                 'multiple' => true,
                 'expanded' => true,
+                //'required' => true,
                 'query_builder' => function (UsersRepository $ur){
                     return $ur->createQueryBuilder('u')
                             ->where('u.roles LIKE :role')

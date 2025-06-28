@@ -6,6 +6,7 @@ use App\Repository\UsersRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use PhpParser\Node\Expr\Cast\Array_;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -50,7 +51,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Courses>
      */
-    #[ORM\ManyToMany(targetEntity: Courses::class, mappedBy: 'users')]
+    #[ORM\ManyToMany(targetEntity: Courses::class, inversedBy: 'users')]
     private Collection $courses;
 
     /**
@@ -72,13 +73,14 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      * @var collection<int, Parents> ligne ajouter poue gerer la relation parent enfant
      */
 
-    // Un élève peut avoir plusieurs parents
-    #[ORM\OneToMany(mappedBy: 'enfant', targetEntity: Users::class, cascade: ['persist'])]
-    private Collection $parents;
-
     // Un parent est lié à un seul enfant
-    #[ORM\ManyToOne(targetEntity: Users::class, inversedBy: 'parents')]
-    private ?Users $enfant = null;
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: Users::class, cascade: ['persist'])]
+    private Collection $children;
+
+    // Un élève peut avoir plusieurs parents
+    #[ORM\ManyToOne(targetEntity: Users::class, inversedBy: 'children')]
+    private ?Users $parent = null;
+    
 
     /**
      * @var Collection<int, SchoolFees>
@@ -93,7 +95,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         $this->classes = new ArrayCollection();
         $this->results = new ArrayCollection();
         $this->registerAt = new \DateTimeImmutable();
-        $this->parents = new ArrayCollection();
+        $this->children = new ArrayCollection();
         $this->schoolFees = new ArrayCollection();
     }
 
@@ -317,41 +319,37 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Code parent enfant relation
      */
-    public function getEnfant(): ?Users
+    public function getParent(): ?Users
     {
-        return $this->enfant;
+        return $this->parent;
     }
-
-    public function setEnfant(?Users $enfant): static
+    
+    public function setParent(?Users $parent): static
     {
-        $this->enfant = $enfant;
-
+        $this->parent = $parent;
         return $this;
     }
 
-    public function getParents(): Collection
+    public function getChildren(): Collection
     {
-        return $this->parents;
+        return $this->children;
     }
 
-    public function addParent(Users $parent): static
+    public function addChild(Users $child): static
     {
-        if (!$this->parents->contains($parent)) {
-            $this->parents[] = $parent;
-            $parent->setEnfant($this);
+        if (!$this->children->contains($child)) {
+            $this->children[] = $child;
+            $child->setParent($this);
         }
-
         return $this;
     }
-
-    public function removeParent(Users $parent): static
+    public function removeChild(Users $child): static
     {
-        if ($this->parents->removeElement($parent)) {
-            if ($parent->getEnfant() === $this) {
-                $parent->setEnfant(null);
+        if ($this->children->removeElement($child)) {
+            if ($child->getParent() === $this) {
+                $child->setParent(null);
             }
         }
-
         return $this;
     }
 

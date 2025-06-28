@@ -41,7 +41,9 @@ final class ProfileController extends AbstractController
 
         // Nouvelle instance de Contact pour formulaire
         $contact = new Contacts();
-
+        /**
+         * @var Users $user
+         */
         // Récupère l'utilisateur actuellement connecté
         $user = $security->getUser();
 
@@ -49,13 +51,13 @@ final class ProfileController extends AbstractController
         $classes = $user->getClasses();
 
         // Récupère les parents liés à cet utilisateur
-        $parents = $user->getParents();
+        $parent = $user->getParent();
 
         // Crée un formulaire de contact étudiant avec l'objet Contact
         $studentMessage = $this->createForm(StudentsContactForm::class, $contact);
 
         // Rend la vue profile/index.html.twig en passant les variables nécessaires
-        return $this->render('profile/index.html.twig', compact('studentMessage', 'classes', 'parents'));
+        return $this->render('profile/index.html.twig', compact('studentMessage', 'classes', 'parent'));
     }
 
     // Route /tous-les-cours, nommée 'app_profile_courses'
@@ -67,7 +69,9 @@ final class ProfileController extends AbstractController
 
         // Récupère l'utilisateur connecté
         $user = $security->getUser();
-
+        /**
+         * @var Users $user
+         */
         // Récupère la liste des cours liés à l'utilisateur
         $courses = $user->getCourses();
 
@@ -100,7 +104,7 @@ final class ProfileController extends AbstractController
             $parent->setRoles(['ROLE_PARENT']);
 
             // Association du parent à l'élève (enfant)
-            $parent->setEnfant($student);
+            $parent->addChild($student);
 
             // Génère un mot de passe aléatoire sécurisé (16 caractères hexadécimaux)
             $plainPassword = bin2hex(random_bytes(8));
@@ -116,7 +120,9 @@ final class ProfileController extends AbstractController
 
             // Exécute les requêtes en base pour sauvegarder le parent
             $entityManager->flush();
-
+            /**
+             * @var Users $student
+             */
             // Envoi d'un email au parent avec ses infos et le mot de passe généré
             $emailService->send(
                 'admin@tech-school.fr',            // Expéditeur
