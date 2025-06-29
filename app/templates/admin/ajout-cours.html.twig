@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    <section class="row">
+    <section class="row d-flex justify-content-center align-items-center min-vh-100">
         <div class="col-11 col-md-12 m-auto alert alert-secondary">
             <div class="my-3 text-center">
                 <h1 class="fs-1 text-uppercase text-primary">Ajouter un cours et affectation</h1>
@@ -21,7 +21,7 @@
                     {{ form_row(form.coefficient) }}
                 </div>
                 <div class="fs-2 my-3">
-                    {{ form_row(form.startedAt ) }}
+                    {{ form_row(form.startAt ) }}
                 </div>
                 <div class="fs-2 my-3">
                     {{ form_row(form.endAt ) }}
@@ -39,7 +39,7 @@
                     {{ form_row(form.users) }}
                 </div>
                 <div class="fs-4 my-3">
-                    {{ form_row(form.teachers) }}
+                   {{ form_row(form.teachers) }}
                 </div>
                 <div class="fs-4 my-3">
                     {{ form_row(form.classes) }}

@@ -26,15 +26,6 @@ use Symfony\Component\HttpFoundation\Request;
 final class ResetPasswordController extends AbstractController
 {
     // Route affichant la page principale de réinitialisation de mot de passe
-    #[Route('/reset/password', name: 'app_reset_password')]
-    public function index(): Response
-    {
-        // Rend le template principal de réinitialisation
-        return $this->render('reset_password/index.html.twig', [
-            'controller_name' => 'ResetPasswordController',
-        ]);
-    }
-
     // Route pour générer un token de réinitialisation (formulaire de demande)
     #[Route('/reset-password', name: 'app_reset_password')]
     public function generateToken(Request $request, EntityManagerInterface $entityManager, UsersRepository $usersRepository, EmailService $emailService): Response

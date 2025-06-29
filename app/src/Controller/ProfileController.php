@@ -8,6 +8,7 @@ use App\Entity\Users;
 // Import des formulaires personnalisés pour ajouter un parent et pour contact étudiant
 use App\Form\AddParentForm;
 use App\Form\StudentsContactForm;
+use App\Repository\UsersRepository;
 // Service pour l'envoi d'emails
 use App\Service\EmailService;
 // Gestionnaire d'entités Doctrine pour gérer la base de données
@@ -34,7 +35,7 @@ final class ProfileController extends AbstractController
 
     // Route /profile, nommée 'app_profile'
     #[Route('/profile', name: 'app_profile')]
-    public function index(Request $request, EntityManagerInterface $entityManager, Security $security): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, Security $security, UsersRepository $usersRepository): Response
     {
         // Vérifie que l'utilisateur a le rôle ROLE_USER, sinon accès interdit
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -51,13 +52,14 @@ final class ProfileController extends AbstractController
         $classes = $user->getClasses();
 
         // Récupère les parents liés à cet utilisateur
-        $parent = $user->getParent();
+
+        $parents = $user->getParent();
 
         // Crée un formulaire de contact étudiant avec l'objet Contact
         $studentMessage = $this->createForm(StudentsContactForm::class, $contact);
 
         // Rend la vue profile/index.html.twig en passant les variables nécessaires
-        return $this->render('profile/index.html.twig', compact('studentMessage', 'classes', 'parent'));
+        return $this->render('profile/index.html.twig', compact('studentMessage', 'classes', 'parents'));
     }
 
     // Route /tous-les-cours, nommée 'app_profile_courses'
@@ -104,7 +106,7 @@ final class ProfileController extends AbstractController
             $parent->setRoles(['ROLE_PARENT']);
 
             // Association du parent à l'élève (enfant)
-            $parent->addChild($student);
+            $parent->addUser($student);
 
             // Génère un mot de passe aléatoire sécurisé (16 caractères hexadécimaux)
             $plainPassword = bin2hex(random_bytes(8));

@@ -22,7 +22,7 @@ final class LoginSuccessListener
          * @var Users $user
          */
 
-        $user->setLastLogin(new \DateTimeImmutable());
+        $user->setLastConnectionAt(new \DateTimeImmutable());
         $this->entityManager->flush();
     }
 }

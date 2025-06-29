@@ -6,7 +6,6 @@ use App\Repository\UsersRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use PhpParser\Node\Expr\Cast\Array_;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -28,7 +27,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
      * @var list<string> The user roles
      */
     #[ORM\Column]
-    private array $roles = ["ROLE_USER"];
+    private array $roles = ['ROLE_USER'];
 
     /**
      * @var string The hashed password
@@ -36,17 +35,20 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 100)]
-    private ?string $lastname = null;
-
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 50)]
     private ?string $firstname = null;
 
-    #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(length: 50)]
+    private ?string $lastname = null;
+
+    #[ORM\Column(options:['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $registerAt = null;
 
     #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $lastLogin = null;
+    private ?\DateTimeImmutable $lastConnectionAt = null;
+
+    #[ORM\Column(length: 32, nullable: true)]
+    private ?string $resetToken = null;
 
     /**
      * @var Collection<int, Courses>
@@ -57,7 +59,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Classes>
      */
-    #[ORM\ManyToMany(targetEntity: Classes::class, mappedBy: 'users')]
+    #[ORM\ManyToMany(targetEntity: Classes::class, inversedBy: 'users')]
     private Collection $classes;
 
     /**
@@ -66,37 +68,33 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Results::class, mappedBy: 'users')]
     private Collection $results;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $resetToken = null;
-
-    /**
-     * @var collection<int, Parents> ligne ajouter poue gerer la relation parent enfant
-     */
-
-    // Un parent est lié à un seul enfant
-    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: Users::class, cascade: ['persist'])]
-    private Collection $children;
-
-    // Un élève peut avoir plusieurs parents
-    #[ORM\ManyToOne(targetEntity: Users::class, inversedBy: 'children')]
-    private ?Users $parent = null;
-    
-
     /**
      * @var Collection<int, SchoolFees>
      */
     #[ORM\OneToMany(targetEntity: SchoolFees::class, mappedBy: 'users')]
-    private Collection $schoolFees;
+    private Collection $schoolFess;
 
+    /**
+     * @var Collection<int, self>
+     */
+    #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'users')]
+    private Collection $parent;
+
+    /**
+     * @var Collection<int, self>
+     */
+    #[ORM\ManyToMany(targetEntity: self::class, mappedBy: 'parent')]
+    private Collection $users;
 
     public function __construct()
     {
         $this->courses = new ArrayCollection();
         $this->classes = new ArrayCollection();
         $this->results = new ArrayCollection();
+        $this->schoolFess = new ArrayCollection();
+        $this->parent = new ArrayCollection();
+        $this->users = new ArrayCollection();
         $this->registerAt = new \DateTimeImmutable();
-        $this->children = new ArrayCollection();
-        $this->schoolFees = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -172,18 +170,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getLastname(): ?string
-    {
-        return $this->lastname;
-    }
-
-    public function setLastname(string $lastname): static
-    {
-        $this->lastname = $lastname;
-
-        return $this;
-    }
-
     public function getFirstname(): ?string
     {
         return $this->firstname;
@@ -192,6 +178,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFirstname(string $firstname): static
     {
         $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): static
+    {
+        $this->lastname = $lastname;
 
         return $this;
     }
@@ -208,14 +206,26 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getLastlogin(): ?\DateTimeImmutable
+    public function getLastConnectionAt(): ?\DateTimeImmutable
     {
-        return $this->lastLogin;
+        return $this->lastConnectionAt;
     }
 
-    public function setLastlogin(?\DateTimeImmutable $lastLogin): static
+    public function setLastConnectionAt(?\DateTimeImmutable $lastConnectionAt): static
     {
-        $this->lastLogin = $lastLogin;
+        $this->lastConnectionAt = $lastConnectionAt;
+
+        return $this;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    public function setResetToken(?string $resetToken): static
+    {
+        $this->resetToken = $resetToken;
 
         return $this;
     }
@@ -232,7 +242,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->courses->contains($course)) {
             $this->courses->add($course);
-            $course->addUser($this);
         }
 
         return $this;
@@ -240,9 +249,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeCourse(Courses $course): static
     {
-        if ($this->courses->removeElement($course)) {
-            $course->removeUser($this);
-        }
+        $this->courses->removeElement($course);
 
         return $this;
     }
@@ -259,7 +266,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->classes->contains($class)) {
             $this->classes->add($class);
-            $class->addUser($this);
         }
 
         return $this;
@@ -267,9 +273,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeClass(Classes $class): static
     {
-        if ($this->classes->removeElement($class)) {
-            $class->removeUser($this);
-        }
+        $this->classes->removeElement($class);
 
         return $this;
     }
@@ -304,80 +308,82 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getResetToken(): ?string
-    {
-        return $this->resetToken;
-    }
-
-    public function setResetToken(?string $resetToken): static
-    {
-        $this->resetToken = $resetToken;
-
-        return $this;
-    }
-
-    /**
-     * Code parent enfant relation
-     */
-    public function getParent(): ?Users
-    {
-        return $this->parent;
-    }
-    
-    public function setParent(?Users $parent): static
-    {
-        $this->parent = $parent;
-        return $this;
-    }
-
-    public function getChildren(): Collection
-    {
-        return $this->children;
-    }
-
-    public function addChild(Users $child): static
-    {
-        if (!$this->children->contains($child)) {
-            $this->children[] = $child;
-            $child->setParent($this);
-        }
-        return $this;
-    }
-    public function removeChild(Users $child): static
-    {
-        if ($this->children->removeElement($child)) {
-            if ($child->getParent() === $this) {
-                $child->setParent(null);
-            }
-        }
-        return $this;
-    }
-
     /**
      * @return Collection<int, SchoolFees>
      */
-    public function getSchoolFees(): Collection
+    public function getSchoolFess(): Collection
     {
-        return $this->schoolFees;
+        return $this->schoolFess;
     }
 
-    public function addSchoolFee(SchoolFees $schoolFee): static
+    public function addSchoolFess(SchoolFees $schoolFess): static
     {
-        if (!$this->schoolFees->contains($schoolFee)) {
-            $this->schoolFees->add($schoolFee);
-            $schoolFee->setUsers($this);
+        if (!$this->schoolFess->contains($schoolFess)) {
+            $this->schoolFess->add($schoolFess);
+            $schoolFess->setUsers($this);
         }
 
         return $this;
     }
 
-    public function removeSchoolFee(SchoolFees $schoolFee): static
+    public function removeSchoolFess(SchoolFees $schoolFess): static
     {
-        if ($this->schoolFees->removeElement($schoolFee)) {
+        if ($this->schoolFess->removeElement($schoolFess)) {
             // set the owning side to null (unless already changed)
-            if ($schoolFee->getUsers() === $this) {
-                $schoolFee->setUsers(null);
+            if ($schoolFess->getUsers() === $this) {
+                $schoolFess->setUsers(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getParent(): Collection
+    {
+        return $this->parent;
+    }
+
+    public function addParent(self $parent): static
+    {
+        if (!$this->parent->contains($parent)) {
+            $this->parent->add($parent);
+        }
+
+        return $this;
+    }
+
+    public function removeParent(self $parent): static
+    {
+        $this->parent->removeElement($parent);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(self $user): static
+    {
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addParent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(self $user): static
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeParent($this);
         }
 
         return $this;

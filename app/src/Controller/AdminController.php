@@ -31,19 +31,19 @@ final class AdminController extends AbstractController
     // Récupère tous les utilisateurs, classes, matières, contacts et cours,
     // puis affiche la vue admin/index.html.twig avec ces données.
     #[Route('/admin', name: 'app_admin')]
-    public function index(UsersRepository $usersRepository, ClassesRepository $classesRepository, SubjectsRepository $subjectsRepository, ContactsRepository $contactsRepository, CoursesRepository $coursesRepository): Response
+    public function index(UsersRepository $usersRepository): Response
     {
 
         // Sécurise l'accès, uniquement les admins peuvent accéder
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        // Récupération des données en base
+        // Récupération des cours par catégories ou subjects en base
         $users = $usersRepository->findAll();
-        $classes = $classesRepository->findAll();
-        $subjects = $subjectsRepository->findAll();
-        $contacts = $contactsRepository->findAll();
-        $courses = $coursesRepository->findAll();
+        $filteredUsers = array_filter($users, function($user) {
+            $roles = $user->getRoles();
+            return in_array('ROLE_USER', $roles) && count($roles) === 1;
+        });
         // Affichage de la vue avec les données
-        return $this->render('admin/index.html.twig', compact('users', 'classes', 'subjects', 'contacts', 'courses'));
+        return $this->render('admin/index.html.twig',['users' => $filteredUsers]);
     }
 
     #[Route('/admin/gerer/{id}', name: 'app_admin_gerer')]
@@ -70,7 +70,7 @@ final class AdminController extends AbstractController
             $events[] = [
                 'id' => $program->getId(),
                 'title' => $program->getName(),
-                'start' => $program->getStartedAt()->format('Y-m-d\TH:i:s'),
+                'start' => $program->getStartAt()->format('Y-m-d\TH:i:s'),
                 'end' => $program->getEndAt()->format('Y-m-d\TH:i:s'),
                 'extendedProps' => [
                     'coefficient' => $program->getCoefficient(),
@@ -137,6 +137,7 @@ final class AdminController extends AbstractController
             $name = $form->get('name')->getData();
             $amount = $form->get('amount')->getData();
             $parents = $usersRepository->findByRole('ROLE_PARENT');
+            
             foreach($parents as $parent){
                 // Envoie de mail de paiement uniquement au parents
                 $emailService->send(

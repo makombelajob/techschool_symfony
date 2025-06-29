@@ -13,22 +13,22 @@ class SchoolFees
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 100)]
     private ?string $name = null;
 
     #[ORM\Column]
     private ?int $amount = null;
 
-    #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
-    private ?\DateTimeImmutable $createdAt = null;
+    #[ORM\Column(options:['default' => 'CURRENT_TIMESTAMP'])]
+    private ?\DateTimeImmutable $sendAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'schoolFees')]
+    #[ORM\ManyToOne(inversedBy: 'schoolFess')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Users $users = null;
 
-    public function __construct() 
+    public function __construct()
     {
-        $this->createdAt = new \DateTimeImmutable();
+        $this->sendAt = new \DateTimeImmutable();
     }
     public function getId(): ?int
     {
@@ -59,14 +59,14 @@ class SchoolFees
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getSendAt(): ?\DateTimeImmutable
     {
-        return $this->createdAt;
+        return $this->sendAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    public function setSendAt(\DateTimeImmutable $sendAt): static
     {
-        $this->createdAt = $createdAt;
+        $this->sendAt = $sendAt;
 
         return $this;
     }

@@ -43,7 +43,7 @@ final class TeacherController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_TEACHER');
 
         // Récupère tous les utilisateurs (potentiellement les élèves)
-        $students = $usersRepository->findAll();
+        $students = $usersRepository->findByRole('ROLE_USER');
 
         // Rend la vue 'teacher/index.html.twig' en passant la liste des élèves
         return $this->render('teacher/index.html.twig', ['students' => $students]);

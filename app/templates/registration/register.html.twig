@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription{% endblock %}
+{% block title %}Inscription
+{% endblock %}
 {% block javascripts %}
-    <script src="{{ asset('js/modules/inscription.js') }}" defer ></script>
+	{#<script src="{{ asset('js/modules/inscription.js') }}" defer ></script>#}
 {% endblock %}
 {% block body %}
 	<div class="d-flex justify-content-center align-items-center min-vh-100">
@@ -16,12 +17,12 @@
 			{{ form_start(registrationForm, {'attr' : {'id': 'inscription'}}) }}
 			<div class="fs-2 mb-3">
 				<div>
-                    <svg class="" width="20" height="20">
-                        <use href="{{ asset('images/sprites.svg') }}#email"></use>
-                    </svg>
+					<svg class="" width="20" height="20">
+						<use href="{{ asset('images/sprites.svg') }}#email"></use>
+					</svg>
 					{{ form_label(registrationForm.email) }}
 					{{ form_widget(registrationForm.email) }}
-                </div>
+				</div>
 				<div class="invalid-feedback">
 					L'email doit être valide
 				</div>
@@ -30,8 +31,8 @@
 			<div class="fs-2 mb-3">
 				<div>
 					<svg class="" width="30" height="30">
-                        <use href="{{ asset('images/sprites.svg') }}#password"></use>
-                    </svg>
+						<use href="{{ asset('images/sprites.svg') }}#password"></use>
+					</svg>
 					{{ form_label(registrationForm.plainPassword) }}
 					{{ form_widget(registrationForm.plainPassword) }}
 				</div>
@@ -40,8 +41,8 @@
 			<div class="fs-2 mb-3">
 				<div>
 					<svg class="" width="30" height="30">
-                        <use href="{{ asset('images/sprites.svg') }}#lastname"></use>
-                    </svg>
+						<use href="{{ asset('images/sprites.svg') }}#lastname"></use>
+					</svg>
 					{{ form_label(registrationForm.lastname) }}
 					{{ form_widget(registrationForm.lastname) }}
 				</div>
@@ -53,8 +54,8 @@
 			<div class="fs-2 mb-3">
 				<div>
 					<svg class="" width="30" height="30">
-                        <use href="{{ asset('images/sprites.svg') }}#firstname"></use>
-                    </svg>
+						<use href="{{ asset('images/sprites.svg') }}#firstname"></use>
+					</svg>
 					{{ form_label(registrationForm.firstname) }}
 					{{ form_widget(registrationForm.firstname) }}
 				</div>

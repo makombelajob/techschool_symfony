@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    <section class="row">
+    <section class="row d-flex justify-content-center align-items-center min-vh-100">
         <div class="col-11 col-md-12 m-auto alert alert-secondary">
             <div class="my-3 text-center">
                 <h1 class="fs-1 text-uppercase text-primary">Notes par élèves</h1>
@@ -15,10 +15,10 @@
                     {{ form_row(form.note) }}
                 </div>
                 <div class="fs-2 my-3">
-                    {{ form_row(form.monthly) }}
+                    {{ form_row(form.mensualNote) }}
                 </div>
                 <div class="fs-2 my-3">
-                    {{ form_row(form.yearly) }}
+                    {{ form_row(form.anualNote) }}
                 </div>
                 <div class="fs-2 my-3">
                     {{ form_row(form.remark ) }}
