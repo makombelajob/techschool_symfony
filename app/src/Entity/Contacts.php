@@ -17,15 +17,19 @@ class Contacts
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 50)]
     private ?string $subject = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
 
-    #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(options:['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $sendAt = null;
 
+    public function __construct()
+    {
+        $this->sendAt = new \DateTimeImmutable();
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -65,11 +69,6 @@ class Contacts
         $this->message = $message;
 
         return $this;
-    }
-
-    public function __construct()
-    {
-        $this->sendAt = new \DateTimeImmutable();
     }
 
     public function getSendAt(): ?\DateTimeImmutable

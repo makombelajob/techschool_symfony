@@ -15,14 +15,14 @@ class Ressources
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
-    private ?string $name = null;
+    #[ORM\Column(length: 50)]
+    private ?string $fileName = null;
 
     #[ORM\Column(length: 10)]
     private ?string $fileType = null;
 
     #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
-    private ?\DateTimeImmutable $uploadedAt = null;
+    private ?\DateTimeImmutable $uploadAt = null;
 
     /**
      * @var Collection<int, Courses>
@@ -33,7 +33,7 @@ class Ressources
     public function __construct()
     {
         $this->courses = new ArrayCollection();
-        $this->uploadedAt = new \DateTimeImmutable();
+        $this->uploadAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -41,14 +41,14 @@ class Ressources
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getFileName(): ?string
     {
-        return $this->name;
+        return $this->fileName;
     }
 
-    public function setName(string $name): static
+    public function setFileName(string $fileName): static
     {
-        $this->name = $name;
+        $this->fileName = $fileName;
 
         return $this;
     }
@@ -65,14 +65,14 @@ class Ressources
         return $this;
     }
 
-    public function getUploadedAt(): ?\DateTimeImmutable
+    public function getUploadAt(): ?\DateTimeImmutable
     {
-        return $this->uploadedAt;
+        return $this->uploadAt;
     }
 
-    public function setUploadedAt(\DateTimeImmutable $uploadedAt): static
+    public function setUploadAt(\DateTimeImmutable $uploadAt): static
     {
-        $this->uploadedAt = $uploadedAt;
+        $this->uploadAt = $uploadAt;
 
         return $this;
     }

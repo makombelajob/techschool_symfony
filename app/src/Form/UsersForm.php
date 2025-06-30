@@ -72,22 +72,6 @@ class UsersForm extends AbstractType
                     'class' => 'fs-4'
                 ]
             ])
-            /***
-            ->add('registerAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('courses', EntityType::class, [
-                'class' => Courses::class,
-                'choice_label' => 'name',
-                'multiple' => true,
-                'expanded' => true,
-            ])
-            ->add('classes', EntityType::class, [
-                'class' => Classes::class,
-                'choice_label' => 'name',
-                'multiple' => true,
-                'expanded' => true,
-            ])***/
             ->add('changer', SubmitType::class, []);
     }
 

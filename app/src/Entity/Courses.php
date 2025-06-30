@@ -15,22 +15,22 @@ class Courses
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 50)]
     private ?string $name = null;
 
     #[ORM\Column]
     private ?float $coefficient = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 10)]
     private ?string $day = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $startedAt = null;
+    #[ORM\Column(options:['default' => 'CURRENT_TIMESTAMP'])]
+    private ?\DateTimeImmutable $startAt = null;
 
-    #[ORM\Column]
+    #[ORM\Column(options:['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $endAt = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 10)]
     private ?string $room = null;
 
     /**
@@ -52,20 +52,24 @@ class Courses
     /**
      * @var Collection<int, Users>
      */
-    #[ORM\ManyToMany(targetEntity: Users::class, inversedBy: 'courses')]
+    #[ORM\ManyToMany(targetEntity: Users::class, mappedBy: 'courses')]
     private Collection $users;
 
     #[ORM\ManyToOne(inversedBy: 'courses')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Classes $classes = null;
 
+    #[ORM\ManyToMany(targetEntity: Users::class, mappedBy: 'courses')]
+    private Collection $teachers;
+
     public function __construct()
     {
         $this->ressources = new ArrayCollection();
         $this->results = new ArrayCollection();
         $this->users = new ArrayCollection();
-        $this->startedAt = new \DateTimeImmutable();
+        $this->startAt = new \DateTimeImmutable();
         $this->endAt = new \DateTimeImmutable();
+        $this->teachers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -109,14 +113,14 @@ class Courses
         return $this;
     }
 
-    public function getStartedAt(): ?\DateTimeImmutable
+    public function getStartAt(): ?\DateTimeImmutable
     {
-        return $this->startedAt;
+        return $this->startAt;
     }
 
-    public function setStartedAt(\DateTimeImmutable $startedAt): static
+    public function setStartAt(\DateTimeImmutable $startAt): static
     {
-        $this->startedAt = $startedAt;
+        $this->startAt = $startAt;
 
         return $this;
     }
@@ -226,6 +230,7 @@ class Courses
     {
         if (!$this->users->contains($user)) {
             $this->users->add($user);
+            $user->addCourse($this);
         }
 
         return $this;
@@ -233,7 +238,9 @@ class Courses
 
     public function removeUser(Users $user): static
     {
-        $this->users->removeElement($user);
+        if ($this->users->removeElement($user)) {
+            $user->removeCourse($this);
+        }
 
         return $this;
     }
@@ -246,6 +253,28 @@ class Courses
     public function setClasses(?Classes $classes): static
     {
         $this->classes = $classes;
+
+        return $this;
+    }
+
+    // Ajout personnel
+    public function getTeachers(): Collection
+    {
+        return $this->teachers;
+    }
+
+    public function addTeacher(Users $teacher): static
+    {
+        if (!$this->teachers->contains($teacher)) {
+            $this->teachers[] = $teacher;
+        }
+
+        return $this;
+    }
+
+    public function removeTeacher(Users $teacher): static
+    {
+        $this->teachers->removeElement($teacher);
 
         return $this;
     }

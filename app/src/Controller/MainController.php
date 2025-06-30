@@ -42,4 +42,10 @@ final class MainController extends AbstractController
         // Affiche la vue avec le formulaire de contact (non soumis ou non valide)
         return $this->render('main/index.html.twig', compact('formContact'));
     }
+
+    #[Route('/about', name: 'app_about')]
+    public function about(): Response
+    {
+        return $this->render('main/about.html.twig');
+    }
 }

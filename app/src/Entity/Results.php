@@ -16,11 +16,11 @@ class Results
     #[ORM\Column]
     private ?int $note = null;
 
-    #[ORM\Column]
-    private ?int $monthly = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $anualNote = null;
 
-    #[ORM\Column]
-    private ?int $yearly = null;
+    #[ORM\Column(nullable: true)]
+    private ?int $mensualNote = null;
 
     #[ORM\Column(length: 255)]
     private ?string $remark = null;
@@ -50,26 +50,26 @@ class Results
         return $this;
     }
 
-    public function getMonthly(): ?int
+    public function getAnualNote(): ?int
     {
-        return $this->monthly;
+        return $this->anualNote;
     }
 
-    public function setMonthly(int $monthly): static
+    public function setAnualNote(?int $anualNote): static
     {
-        $this->monthly = $monthly;
+        $this->anualNote = $anualNote;
 
         return $this;
     }
 
-    public function getYearly(): ?int
+    public function getMensualNote(): ?int
     {
-        return $this->yearly;
+        return $this->mensualNote;
     }
 
-    public function setYearly(int $yearly): static
+    public function setMensualNote(?int $mensualNote): static
     {
-        $this->yearly = $yearly;
+        $this->mensualNote = $mensualNote;
 
         return $this;
     }

@@ -15,7 +15,7 @@ class Classes
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 10)]
     private ?string $name = null;
 
     #[ORM\Column]
@@ -30,7 +30,7 @@ class Classes
     /**
      * @var Collection<int, Users>
      */
-    #[ORM\ManyToMany(targetEntity: Users::class, inversedBy: 'classes')]
+    #[ORM\ManyToMany(targetEntity: Users::class, mappedBy: 'classes')]
     private Collection $users;
 
     public function __construct()
@@ -110,6 +110,7 @@ class Classes
     {
         if (!$this->users->contains($user)) {
             $this->users->add($user);
+            $user->addClass($this);
         }
 
         return $this;
@@ -117,7 +118,9 @@ class Classes
 
     public function removeUser(Users $user): static
     {
-        $this->users->removeElement($user);
+        if ($this->users->removeElement($user)) {
+            $user->removeClass($this);
+        }
 
         return $this;
     }

@@ -83,7 +83,7 @@ final class PaymentController extends AbstractController
         // Générer le PDF
         $html = $twig->render('payment/facture.html.twig', compact('facture'));
 
-        $domPdf = new Dompdf();
+        $domPdf = new Dompdf;
         $domPdf->loadHtml($html);
         $domPdf->setPaper('A4', 'portrait');
         $domPdf->render();

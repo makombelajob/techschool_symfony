@@ -43,64 +43,12 @@ final class TeacherController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_TEACHER');
 
         // Récupère tous les utilisateurs (potentiellement les élèves)
-        $students = $usersRepository->findAll();
+        $students = $usersRepository->findByRole('ROLE_USER');
 
         // Rend la vue 'teacher/index.html.twig' en passant la liste des élèves
         return $this->render('teacher/index.html.twig', ['students' => $students]);
     }
 
-    // Route pour ajouter un cours, accessible via /teacher/ajouter-cours
-    #[Route('/teacher/ajouter-cours', name: 'app_teacher_add_course')]
-    public function add(Request $request, EntityManagerInterface $entityManager, Courses $cours, EmailService $emailService): Response
-    {
-        // Restreint l'accès aux enseignants uniquement
-        $this->denyAccessUnlessGranted('ROLE_TEACHER');
-
-        // Récupère l'utilisateur actuellement connecté (l’enseignant)
-        $teacherConnected = $this->getUser();
-
-        // Création d'une nouvelle entité Course
-        $cours = new Courses();
-
-        // Création du formulaire lié à cette entité
-        $form = $this->createForm(CoursesForm::class, $cours);
-
-        // Traitement de la requête (récupère les données soumises)
-        $form->handleRequest($request);
-
-        // Vérifie si le formulaire a été soumis et est valide
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            // Récupère la liste des utilisateurs (élèves) liés à ce cours
-            $users = $cours->getUsers();
-
-            // Pour chaque élève inscrit, on envoie un email d'information
-            foreach ($users as $user) {
-                $emailService->send(
-                    $teacherConnected->getEmail(), // Expéditeur : l’enseignant connecté
-                    $user->getEmail(),             // Destinataire : élève
-                    'Nouveau cours !! 🖥️',        // Sujet de l’email
-                    'new-cours',                  // Template email à utiliser
-                    [
-                        // Variables passées au template email
-                        'teacher_lastname' => $teacherConnected->getLastname(),
-                        'teacher_firstname' => $teacherConnected->getFirstname(),
-                        'course' => $cours,
-                    ]
-                );
-            }
-
-            // Sauvegarde du nouveau cours en base
-            $entityManager->persist($cours);
-            $entityManager->flush();
-
-            // Redirection vers la page principale enseignant
-            return $this->redirectToRoute('app_teacher');
-        }
-
-        // Si formulaire non soumis ou invalide, affichage du formulaire
-        return $this->render('teacher/ajout-cours.html.twig', compact('form'));
-    }
 
     // Route pour ajouter une ressource/document, accessible via /teacher/ajout-document
     #[Route('/teacher/ajout-document', name: 'app_teacher_add_ressource')]
@@ -133,7 +81,7 @@ final class TeacherController extends AbstractController
 
     // Route pour gérer les notes, accessible via /teacher/notes
     #[Route('/teacher/notes', name: 'app_teacher_notes')]
-    public function notes(Request $request, EntityManagerInterface $entityManager): Response
+    public function notes(Request $request, EntityManagerInterface $entityManager, Courses $course): Response
     {
         // Restreint l’accès aux enseignants
         $this->denyAccessUnlessGranted('ROLE_TEACHER');

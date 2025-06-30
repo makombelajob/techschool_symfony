@@ -7,6 +7,7 @@ use App\Entity\Courses;
 use App\Entity\Ressources;
 use App\Entity\Subjects;
 use App\Entity\Users;
+use App\Repository\UsersRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -58,53 +59,64 @@ class CoursesForm extends AbstractType
                     'Vendredi' => 'Vendredi'
                 ]
             ])
-            ->add('startedAt', DateTimeType::class, [
-                'date_widget' => 'single_text',
+            ->add('startAt', DateTimeType::class, [
+                'widget' => 'single_text',
                 'label' => 'Début du cours',
                 'html5' => true,
                 'with_seconds' => true,
             ])
-            ->add('endAt', DateTimeType::class, [
-                'date_widget' => 'single_text',
+            ->add('endAt',  DateTimeType::class, [
+                'widget' => 'single_text',
                 'label' => 'Fin du cours',
                 'html5' => true,
                 'with_seconds' => true,
             ])
-            ->add('room', ChoiceType::class, [
-                'placeholder' => 'Salle de cours',
-                'choices' => [
-                    'Room_6B' => 'Room_6B',
-                    'Room_5B' => 'Room_5B',
-                    'Room_4C' => 'Room_4C',
-                    'Room_3A' => 'Room_3A',
-                    'Room_3B' => 'Room_3B',
-                ]
-            ])
+            ->add('room')
             ->add('ressources', EntityType::class, [
-                'label' => 'Modules',
                 'class' => Ressources::class,
-                'choice_label' => 'name',
+                'choice_label' => 'fileName',
                 'multiple' => true,
-                'expanded' => true,
             ])
             ->add('subjects', EntityType::class, [
-                'label' => 'Matières',
                 'class' => Subjects::class,
                 'choice_label' => 'name',
             ])
             ->add('users', EntityType::class, [
+                'class' => Users::class,
+                'choice_label' => function(Users $user){
+                    return $user->getFirstname() . ' ' . $user->getLastname();
+                },
+                'multiple' => true,
+                'expanded' => true,
+                'query_builder' => function (UsersRepository $ur){
+                    return $ur->createQueryBuilder('u')
+                            ->where('u.roles LIKE :role')
+                            ->setParameter('role', '%ROLE_USER%')
+                    ;
+                },
+            ])
+            ->add('classes', EntityType::class, [
+                'class' => Classes::class,
+                'choice_label' => 'name',
+            ])
+            ->add('teachers', EntityType::class, [
+                'label' => 'Enseignants',
                 'class' => Users::class,
                 'choice_label' => function (Users $user): string {
                     return $user->getLastname() . ' ' . $user->getFirstname();
                 },
                 'multiple' => true,
                 'expanded' => true,
+                //'required' => true,
+                'query_builder' => function (UsersRepository $ur){
+                    return $ur->createQueryBuilder('u')
+                            ->where('u.roles LIKE :role')
+                            ->setParameter('role', '%ROLE_TEACHER%')
+                    ;
+                },
             ])
-            ->add('classes', EntityType::class, [
-                'class' => Classes::class,
-                'choice_label' => 'name',
-            ])
-            ->add('ajouter', SubmitType::class);
+            ->add('ajouter', SubmitType::class)
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

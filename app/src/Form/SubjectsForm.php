@@ -17,6 +17,7 @@ class SubjectsForm extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
+                'label' => 'Nom de la matière',
                 'constraints' => [
                     new NotBlank(message: 'Veuillez entre le nom'),
                     new Length(
@@ -29,7 +30,7 @@ class SubjectsForm extends AbstractType
                     'attr' => [
                         'placeholder' => 'Veuillez entrer le nom',
                         'class' => 'fs-4',
-                    ]
+                ]
             ])
             ->add('ajouter', SubmitType::class)
         ;

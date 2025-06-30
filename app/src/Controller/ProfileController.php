@@ -8,6 +8,7 @@ use App\Entity\Users;
 // Import des formulaires personnalisés pour ajouter un parent et pour contact étudiant
 use App\Form\AddParentForm;
 use App\Form\StudentsContactForm;
+use App\Repository\UsersRepository;
 // Service pour l'envoi d'emails
 use App\Service\EmailService;
 // Gestionnaire d'entités Doctrine pour gérer la base de données
@@ -34,14 +35,16 @@ final class ProfileController extends AbstractController
 
     // Route /profile, nommée 'app_profile'
     #[Route('/profile', name: 'app_profile')]
-    public function index(Request $request, EntityManagerInterface $entityManager, Security $security): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, Security $security, UsersRepository $usersRepository): Response
     {
         // Vérifie que l'utilisateur a le rôle ROLE_USER, sinon accès interdit
         $this->denyAccessUnlessGranted('ROLE_USER');
 
         // Nouvelle instance de Contact pour formulaire
         $contact = new Contacts();
-
+        /**
+         * @var Users $user
+         */
         // Récupère l'utilisateur actuellement connecté
         $user = $security->getUser();
 
@@ -49,7 +52,8 @@ final class ProfileController extends AbstractController
         $classes = $user->getClasses();
 
         // Récupère les parents liés à cet utilisateur
-        $parents = $user->getParents();
+
+        $parents = $user->getParent();
 
         // Crée un formulaire de contact étudiant avec l'objet Contact
         $studentMessage = $this->createForm(StudentsContactForm::class, $contact);
@@ -67,7 +71,9 @@ final class ProfileController extends AbstractController
 
         // Récupère l'utilisateur connecté
         $user = $security->getUser();
-
+        /**
+         * @var Users $user
+         */
         // Récupère la liste des cours liés à l'utilisateur
         $courses = $user->getCourses();
 
@@ -100,7 +106,7 @@ final class ProfileController extends AbstractController
             $parent->setRoles(['ROLE_PARENT']);
 
             // Association du parent à l'élève (enfant)
-            $parent->setEnfant($student);
+            $parent->addUser($student);
 
             // Génère un mot de passe aléatoire sécurisé (16 caractères hexadécimaux)
             $plainPassword = bin2hex(random_bytes(8));
@@ -116,7 +122,9 @@ final class ProfileController extends AbstractController
 
             // Exécute les requêtes en base pour sauvegarder le parent
             $entityManager->flush();
-
+            /**
+             * @var Users $student
+             */
             // Envoi d'un email au parent avec ses infos et le mot de passe généré
             $emailService->send(
                 'admin@tech-school.fr',            // Expéditeur

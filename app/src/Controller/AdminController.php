@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Contacts;
+use App\Entity\Courses;
 use App\Entity\Subjects;
 use App\Entity\Users;
+use App\Form\CoursesForm;
 use App\Form\SchoolFeesForm;
 use App\Form\UsersForm;
 use App\Form\SubjectsForm;
@@ -29,29 +31,31 @@ final class AdminController extends AbstractController
     // Récupère tous les utilisateurs, classes, matières, contacts et cours,
     // puis affiche la vue admin/index.html.twig avec ces données.
     #[Route('/admin', name: 'app_admin')]
-    public function index(UsersRepository $usersRepository, ClassesRepository $classesRepository, SubjectsRepository $subjectsRepository, ContactsRepository $contactsRepository, CoursesRepository $coursesRepository): Response
+    public function index(UsersRepository $usersRepository): Response
     {
 
         // Sécurise l'accès, uniquement les admins peuvent accéder
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        // Récupération des données en base
+        // Récupération des cours par catégories ou subjects en base
         $users = $usersRepository->findAll();
-        $classes = $classesRepository->findAll();
-        $subjects = $subjectsRepository->findAll();
-        $contacts = $contactsRepository->findAll();
-        $courses = $coursesRepository->findAll();
+        $filteredUsers = array_filter($users, function($user) {
+            $roles = $user->getRoles();
+            return in_array('ROLE_USER', $roles) && count($roles) === 1;
+        });
         // Affichage de la vue avec les données
-        return $this->render('admin/index.html.twig', compact('users', 'classes', 'subjects', 'contacts', 'courses'));
+        return $this->render('admin/index.html.twig',['users' => $filteredUsers]);
     }
 
     #[Route('/admin/gerer/{id}', name: 'app_admin_gerer')]
     public function roleEdit(Users $user, EntityManagerInterface $entityManager, Request $request): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $form = $this->createForm(UsersForm::class, $user);
         $form->handleRequest($request);
+
         if($form->isSubmitted() && $form->isValid()){
-            $entityManager->persist($user);
+            //dd($user->getRoles());
             $entityManager->flush();
             return $this->redirectToRoute('app_admin');
         }
@@ -68,7 +72,7 @@ final class AdminController extends AbstractController
             $events[] = [
                 'id' => $program->getId(),
                 'title' => $program->getName(),
-                'start' => $program->getStartedAt()->format('Y-m-d\TH:i:s'),
+                'start' => $program->getStartAt()->format('Y-m-d\TH:i:s'),
                 'end' => $program->getEndAt()->format('Y-m-d\TH:i:s'),
                 'extendedProps' => [
                     'coefficient' => $program->getCoefficient(),
@@ -135,6 +139,7 @@ final class AdminController extends AbstractController
             $name = $form->get('name')->getData();
             $amount = $form->get('amount')->getData();
             $parents = $usersRepository->findByRole('ROLE_PARENT');
+            
             foreach($parents as $parent){
                 // Envoie de mail de paiement uniquement au parents
                 $emailService->send(
@@ -160,5 +165,35 @@ final class AdminController extends AbstractController
             return $this->redirectToRoute('app_admin');
         }
         return $this->render('admin/school-fees.html.twig', compact('form'));
+    }
+
+    #[Route('ajouter-cours', name: 'app_admin_add_course')]
+    public function addCourse(Request $request, EntityManagerInterface $entityManager, Courses $cours, EmailService $emailService):Response
+    {
+        // Restreint l'accès aux enseignants uniquement
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        // Création d'une nouvelle entité Course
+        $cours = new Courses();
+
+        // Création du formulaire lié à cette entité
+        $form = $this->createForm(CoursesForm::class, $cours);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $entityManager->persist($cours);
+
+            // Lier l'utilisateur à sa classe
+            $classe = $cours->getClasses();
+            $users = $cours->getUsers();
+
+            foreach($users as $user) {
+                $classe->addUser($user);
+            }
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_admin_add_course');
+        }
+        return $this->render('admin/ajout-cours.html.twig', compact('form'));
     }
 }

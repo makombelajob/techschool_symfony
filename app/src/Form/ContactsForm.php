@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Contacts;
-use PHPUnit\Framework\Constraint\IsTrue;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -23,13 +22,8 @@ class ContactsForm extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez entre un email',
-                    ]),
-                    new Email([
-                        'message' => 'L\'email n\'est pas valide',
-                    ])
-
+                    new Email(message: 'Veuillez entre un email vaalide'),
+                    new NotBlank(message: 'L\'Email est obligatoire')
                 ],
                 'attr' => [
                     'placeholder' => 'Entrez votre e-mail',
@@ -49,7 +43,6 @@ class ContactsForm extends AbstractType
                     'placeholder' => 'Entrez un sujet',
                     'class' => 'fs-3',
                 ]
-
             ])
             ->add('message', TextareaType::class, [
                 'constraints' => [
@@ -74,12 +67,8 @@ class ContactsForm extends AbstractType
                     ])
                 ]*/
             ])
-            ->add('envoyer', SubmitType::class, [
-                'attr' => [
-                    'class' => 'fs-3 btn btn-primary',
-                    'disabled' => true,
-                ],
-            ]);
+            ->add('envoyer', SubmitType::class)
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

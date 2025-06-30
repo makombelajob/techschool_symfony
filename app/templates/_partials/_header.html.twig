@@ -1,74 +1,120 @@
 <header class="container">
-    <div class="row">
-        <nav class="navbar navbar-expand-lg col-11 col-md-12 m-auto">
-            <!-- Début de la barre de navigation -->
+	<div class="row">
+		<nav
+			class="navbar navbar-expand-lg col-11 col-md-12 m-auto">
+			<!-- Début de la barre de navigation -->
+			<div class="container-fluid">
+				<a class="navbar-brand" href="{{ path('app_main') }}">
+					<img src="{{ asset('images/logo.png') }}" alt="logo du site" width="100%" height="auto"/>
+				</a>
 
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{{ path('app_main') }}">
-                    <img src="{{ asset('images/logo.png') }}" alt="logo du site" width="100%" height="auto"/>
-                </a>
-                <div class="d-none d-lg-flex" id="list_options">
-                    {% include '_partials/_list_options.html.twig' %}
-                </div>
-                <div>
-                    <button class="btn" id="theme-mode" type="button">
-                        <svg width="40px" height="40px" fill="yellow">
-                            <use href="{{ asset('images/sprites.svg') }}#light"></use>
-                        </svg>
-                    </button>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
-                            aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" id="burger">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                </div>
-                <div class="collapse navbar-collapse position-absolute start-0 end-0 bg-white shadow p-4 z-3 mt-5"
-                     id="navbar">
+				{% include '_partials/_list_options.html.twig' %}
+				
+				<div class="d-flex align-items-center gap-2">
+					<button class="btn" id="theme-mode" type="button">
+						<svg width="40px" height="40px" fill="yellow">
+							<use href="{{ asset('images/sprites.svg') }}#light"></use>
+						</svg>
+					</button>
 
-                    <div class="navbar-nav text-center" id="list_options" class="show">
+					<!-- Burger visible uniquement en dessous de 1200px -->
+					<div id="navbar">
+						<button id="burger" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas" class="d-xl-none">
+							<svg width="30" height="30">
+								<use href="{{ asset('images/sprites.svg') }}#burger"></use>
+							</svg>
+						</button>
 
-                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <a class="nav-link" href="{{ path('app_admin') }}">Dashboard</a>
-                                <a class="nav-link" href="{{ path('app_admin_timer') }}">Horaires</a>
-                                <a class="nav-link" href="{{ path('app_admin_add_subject') }}">Matière</a>
-                                <a class="nav-link" href="{{ path('app_admin_school_fees') }}">Frais</a>
-                                <a class="nav-link text-white fw-semibold" href="{{ path('app_logout') }}">Logout</a>
-                            {% elseif is_granted('ROLE_TEACHER') %}
-                                <a class="nav-link" href="{{ path('app_teacher') }}">Accueil</a>
-                                <a class="nav-link" href="{{ path('app_teacher_add_course') }}">Cours</a>
-                                <a class="nav-link" href="{{ path('app_teacher_add_ressource') }}">Document</a>
-                                <a class="nav-link" href="{{ path('app_teacher_notes') }}">Notes</a>
-                                <a class="nav-link text-white fw-semibold" href="{{ path('app_logout') }}">Logout</a>
-                            {% elseif is_granted('ROLE_PARENT') %}
-                                <a class="nav-link" href="{{ path('app_parents') }}">Infos</a>
-                                <a class="nav-link" href="">Frais_à_payer</a>
-                                <a class="nav-link" href="">Facture</a>
-                                <a class="nav-link" href="">Contact_Admin</a>
-                                <a class="nav-link text-white fw-semibold" href="{{ path('app_logout') }}">Logout</a>
-                            {% elseif is_granted('ROLE_USER') %}
-                                <a class="nav-link" href="{{ path('app_profile') }}">Accueil</a>
-                                <a class="nav-link" href="{{ path('app_profile_courses') }}">Tous les cours</a>
-                                <a class="nav-link" href="{{ path('app_profile') }}#contact">Contact_Admin</a>
-                                <a class="nav-link text-white fw-semibold" href="{{ path('app_logout') }}">Logout</a>
-                            {% endif %}
-                        {% else %}
-                                
-                            <a class="nav-link active" aria-current="page" href="{{ path('app_main') }}">Accueil</a>
-                            <a class="nav-link" href="{{ path('app_about') }}">Apropos</a>
-                            <a class="nav-link" href="{{ path('app_register') }}">Signup</a>
-                            <a class="nav-link" href="{{ path('app_login' ) }}">Login</a>
-                            <a class="nav-link" href="{{ path('app_main') }}#contact">Contact</a>
-                        {% endif %}
+						<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+							<div class="offcanvas-header">
+								<h5 class="offcanvas-title" id="offcanvasLabel">easy-ENT</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+							</div>
+							<div class="offcanvas-body">
+								<ul class="list-unstyled">
+									{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+										{% if is_granted('ROLE_ADMIN') %}
+											<li>
+												<a class="text-decoration-none fs-3" href="{{ path('app_admin')}}">Dashboard</a>
+											</li>
+											<li>
+												<a class="text-decoration-none fs-3" href="{{ path('app_admin_timer') }}">Horaires</a>
+											</li>
+											<li>
+												<a class="text-decoration-none fs-3" href="{{ path('app_admin_add_subject') }}">Matière</a>
+											</li>
+											<li>
+												<a class="text-decoration-none fs-3" href="{{ path('app_admin_add_course') }}">Cours</a>
+											</li>
+											<li>
+												<a class="text-decoration-none fs-3" href="{{ path('app_admin_school_fees') }}">Frais</a>
+											</li>
+											<li>
+												<a class="text-decoration-none fs-3" href="{{ path('app_logout') }}">Déconnecter</a>
+											</li>
+										{% elseif is_granted('ROLE_TEACHER') %}
+											<li>
+												<a class="text-decoration-none fs-3" href="{{ path('app_teacher')}}">Accueil</a>
+											</li>
+											<li>
+												<a class="text-decoration-none fs-3" href="{{ path('app_teacher_add_ressource') }}">Documents</a>
+											</li>
+											<li>
+												<a class="text-decoration-none fs-3" href="{{ path('app_teacher_notes') }}">Notes</a>
+											</li>
+											<li>
+												<a class="text-decoration-none fs-3" href="{{ path('app_logout') }}">Déconnecter</a>
+											</li>
+										{% elseif is_granted('ROLE_PARENT') %}
+											<li>
+												<a class="text-decoration-none fs-3" href="{{ path('app_parents')}}">Accueil</a>
+											</li>
+											<li>
+												<a class="text-decoration-none fs-3" href="{{ path('app_parents_show_facture') }}">Factures</a>
+											</li>
+											<li>
+												<a class="text-decoration-none fs-3" href="{{ path('app_logout') }}">Déconnecter</a>
+											</li>
+										{% elseif is_granted('ROLE_USER') %}
+											<li>
+												<a class="text-decoration-none fs-3" href="{{ path('app_profile') }}">Accueil</a>
+											</li>
+											<li>
+												<a class="text-decoration-none fs-3" href="{{ path('app_add_parent') }}">Ajout-Parents</a>
+											</li>
+											<li>
+												<a class="text-decoration-none fs-3" href="{{ path('app_profile') }}#contact">Contact_Admin</a>
+											</li>
+											<li>
+												<a class="text-decoration-none fs-3" href="{{ path('app_logout') }}">Déconnecter</a>
+											</li>
+										{% endif %}
+									{% else %}
+										<li>
+											<a class="text-decoration-none fs-3" class="active" href="{{ path('app_main')}}">Accueil</a>
+										</li>
+										<li>
+											<a class="text-decoration-none fs-3" class="" href="{{ path('app_about') }}">Apropos</a>
+										</li>
+										<li>
+											<a class="text-decoration-none fs-3" class="" href="{{ path('app_register') }}">Inscription</a>
+										</li>
+										<li>
+											<a class="text-decoration-none fs-3" class="" href="{{ path('app_login') }}">Connexion</a>
+										</li>
+										<li>
+											<a class="text-decoration-none fs-3" class="" href="{{ path('app_main') }}#contact">Contact</a>
+										</li>
+									{% endif %}
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
 
-
-                    </div>
-                    <button type="button" class="btn-close position-absolute top-0" aria-label="Close"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#navbar"></button>
-                </div>
-            </div>
-        </nav>
-    </div>
-    <!-- Fin de la barre de navigation -->
+			</div>
+		</nav>
+	</div>
+	<!-- Fin de la barre de navigation -->
 </header>
 

@@ -25,14 +25,14 @@ class ResultsForm extends AbstractType
                     'class' => 'fs-4',
                 ]
             ])
-            ->add('monthly', IntegerType::class, [
+            ->add('mensualNote', IntegerType::class, [
                 'label' => 'Note mensuelle',
                 'attr' => [
                     'placeholder' => 'Mensuelle',
                     'class' => 'fs-4'
                 ]
             ])
-            ->add('yearly', IntegerType::class, [
+            ->add('anualNote', IntegerType::class, [
                 'label' => 'Note anuuelle',
                 'attr' => [
                     'placeholder' => 'Annuelle',
@@ -54,7 +54,7 @@ class ResultsForm extends AbstractType
             ])
             ->add('users', EntityType::class, [
                 'class' => Users::class,
-                'choice_label' => function (Users $user) {
+                'choice_label' => function(Users $user){
                     return $user->getFirstname() . ' ' . $user->getLastname();
                 },
                 'query_builder' => function (EntityRepository $entityRepository) {
@@ -66,9 +66,9 @@ class ResultsForm extends AbstractType
                 },
                 'multiple' => false,
                 'expanded' => false,
-
             ])
-            ->add('ajouter', SubmitType::class, []);
+            ->add('ajouter', SubmitType::class)
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
